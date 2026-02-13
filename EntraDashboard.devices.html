@@ -128,26 +128,74 @@
       border-color: #67e8f9;
       background: linear-gradient(160deg, #12365d, #132741);
     }
+    .status-badge {
+      display: inline-block;
+      min-width: 72px;
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .status-green {
+      background: #14532d;
+      color: #bbf7d0;
+      border: 1px solid #22c55e;
+    }
+    .status-yellow {
+      background: #422006;
+      color: #fde68a;
+      border: 1px solid #f59e0b;
+    }
+    .status-red {
+      background: #450a0a;
+      color: #fecaca;
+      border: 1px solid #ef4444;
+    }
+    .status-gray {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #6b7280;
+    }
+    .status-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .status-word {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: lowercase;
+      min-width: 52px;
+      text-align: right;
+    }
+    .status-word-green { color: #22c55e; }
+    .status-word-yellow { color: #f59e0b; }
+    .status-word-red { color: #ef4444; }
+    .status-word-gray { color: #9ca3af; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Entra Dashboard - Devices</h1>
-    <div class="sub">Generated: 2026-02-13 14:54:38Z</div>
+    <div class="sub">Generated: 2026-02-13 15:32:41Z</div>
     
     <nav class="topnav">
       <a href="EntraDashboard.html">Home</a>
 <a href="EntraDashboard.conditional-access.html">Conditional Access</a>
-<a href="EntraDashboard.pim.html">PIM</a>
 <a href="EntraDashboard.users.html">Users</a>
 <a href="EntraDashboard.groups.html">Groups</a>
 <a href="EntraDashboard.devices.html">Devices</a>
 <a href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
 <a href="EntraDashboard.app-registrations.html">App Registrations</a>
 <a href="EntraDashboard.monitoring-health.html">Monitoring and Health</a>
+<a href="EntraDashboard.intune-home.html">Intune Home</a>
+<a href="EntraDashboard.defender-home.html">Defender Home</a>
     </nav>
     <section class="section"><h2>Devices</h2><div class="cards">
-<div class='card'><h3>Devices (Top 200)</h3><table><thead><tr><th>displayName</th><th>operatingSystem</th><th>trustType</th><th>accountEnabled</th><th>approximateLastSignInDateTime</th></tr></thead><tbody><tr><td>Richard Holland’s iPhone</td><td>IPhone</td><td>Workplace</td><td>True</td><td>02/06/2026 01:56:28</td></tr><tr><td>Richard Holland&#39;s iPad</td><td>IPad</td><td>Workplace</td><td>True</td><td>12/13/2025 22:08:11</td></tr></tbody></table></div>
+<div class='card'><h3>Devices (Top 200)</h3><table><thead><tr><th>displayName</th><th>operatingSystem</th><th>trustType</th><th>accountEnabled</th><th>approximateLastSignInDateTime</th></tr></thead><tbody><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_Devices/DeviceDetailsMenuBlade/~/Properties/objectId/b927b001-0cb9-43c1-9325-032cb1c70709' target='_blank' rel='noopener noreferrer'>Richard Holland’s iPhone</a></td><td>IPhone</td><td>Workplace</td><td>True</td><td>02/06/2026 01:56:28</td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_Devices/DeviceDetailsMenuBlade/~/Properties/objectId/fecdd029-80fc-40e8-bd1d-bb0d912ed98f' target='_blank' rel='noopener noreferrer'>Richard Holland&#39;s iPad</a></td><td>IPad</td><td>Workplace</td><td>True</td><td>12/13/2025 22:08:11</td></tr></tbody></table></div>
 </div></section>
   </div>
 </body>

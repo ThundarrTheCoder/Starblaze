@@ -259,6 +259,31 @@ function New-HtmlLink {
     }
 }
 
+function New-StatusBadge {
+    param(
+        [string]$Text,
+        [ValidateSet("green", "yellow", "red", "gray")][string]$Tone = "gray"
+    )
+
+    $safeText = ConvertTo-SafeHtml $Text
+    return [pscustomobject]@{
+        __html = "<span class='status-badge status-$Tone'>$safeText</span>"
+    }
+}
+
+function New-StatusCell {
+    param(
+        [string]$StatusText,
+        [ValidateSet("green", "yellow", "red", "gray")][string]$Tone = "gray"
+    )
+
+    $safeStatus = ConvertTo-SafeHtml $StatusText
+    $safeTone = ConvertTo-SafeHtml $Tone
+    return [pscustomobject]@{
+        __html = "<div class='status-cell'><span>$safeStatus</span><span class='status-word status-word-$safeTone'>$safeTone</span></div>"
+    }
+}
+
 function Get-JwtPayload {
     param([string]$Jwt)
 
@@ -420,6 +445,53 @@ function New-DashboardPageHtml {
       border-color: #67e8f9;
       background: linear-gradient(160deg, #12365d, #132741);
     }
+    .status-badge {
+      display: inline-block;
+      min-width: 72px;
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .status-green {
+      background: #14532d;
+      color: #bbf7d0;
+      border: 1px solid #22c55e;
+    }
+    .status-yellow {
+      background: #422006;
+      color: #fde68a;
+      border: 1px solid #f59e0b;
+    }
+    .status-red {
+      background: #450a0a;
+      color: #fecaca;
+      border: 1px solid #ef4444;
+    }
+    .status-gray {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #6b7280;
+    }
+    .status-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .status-word {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: lowercase;
+      min-width: 52px;
+      text-align: right;
+    }
+    .status-word-green { color: #22c55e; }
+    .status-word-yellow { color: #f59e0b; }
+    .status-word-red { color: #ef4444; }
+    .status-word-gray { color: #9ca3af; }
   </style>
 </head>
 <body>
@@ -464,8 +536,6 @@ Write-Host "Collecting Entra data..."
 $apiErrors = [System.Collections.Generic.List[object]]::new()
 
 $caPolicies = Invoke-GraphSafe -Dataset "Conditional Access Policies" -Uri "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies?`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
-$pimAssignments = Invoke-GraphSafe -Dataset "PIM Role Assignment Schedules" -Uri "https://graph.microsoft.com/v1.0/roleManagement/directory/roleAssignmentSchedules?`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
-$pimEligibility = Invoke-GraphSafe -Dataset "PIM Role Eligibility Schedules" -Uri "https://graph.microsoft.com/v1.0/roleManagement/directory/roleEligibilitySchedules?`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
 $users = Invoke-GraphSafe -Dataset "Users" -Uri "https://graph.microsoft.com/v1.0/users?`$select=id,displayName,userPrincipalName,accountEnabled,createdDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
 $groups = Invoke-GraphSafe -Dataset "Groups" -Uri "https://graph.microsoft.com/v1.0/groups?`$select=id,displayName,mailEnabled,securityEnabled,groupTypes,createdDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
 $devices = Invoke-GraphSafe -Dataset "Devices" -Uri "https://graph.microsoft.com/v1.0/devices?`$select=id,displayName,operatingSystem,trustType,accountEnabled,approximateLastSignInDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
@@ -475,16 +545,23 @@ $serviceHealth = Invoke-GraphSafe -Dataset "Service Health Overview" -Uri "https
 $serviceIssues = Invoke-GraphSafe -Dataset "Service Issues" -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues?`$top=50" -Headers $headers -Errors $apiErrors -MaxItems 100
 $recentSignins = Invoke-GraphSafe -Dataset "Recent Sign-ins" -Uri "https://graph.microsoft.com/v1.0/auditLogs/signIns?`$select=id,createdDateTime,userDisplayName,userPrincipalName,appDisplayName,appId,ipAddress,status,conditionalAccessStatus&`$top=200&`$orderby=createdDateTime desc" -Headers $headers -Errors $apiErrors -MaxItems 200
 $recentAudits = Invoke-GraphSafe -Dataset "Recent Directory Audits" -Uri "https://graph.microsoft.com/v1.0/auditLogs/directoryAudits?`$top=50&`$orderby=activityDateTime desc" -Headers $headers -Errors $apiErrors -MaxItems 50
+$intuneManagedDevices = Invoke-GraphSafe -Dataset "Intune Managed Devices" -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?`$select=id,deviceName,operatingSystem,complianceState,managementState,lastSyncDateTime,userPrincipalName&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
+$intuneCompliancePolicies = Invoke-GraphSafe -Dataset "Intune Compliance Policies" -Uri "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies?`$select=id,displayName,description,createdDateTime,lastModifiedDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
+$intuneConfigProfiles = Invoke-GraphSafe -Dataset "Intune Configuration Profiles" -Uri "https://graph.microsoft.com/v1.0/deviceManagement/deviceConfigurations?`$select=id,displayName,description,createdDateTime,lastModifiedDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
+$intuneMobileApps = Invoke-GraphSafe -Dataset "Intune Mobile Apps" -Uri "https://graph.microsoft.com/v1.0/deviceAppManagement/mobileApps?`$select=id,displayName,publisher,isFeatured,createdDateTime,lastModifiedDateTime&`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
+$defenderIncidents = Invoke-GraphSafe -Dataset "Defender Incidents" -Uri "https://graph.microsoft.com/v1.0/security/incidents?`$top=50" -Headers $headers -Errors $apiErrors -MaxItems 200
+$defenderAlerts = Invoke-GraphSafe -Dataset "Defender Alerts" -Uri "https://graph.microsoft.com/v1.0/security/alerts_v2?`$top=100" -Headers $headers -Errors $apiErrors -MaxItems 200
+$defenderSecureScores = Invoke-GraphSafe -Dataset "Defender Secure Scores" -Uri "https://graph.microsoft.com/v1.0/security/secureScores?`$top=50" -Headers $headers -Errors $apiErrors -MaxItems 100
 
 $summary = [ordered]@{
     "Conditional Access Policies" = @($caPolicies).Count
-    "PIM Assignments"             = @($pimAssignments).Count
-    "PIM Eligibilities"           = @($pimEligibility).Count
     "Users (sampled)"             = @($users).Count
     "Groups (sampled)"            = @($groups).Count
     "Devices (sampled)"           = @($devices).Count
     "Enterprise Apps (sampled)"   = @($servicePrincipals).Count
     "App Registrations (sampled)" = @($appRegistrations).Count
+    "Intune Devices (sampled)"    = @($intuneManagedDevices).Count
+    "Defender Incidents"          = @($defenderIncidents).Count
     "Service Health Workloads"    = @($serviceHealth).Count
     "Open Service Issues"         = @($serviceIssues | Where-Object { $_.status -ne "serviceRestored" }).Count
     "Recent Sign-ins"             = @($recentSignins).Count
@@ -498,12 +575,25 @@ foreach ($item in $summary.GetEnumerator()) {
     [void]$summaryCards.Append("<div class='metric'><div class='metric-title'>$(ConvertTo-SafeHtml $item.Key)</div><div class='metric-value'>$($item.Value)</div></div>")
 }
 
-$caRows = $caPolicies | Select-Object displayName, state, createdDateTime, modifiedDateTime
-$pimAssignedRows = $pimAssignments | Select-Object id, principalId, roleDefinitionId, assignmentType, createdUsing
-$pimEligibleRows = $pimEligibility | Select-Object id, principalId, roleDefinitionId, memberType, scheduleInfo
+$caRows = foreach ($p in @($caPolicies)) {
+    [pscustomobject]@{
+        displayName      = New-HtmlLink -Text $p.displayName -Href "$portalBase/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies/policyId/$($p.id)"
+        state            = $p.state
+        createdDateTime  = $p.createdDateTime
+        modifiedDateTime = $p.modifiedDateTime
+    }
+}
 $userRows = $users | Select-Object displayName, userPrincipalName, accountEnabled, createdDateTime
 $groupRows = $groups | Select-Object displayName, mailEnabled, securityEnabled, groupTypes, createdDateTime
-$deviceRows = $devices | Select-Object displayName, operatingSystem, trustType, accountEnabled, approximateLastSignInDateTime
+$deviceRows = foreach ($d in @($devices)) {
+    [pscustomobject]@{
+        displayName                   = New-HtmlLink -Text $d.displayName -Href "$portalBase/#view/Microsoft_AAD_Devices/DeviceDetailsMenuBlade/~/Properties/objectId/$($d.id)"
+        operatingSystem               = $d.operatingSystem
+        trustType                     = $d.trustType
+        accountEnabled                = $d.accountEnabled
+        approximateLastSignInDateTime = $d.approximateLastSignInDateTime
+    }
+}
 $signinRows = foreach ($s in @($recentSignins)) {
     $statusText = ""
     if ($null -ne $s.status) {
@@ -599,8 +689,88 @@ $appRegSigninRows = foreach ($s in @($recentSignins)) {
     }
 }
 
-$healthRows = $serviceHealth | Select-Object service, status
-$issueRows = $serviceIssues | Select-Object id, title, service, status, severity
+$intuneDeviceRows = $intuneManagedDevices | Select-Object deviceName, userPrincipalName, operatingSystem, complianceState, managementState, lastSyncDateTime
+$intuneComplianceRows = $intuneCompliancePolicies | Select-Object displayName, description, createdDateTime, lastModifiedDateTime
+$intuneConfigRows = $intuneConfigProfiles | Select-Object displayName, description, createdDateTime, lastModifiedDateTime
+$intuneAppRows = $intuneMobileApps | Select-Object displayName, publisher, isFeatured, createdDateTime, lastModifiedDateTime
+
+$defenderIncidentRows = foreach ($inc in @($defenderIncidents)) {
+    $severity = ""
+    $status = ""
+    if ($inc.PSObject.Properties.Match("severity").Count -gt 0) { $severity = [string]$inc.severity }
+    if ($inc.PSObject.Properties.Match("status").Count -gt 0) { $status = [string]$inc.status }
+    $tone = "gray"
+    if ($severity -match "high|critical" -or $status -match "active") { $tone = "red" }
+    elseif ($severity -match "medium" -or $status -match "inProgress|redirected") { $tone = "yellow" }
+    elseif ($status -match "resolved") { $tone = "green" }
+    [pscustomobject]@{
+        incidentId          = if ($inc.PSObject.Properties.Match("incidentId").Count -gt 0) { [string]$inc.incidentId } else { "" }
+        displayName         = if ($inc.PSObject.Properties.Match("displayName").Count -gt 0) { [string]$inc.displayName } else { "" }
+        severity            = New-StatusBadge -Text $severity -Tone $tone
+        status              = New-StatusBadge -Text $status -Tone $tone
+        classification      = if ($inc.PSObject.Properties.Match("classification").Count -gt 0) { [string]$inc.classification } else { "" }
+        determination       = if ($inc.PSObject.Properties.Match("determination").Count -gt 0) { [string]$inc.determination } else { "" }
+        createdDateTime     = if ($inc.PSObject.Properties.Match("createdDateTime").Count -gt 0) { [string]$inc.createdDateTime } else { "" }
+        lastUpdateDateTime  = if ($inc.PSObject.Properties.Match("lastUpdateDateTime").Count -gt 0) { [string]$inc.lastUpdateDateTime } else { "" }
+    }
+}
+
+$defenderAlertRows = foreach ($a in @($defenderAlerts)) {
+    $severity = if ($a.PSObject.Properties.Match("severity").Count -gt 0) { [string]$a.severity } else { "" }
+    $status = if ($a.PSObject.Properties.Match("status").Count -gt 0) { [string]$a.status } else { "" }
+    $tone = "gray"
+    if ($severity -match "high|critical") { $tone = "red" }
+    elseif ($severity -match "medium") { $tone = "yellow" }
+    elseif ($severity -match "low|informational") { $tone = "green" }
+    [pscustomobject]@{
+        createdDateTime    = if ($a.PSObject.Properties.Match("createdDateTime").Count -gt 0) { [string]$a.createdDateTime } else { "" }
+        title              = if ($a.PSObject.Properties.Match("title").Count -gt 0) { [string]$a.title } else { "" }
+        serviceSource      = if ($a.PSObject.Properties.Match("serviceSource").Count -gt 0) { [string]$a.serviceSource } else { "" }
+        severity           = New-StatusBadge -Text $severity -Tone $tone
+        status             = New-StatusBadge -Text $status -Tone $tone
+        category           = if ($a.PSObject.Properties.Match("category").Count -gt 0) { [string]$a.category } else { "" }
+    }
+}
+
+$defenderSecureScoreRows = $defenderSecureScores | Select-Object createdDateTime, currentScore, maxScore, activeUserCount, enabledServices
+
+$healthRows = foreach ($h in @($serviceHealth)) {
+    $statusText = [string]$h.status
+    $tone = "gray"
+    if ($statusText -match "serviceOperational") { $tone = "green" }
+    elseif ($statusText -match "investigating|verifyingService|serviceDegradation|restoringService") { $tone = "yellow" }
+    elseif ($statusText -match "serviceInterruption|extendedRecovery|falsePositive") { $tone = "red" }
+    [pscustomobject]@{
+        service = $h.service
+        status  = New-StatusCell -StatusText $statusText -Tone $tone
+    }
+}
+
+$issueRows = foreach ($i in @($serviceIssues)) {
+    $severity = ""
+    $statusText = ""
+    $id = ""
+    $title = ""
+    $service = ""
+    if ($null -ne $i) {
+        if ($i.PSObject.Properties.Match("severity").Count -gt 0) { $severity = [string]$i.severity }
+        if ($i.PSObject.Properties.Match("status").Count -gt 0) { $statusText = [string]$i.status }
+        if ($i.PSObject.Properties.Match("id").Count -gt 0) { $id = [string]$i.id }
+        if ($i.PSObject.Properties.Match("title").Count -gt 0) { $title = [string]$i.title }
+        if ($i.PSObject.Properties.Match("service").Count -gt 0) { $service = [string]$i.service }
+    }
+    $tone = "gray"
+    if ($severity -match "critical|high" -or $statusText -match "serviceInterruption") { $tone = "red" }
+    elseif ($severity -match "medium|normal" -or $statusText -match "investigating|serviceDegradation|verifyingService|restoringService") { $tone = "yellow" }
+    elseif ($statusText -match "serviceRestored|resolved") { $tone = "green" }
+    [pscustomobject]@{
+        id       = $id
+        title    = $title
+        service  = $service
+        status   = New-StatusCell -StatusText $statusText -Tone $tone
+        severity = $severity
+    }
+}
 $auditRows = $recentAudits | Select-Object activityDateTime, activityDisplayName, initiatedBy, result, category
 $errorRows = $apiErrors | Select-Object dataset, code, message, uri
 $tokenRoleRows = foreach ($role in @($tokenRoles)) { [pscustomobject]@{ role = $role } }
@@ -621,17 +791,6 @@ $pages = @(
 <section class="section"><h2>Conditional Access</h2><div class="cards">
 $(New-TableHtml -Title "Policies" -Rows $caRows -Columns @("displayName", "state", "createdDateTime", "modifiedDateTime"))
 $(New-TableHtml -Title "Conditional Access Sign-in Logs (Recent)" -Rows $caSigninRows -Columns @("createdDateTime", "userPrincipalName", "appDisplayName", "conditionalAccessStatus", "ipAddress", "signInLog") -EmptyMessage "No Conditional Access sign-ins returned.")
-</div></section>
-"@
-    },
-    [pscustomobject]@{
-        Key      = "pim"
-        Title    = "PIM"
-        FileName = "$baseName.pim.html"
-        Content  = @"
-<section class="section"><h2>PIM</h2><div class="cards">
-$(New-TableHtml -Title "Role Assignment Schedules" -Rows $pimAssignedRows -Columns @("id", "principalId", "roleDefinitionId", "assignmentType", "createdUsing"))
-$(New-TableHtml -Title "Role Eligibility Schedules" -Rows $pimEligibleRows -Columns @("id", "principalId", "roleDefinitionId", "memberType", "scheduleInfo"))
 </div></section>
 "@
     },
@@ -701,6 +860,41 @@ $(New-TableHtml -Title "Token App Roles (from access token)" -Rows $tokenRoleRow
 $(New-TableHtml -Title "Sign-in Logs Shortcut" -Rows @([pscustomobject]@{ page = (New-HtmlLink -Text "Open Entra Sign-in Logs" -Href $signInListUrl) }) -Columns @("page"))
 $(New-TableHtml -Title "Recent Directory Audits" -Rows $auditRows -Columns @("activityDateTime", "activityDisplayName", "initiatedBy", "result", "category"))
 $(New-TableHtml -Title "Permission/API Errors" -Rows $errorRows -Columns @("dataset", "code", "message", "uri") -EmptyMessage "No API errors detected.")
+</div></section>
+"@
+    },
+    [pscustomobject]@{
+        Key      = "intune-home"
+        Title    = "Intune Home"
+        FileName = "$baseName.intune-home.html"
+        Content  = @"
+<section class="section"><h2>Intune Home</h2><div class="cards">
+$(New-TableHtml -Title "Managed Devices (Top 200)" -Rows $intuneDeviceRows -Columns @("deviceName", "userPrincipalName", "operatingSystem", "complianceState", "managementState", "lastSyncDateTime"))
+</div></section>
+<section class="section"><h2>Intune Compliance</h2><div class="cards">
+$(New-TableHtml -Title "Compliance Policies (Top 200)" -Rows $intuneComplianceRows -Columns @("displayName", "description", "createdDateTime", "lastModifiedDateTime"))
+</div></section>
+<section class="section"><h2>Intune Configuration</h2><div class="cards">
+$(New-TableHtml -Title "Configuration Profiles (Top 200)" -Rows $intuneConfigRows -Columns @("displayName", "description", "createdDateTime", "lastModifiedDateTime"))
+</div></section>
+<section class="section"><h2>Intune Apps</h2><div class="cards">
+$(New-TableHtml -Title "Mobile Apps (Top 200)" -Rows $intuneAppRows -Columns @("displayName", "publisher", "isFeatured", "createdDateTime", "lastModifiedDateTime"))
+</div></section>
+"@
+    },
+    [pscustomobject]@{
+        Key      = "defender-home"
+        Title    = "Defender Home"
+        FileName = "$baseName.defender-home.html"
+        Content  = @"
+<section class="section"><h2>Defender Home</h2><div class="cards">
+$(New-TableHtml -Title "Incidents (Top 200)" -Rows $defenderIncidentRows -Columns @("incidentId", "displayName", "severity", "status", "classification", "determination", "createdDateTime", "lastUpdateDateTime"))
+</div></section>
+<section class="section"><h2>Defender Alerts</h2><div class="cards">
+$(New-TableHtml -Title "Alerts (Top 200)" -Rows $defenderAlertRows -Columns @("createdDateTime", "title", "serviceSource", "severity", "status", "category"))
+</div></section>
+<section class="section"><h2>Defender Secure Scores</h2><div class="cards">
+$(New-TableHtml -Title "Secure Scores (Top 100)" -Rows $defenderSecureScoreRows -Columns @("createdDateTime", "currentScore", "maxScore", "activeUserCount", "enabledServices"))
 </div></section>
 "@
     }
