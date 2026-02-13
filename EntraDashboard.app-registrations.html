@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entra Dashboard - App Registrations</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --bg2: #0d1d33;
+      --fg: #e6edf7;
+      --muted: #9fb3cc;
+      --card: #102038;
+      --line: #1f3758;
+      --accent: #22d3ee;
+      --accent2: #38bdf8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--fg);
+      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
+    }
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
+    h1 { margin: 0 0 6px 0; font-size: 28px; }
+    .sub { color: var(--muted); margin-bottom: 16px; }
+    .topnav {
+      margin: 0 0 14px 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(11, 27, 48, 0.92);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .topnav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #041423;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #67e8f9;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
+    }
+    .topnav a:hover {
+      background: linear-gradient(135deg, #67e8f9, #bae6fd);
+      transform: translateY(-1px);
+    }
+    a {
+      color: #67e8f9;
+    }
+    a:hover {
+      color: #a5f3fc;
+    }
+    .section {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      overflow: hidden;
+    }
+    .section h2 {
+      margin: 0;
+      padding: 12px 14px;
+      font-size: 20px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #03263a;
+    }
+    .cards {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #0e1e34;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #173253; }
+    .muted { color: var(--muted); }
+    .warn {
+      margin: 0 0 14px 0;
+      padding: 10px 12px;
+      border: 1px solid #fbbf24;
+      border-radius: 8px;
+      background: #3f2a07;
+      color: #fde68a;
+      font-size: 13px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .menu-link {
+      display: block;
+      text-decoration: none;
+      color: #eaf5ff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      background: linear-gradient(160deg, #102a49, #12243d);
+      font-weight: 600;
+    }
+    .menu-link:hover {
+      border-color: #67e8f9;
+      background: linear-gradient(160deg, #12365d, #132741);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Entra Dashboard - App Registrations</h1>
+    <div class="sub">Generated: 2026-02-13 14:54:38Z</div>
+    
+    <nav class="topnav">
+      <a href="EntraDashboard.html">Home</a>
+<a href="EntraDashboard.conditional-access.html">Conditional Access</a>
+<a href="EntraDashboard.pim.html">PIM</a>
+<a href="EntraDashboard.users.html">Users</a>
+<a href="EntraDashboard.groups.html">Groups</a>
+<a href="EntraDashboard.devices.html">Devices</a>
+<a href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+<a href="EntraDashboard.app-registrations.html">App Registrations</a>
+<a href="EntraDashboard.monitoring-health.html">Monitoring and Health</a>
+    </nav>
+    <section class="section"><h2>App Registrations</h2><div class="cards">
+<div class='card'><h3>App Registrations (Top 200)</h3><table><thead><tr><th>displayName</th><th>createdDateTime</th><th>signInCount</th><th>latestSignIn</th><th>latestSignInLog</th></tr></thead><tbody><tr><td><a href='https://graph.microsoft.com/v1.0/applications/0af5ee9f-4408-48b2-b222-336b79423e8f' target='_blank' rel='noopener noreferrer'>AWS IAM Identity Center</a></td><td>02/16/2025 17:39:02</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/15f0f4b4-14e3-4145-95c5-e03cf39ff360' target='_blank' rel='noopener noreferrer'>Google Cloud / G Suite Connector by Microsoft</a></td><td>07/26/2021 02:13:19</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/2781e916-a6d7-4755-a3b6-e267272289e7' target='_blank' rel='noopener noreferrer'>Zendesk</a></td><td>08/17/2021 19:29:44</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/3dcf12ae-6f11-44ec-8ed7-ebd236b3bb85' target='_blank' rel='noopener noreferrer'>P2P Server</a></td><td>05/05/2020 00:37:45</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/41403f83-08e9-40a9-92ad-0912fb16b4ba' target='_blank' rel='noopener noreferrer'>G Suite</a></td><td>09/12/2019 14:55:18</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/4919437e-ef63-4c5c-a872-68bc3ccdfe18' target='_blank' rel='noopener noreferrer'>Dropbox Business Puckfoo</a></td><td>08/28/2021 19:51:39</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/4a992457-47ff-4108-82c3-46abc647178e' target='_blank' rel='noopener noreferrer'>Salesforce</a></td><td>07/20/2021 12:42:41</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/5809cc33-89f2-44e2-bccf-dc45691fde31' target='_blank' rel='noopener noreferrer'>Grammarly for Microsoft Word</a></td><td>07/28/2021 00:20:49</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/7855a766-2be6-45d4-84fd-6d7adde6eb9f' target='_blank' rel='noopener noreferrer'>Zendesk</a></td><td>08/17/2021 19:32:06</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/989e277e-e6f3-4b6c-add2-dca8b4ebdd8f' target='_blank' rel='noopener noreferrer'>Snaplogic</a></td><td>07/26/2021 02:14:14</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/c24d7df9-5461-4324-9743-95cea20092c2' target='_blank' rel='noopener noreferrer'>Docusign</a></td><td>09/12/2019 14:56:13</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/c7259140-2aaa-4773-864b-4e4ac697b208' target='_blank' rel='noopener noreferrer'>Salesforce</a></td><td>09/16/2019 19:54:14</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://graph.microsoft.com/v1.0/applications/f1daacea-1426-4417-aea3-8f1d612d2258' target='_blank' rel='noopener noreferrer'>GraphAPI Delegated Authentication</a></td><td>02/12/2026 21:09:46</td><td>0</td><td></td><td></td></tr></tbody></table></div>
+<div class='card'><h3>App Registration Sign-in Logs (Recent)</h3><table><thead><tr><th>createdDateTime</th><th>appDisplayName</th><th>userPrincipalName</th><th>ipAddress</th><th>signInLog</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+</div></section>
+  </div>
+</body>
+</html>
