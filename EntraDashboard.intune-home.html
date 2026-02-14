@@ -6,195 +6,158 @@
   <title>Entra Dashboard - Intune Home</title>
   <style>
     :root {
-      --bg: #06101e;
-      --bg2: #0a1929;
-      --fg: #e8edf4;
-      --muted: #8da2bc;
-      --card: rgba(14, 30, 52, 0.7);
-      --card-solid: #0e1e34;
-      --line: #1a3150;
+      --bg: #08111f;
+      --bg2: #0d1d33;
+      --fg: #e6edf7;
+      --muted: #9fb3cc;
+      --card: #102038;
+      --line: #1f3758;
       --accent: #22d3ee;
       --accent2: #38bdf8;
-      --accent-glow: rgba(34, 211, 238, 0.15);
-      --green: #22c55e;
-      --yellow: #f59e0b;
-      --red: #ef4444;
-      --glass: rgba(10, 25, 45, 0.75);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     body {
-      font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
       color: var(--fg);
-      background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
     }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .wrap {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
-      position: relative;
-      z-index: 1;
-    }
-    /* Sticky Nav */
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
+    h1 { margin: 0 0 6px 0; font-size: 28px; }
+    .sub { color: var(--muted); margin-bottom: 16px; }
     .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      background: rgba(6, 16, 30, 0.82);
-      border-bottom: 1px solid var(--line);
-      padding: 10px 24px;
-      margin: 0 -24px 28px;
+      margin: 0 0 14px 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(11, 27, 48, 0.92);
       display: flex;
-      align-items: center;
-      gap: 8px;
       flex-wrap: wrap;
-    }
-    .topnav .brand {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--accent);
-      margin-right: 12px;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
       gap: 8px;
-      text-decoration: none;
     }
-    .topnav .brand svg { flex-shrink: 0; }
-    .topnav a.nav-link {
+    .topnav a {
       display: inline-block;
       text-decoration: none;
-      color: var(--muted);
+      color: #041423;
       font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .topnav a.nav-link:hover {
-      color: var(--fg);
-      background: rgba(34, 211, 238, 0.1);
-    }
-    .topnav a.nav-link.active {
-      color: #06101e;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
       font-weight: 600;
+      border: 1px solid #67e8f9;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
     }
-    /* Header */
-    .header { padding: 8px 0 24px; }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 4px;
+    .topnav a:hover {
+      background: linear-gradient(135deg, #67e8f9, #bae6fd);
+      transform: translateY(-1px);
     }
-    .header .subtitle {
-      color: var(--muted);
-      font-size: 14px;
+    a {
+      color: #67e8f9;
     }
-    /* Section Cards */
+    a:hover {
+      color: #a5f3fc;
+    }
     .section {
-      margin: 0 0 24px;
+      margin: 18px 0;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--card);
-      backdrop-filter: blur(12px);
       overflow: hidden;
-      animation: fadeUp 0.5s ease-out both;
     }
     .section h2 {
       margin: 0;
-      padding: 16px 20px;
-      font-size: 16px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--line);
-      color: var(--fg);
-      background: none;
+      padding: 12px 14px;
+      font-size: 20px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #03263a;
     }
-    .section h2 svg { width: 18px; height: 18px; color: var(--accent); }
     .cards {
-      padding: 0;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
     .card {
-      border: none;
-      border-radius: 0;
-      padding: 0;
-      background: none;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #0e1e34;
     }
     .card h3 {
-      margin: 0;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
-      background: rgba(23, 50, 83, 0.2);
+      margin: 0 0 10px 0;
+      font-size: 16px;
     }
-    /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th {
-      text-align: left;
-      padding: 10px 14px;
-      background: rgba(23, 50, 83, 0.5);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--line);
-      border-right: 1px solid rgba(26, 49, 80, 0.3);
-    }
-    th:last-child { border-right: none; }
-    td {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
       vertical-align: top;
       text-align: left;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(34, 211, 238, 0.03); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #67e8f9; }
-    /* Status */
+    th { background: #173253; }
+    .muted { color: var(--muted); }
+    .warn {
+      margin: 0 0 14px 0;
+      padding: 10px 12px;
+      border: 1px solid #fbbf24;
+      border-radius: 8px;
+      background: #3f2a07;
+      color: #fde68a;
+      font-size: 13px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .menu-link {
+      display: block;
+      text-decoration: none;
+      color: #eaf5ff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      background: linear-gradient(160deg, #102a49, #12243d);
+      font-weight: 600;
+    }
+    .menu-link:hover {
+      border-color: #67e8f9;
+      background: linear-gradient(160deg, #12365d, #132741);
+    }
     .status-badge {
       display: inline-block;
       min-width: 72px;
       text-align: center;
-      padding: 3px 10px;
+      padding: 4px 8px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
-    .status-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-    .status-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .status-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .status-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
+    .status-green {
+      background: #14532d;
+      color: #bbf7d0;
+      border: 1px solid #22c55e;
+    }
+    .status-yellow {
+      background: #422006;
+      color: #fde68a;
+      border: 1px solid #f59e0b;
+    }
+    .status-red {
+      background: #450a0a;
+      color: #fecaca;
+      border: 1px solid #ef4444;
+    }
+    .status-gray {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #6b7280;
+    }
     .status-cell {
       display: flex;
       align-items: center;
@@ -202,8 +165,9 @@
       gap: 10px;
     }
     .status-word {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: lowercase;
       min-width: 52px;
       text-align: right;
     }
@@ -211,101 +175,37 @@
     .status-word-yellow { color: #f59e0b; }
     .status-word-red { color: #ef4444; }
     .status-word-gray { color: #9ca3af; }
-    /* Footer */
-    .footer {
-      margin-top: 8px;
-      padding: 20px 0;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-size: 12px;
-      color: #4a6580;
-    }
-    .footer a { color: var(--muted); text-decoration: none; }
-    .footer a:hover { color: var(--accent); }
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Table container scroll */
-    .table-scroll {
-      overflow-x: auto;
-    }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 16px 20px;
-      padding: 12px 16px;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 10px;
-      background: rgba(245, 158, 11, 0.1);
-      color: #fbbf24;
-      font-size: 13px;
-    }
   </style>
 </head>
 <body>
-
-  <nav class="topnav">
-    <a class="brand" href="EntraDashboard.html">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Entra Dashboard
-    </a>
-    <a class="nav-link" href="EntraDashboard.html">Home</a>
-    <a class="nav-link" href="EntraDashboard.conditional-access.html">Conditional Access</a>
-    <a class="nav-link" href="EntraDashboard.users.html">Users</a>
-    <a class="nav-link" href="EntraDashboard.groups.html">Groups</a>
-    <a class="nav-link" href="EntraDashboard.devices.html">Devices</a>
-    <a class="nav-link" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
-    <a class="nav-link" href="EntraDashboard.app-registrations.html">App Registrations</a>
-    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring & Health</a>
-    <a class="nav-link active" href="EntraDashboard.intune-home.html">Intune</a>
-    <a class="nav-link" href="EntraDashboard.defender-home.html">Defender</a>
-    <a class="nav-link" href="EntraDashboard.pim.html">PIM</a>
-  </nav>
-
   <div class="wrap">
-    <header class="header">
-      <h1>Intune Home</h1>
-      <div class="subtitle">Generated: 2026-02-13 16:05:52Z</div>
-    </header>
-
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg> Intune Home</h2>
-      <div class="cards">
-
-<div class='card'><h3>Managed Devices (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>deviceName</th><th>userPrincipalName</th><th>operatingSystem</th><th>complianceState</th><th>managementState</th><th>lastSyncDateTime</th></tr></thead><tbody><tr><td>Richard Holland&#39;s iPad</td><td>rholland@panthro.co</td><td>iOS</td><td>noncompliant</td><td>managed</td><td>12/19/2025 15:10:13</td></tr><tr><td>Richard Holland’s iPhone</td><td>rholland@panthro.co</td><td>iOS</td><td>compliant</td><td>managed</td><td>02/13/2026 09:55:33</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> Intune Compliance</h2>
-      <div class="cards">
-
-<div class='card'><h3>Compliance Policies (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>description</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>iOS Baseline Compliance</td><td></td><td>09/18/2025 14:54:06</td><td>09/18/2025 14:54:06</td></tr><tr><td>iOS Version Compliance</td><td></td><td>09/18/2025 14:56:16</td><td>09/18/2025 15:06:13</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Intune Configuration</h2>
-      <div class="cards">
-
-<div class='card'><h3>Configuration Profiles (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>description</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>Block App Store</td><td></td><td>12/16/2025 19:39:41</td><td>12/16/2025 19:52:27</td></tr><tr><td>iOS Defender Control Filter</td><td></td><td>11/23/2025 15:08:15</td><td>11/26/2025 15:15:45</td></tr><tr><td>iOS General Device Restrictions</td><td></td><td>09/18/2025 14:50:59</td><td>10/13/2025 19:49:20</td></tr><tr><td>ISO BlockVPNProfilesAndChanges</td><td></td><td>11/28/2025 14:39:10</td><td>11/28/2025 15:02:14</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Intune Apps</h2>
-      <div class="cards">
-
-<div class='card'><h3>Mobile Apps (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>publisher</th><th>isFeatured</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>Amazon Alexa</td><td>AMZN Mobile LLC</td><td>False</td><td>12/19/2025 14:35:57</td><td>12/19/2025 14:35:57</td></tr><tr><td>Amazon Kindle</td><td>AMZN Mobile LLC</td><td>False</td><td>12/19/2025 14:22:01</td><td>12/19/2025 14:22:01</td></tr><tr><td>Amazon Shopping</td><td>AMZN Mobile LLC</td><td>True</td><td>12/19/2025 14:23:35</td><td>12/19/2025 14:23:35</td></tr><tr><td>Apple Health</td><td>Apple</td><td>False</td><td>12/19/2025 14:47:26</td><td>12/19/2025 14:47:26</td></tr><tr><td>Audible: Audiobooks &amp; Podcasts</td><td>Audible, Inc.</td><td>False</td><td>12/19/2025 14:21:26</td><td>12/19/2025 14:21:26</td></tr><tr><td>Barclays US</td><td>Barclays Bank Delaware</td><td>False</td><td>12/19/2025 14:41:35</td><td>12/19/2025 14:41:35</td></tr><tr><td>BCBSIL</td><td>Blue Cross and Blue Shield of Illinois</td><td>False</td><td>12/19/2025 14:45:07</td><td>12/19/2025 14:45:07</td></tr><tr><td>Bible App</td><td>Life.Church</td><td>True</td><td>12/17/2025 13:36:05</td><td>12/17/2025 13:36:54</td></tr><tr><td>Blink Home Monitor</td><td>Immedia Semiconductor</td><td>False</td><td>12/19/2025 14:29:23</td><td>12/19/2025 14:29:23</td></tr><tr><td>Breathe Tech</td><td>Breathe Tech Ltd</td><td>False</td><td>12/19/2025 14:37:19</td><td>12/19/2025 14:37:19</td></tr><tr><td>Calculator</td><td>Apple</td><td>False</td><td>12/19/2025 14:57:50</td><td>12/19/2025 14:57:50</td></tr><tr><td>Chase Mobile&#174;: Bank &amp; Invest</td><td>JPMorgan Chase &amp; Co.</td><td>False</td><td>12/19/2025 14:39:09</td><td>12/19/2025 14:39:09</td></tr><tr><td>ChatGPT</td><td>OpenAI</td><td>True</td><td>12/19/2025 14:20:47</td><td>12/19/2025 14:20:47</td></tr><tr><td>Chewy - Pet Care &amp; Pharmacy</td><td>Chewy, Inc.</td><td>False</td><td>12/19/2025 14:27:04</td><td>12/19/2025 14:27:04</td></tr><tr><td>Commerce Bank for iPhone</td><td>Commerce Bank</td><td>False</td><td>12/19/2025 14:40:24</td><td>12/19/2025 14:40:24</td></tr><tr><td>Connect IQ™ Store</td><td>Garmin</td><td>False</td><td>12/19/2025 14:44:05</td><td>12/19/2025 14:44:05</td></tr><tr><td>Contacts</td><td>Apple</td><td>False</td><td>12/19/2025 14:55:52</td><td>12/19/2025 14:55:52</td></tr><tr><td>Currency Converter Plus</td><td>Kaspre Invest</td><td>False</td><td>12/19/2025 14:42:59</td><td>12/19/2025 14:42:59</td></tr><tr><td>CVS Health</td><td>CVS Pharmacy</td><td>False</td><td>12/19/2025 14:50:15</td><td>12/19/2025 14:50:15</td></tr><tr><td>Dashlane Password Manager</td><td>Dashlane</td><td>True</td><td>12/19/2025 14:19:44</td><td>12/19/2025 14:19:44</td></tr><tr><td>Discover Mobile</td><td>Discover Financial Services</td><td>False</td><td>12/19/2025 14:38:39</td><td>12/19/2025 14:38:39</td></tr><tr><td>eBay online shopping &amp; selling</td><td>eBay Inc.</td><td>False</td><td>12/19/2025 14:25:09</td><td>12/19/2025 14:25:09</td></tr><tr><td>ErgData</td><td>Concept2, Inc.</td><td>True</td><td>12/16/2025 19:56:17</td><td>12/16/2025 19:56:17</td></tr><tr><td>FaceTime</td><td>Apple</td><td>False</td><td>12/19/2025 14:56:21</td><td>12/19/2025 14:56:21</td></tr><tr><td>Fidelity Investments</td><td>Fidelity Investments</td><td>False</td><td>12/19/2025 14:24:37</td><td>12/19/2025 14:24:37</td></tr><tr><td>Garmin Connect™</td><td>Garmin</td><td>False</td><td>12/19/2025 14:43:29</td><td>12/19/2025 14:43:29</td></tr><tr><td>GFiber: The Google Fiber App</td><td>Google</td><td>False</td><td>12/19/2025 14:38:05</td><td>12/19/2025 14:38:05</td></tr><tr><td>Gold Tracker</td><td>Hearn Apps, LLC</td><td>False</td><td>12/19/2025 14:42:03</td><td>12/19/2025 14:42:03</td></tr><tr><td>GoodRx: Prescription Coupons</td><td>GoodRx</td><td>False</td><td>12/19/2025 14:58:54</td><td>12/19/2025 14:58:54</td></tr><tr><td>GroupMe</td><td>Skype Communications S.a.r.l</td><td>False</td><td>12/19/2025 14:48:01</td><td>12/19/2025 14:48:01</td></tr><tr><td>Groupon - Local Deals Near Me</td><td>Groupon, Inc.</td><td>False</td><td>12/19/2025 14:55:19</td><td>12/19/2025 14:55:19</td></tr><tr><td>healow</td><td>eClinicalWorks LLC</td><td>False</td><td>12/19/2025 14:44:37</td><td>12/19/2025 14:44:37</td></tr><tr><td>healow</td><td>eClinicalWorks LLC</td><td>False</td><td>12/19/2025 14:45:39</td><td>12/19/2025 14:45:39</td></tr><tr><td>Hik-Connect - for End user</td><td>Hangzhou Hikvision Digital Technology Co., Ltd.</td><td>False</td><td>12/19/2025 14:28:55</td><td>12/19/2025 14:28:55</td></tr><tr><td>iHealth MyVitals</td><td>iHealth Labs Inc.</td><td>False</td><td>12/19/2025 14:46:50</td><td>12/19/2025 14:46:50</td></tr><tr><td>iKan - State of Kansas</td><td>Office of Information Technology Services</td><td>False</td><td>12/19/2025 14:52:13</td><td>12/19/2025 14:52:13</td></tr><tr><td>IMDb: Movies &amp; TV Shows</td><td>IMDb</td><td>False</td><td>12/19/2025 15:00:21</td><td>12/19/2025 15:00:21</td></tr><tr><td>LinkedIn: Network &amp; Job Finder</td><td>LinkedIn Corporation</td><td>False</td><td>12/19/2025 15:01:43</td><td>12/19/2025 15:01:43</td></tr><tr><td>Messages</td><td>Apple</td><td>False</td><td>12/19/2025 14:59:35</td><td>12/19/2025 14:59:35</td></tr><tr><td>Microsoft Authenticator</td><td>Microsoft Corporation</td><td>True</td><td>12/19/2025 14:17:53</td><td>12/19/2025 14:17:53</td></tr><tr><td>Microsoft Defender: Security</td><td>Microsoft Corporation</td><td>True</td><td>11/23/2025 13:45:35</td><td>11/23/2025 13:45:35</td></tr><tr><td>Microsoft Intune Company Portal</td><td>Microsoft Corporation</td><td>False</td><td>09/18/2025 14:38:54</td><td>01/01/0001 00:00:00</td></tr><tr><td>myAT&amp;T</td><td>AT&amp;T Services, Inc.</td><td>False</td><td>12/19/2025 14:50:50</td><td>12/19/2025 14:50:50</td></tr><tr><td>myQ Garage &amp; Access Control</td><td>The Chamberlain Group, Inc.</td><td>False</td><td>12/19/2025 14:30:50</td><td>12/19/2025 14:30:50</td></tr><tr><td>NetBenefits</td><td>Fidelity Investments</td><td>False</td><td>12/19/2025 14:39:46</td><td>12/19/2025 14:39:46</td></tr><tr><td>Netflix</td><td>Netflix, Inc.</td><td>False</td><td>12/19/2025 15:01:06</td><td>12/19/2025 15:01:06</td></tr><tr><td>NETGEAR Orbi - WiFi System App</td><td>NETGEAR</td><td>False</td><td>12/19/2025 14:34:16</td><td>12/19/2025 14:34:16</td></tr><tr><td>PayPal - Pay, Send, Save</td><td>PayPal, Inc.</td><td>False</td><td>12/19/2025 14:25:40</td><td>12/19/2025 14:25:40</td></tr><tr><td>Pizza Hut - Delivery &amp; Takeout</td><td>Pizza Hut, Inc.</td><td>False</td><td>12/19/2025 14:24:10</td><td>12/19/2025 14:24:10</td></tr><tr><td>Proteus Sensor Cloud</td><td>Avarachan Cherian</td><td>False</td><td>12/19/2025 14:33:48</td><td>12/19/2025 14:33:48</td></tr><tr><td>PumpSpy</td><td>PumpSpy Technology, LLC</td><td>False</td><td>12/19/2025 14:31:25</td><td>12/19/2025 14:31:25</td></tr><tr><td>Sam&#39;s Club: Pickup &amp; Delivery</td><td>Sam’s Club</td><td>False</td><td>12/19/2025 14:27:49</td><td>12/19/2025 14:27:49</td></tr><tr><td>Sensi</td><td>Copeland LP</td><td>False</td><td>12/19/2025 14:28:22</td><td>12/19/2025 14:28:22</td></tr><tr><td>Sleep Number</td><td>Sleep Number Corporation</td><td>False</td><td>12/19/2025 14:30:06</td><td>12/19/2025 14:30:06</td></tr><tr><td>SmartThings</td><td>Samsung Electronics Co., Ltd.</td><td>False</td><td>12/19/2025 14:34:49</td><td>12/19/2025 14:34:49</td></tr><tr><td>Sonos</td><td>Sonos, Inc.</td><td>False</td><td>12/19/2025 14:36:35</td><td>12/19/2025 14:36:35</td></tr><tr><td>Stocks</td><td>Apple</td><td>False</td><td>12/19/2025 14:41:02</td><td>12/19/2025 14:41:02</td></tr><tr><td>ThriftBooks: New &amp; Used Books</td><td>Thrift Books Global LLC.</td><td>False</td><td>12/19/2025 14:58:16</td><td>12/19/2025 14:58:16</td></tr><tr><td>Uber - Request a ride</td><td>Uber Technologies, Inc.</td><td>False</td><td>12/19/2025 14:54:39</td><td>12/19/2025 14:54:39</td></tr><tr><td>Uber Eats: Food &amp; Groceries</td><td>Uber Technologies, Inc.</td><td>False</td><td>12/19/2025 14:54:08</td><td>12/19/2025 14:54:08</td></tr><tr><td>Venmo</td><td>Venmo</td><td>False</td><td>12/19/2025 14:52:49</td><td>12/19/2025 14:52:49</td></tr><tr><td>Walmart: Shopping &amp; Savings</td><td>Walmart</td><td>False</td><td>12/19/2025 14:26:27</td><td>12/19/2025 14:26:27</td></tr><tr><td>Weather</td><td>Apple</td><td>True</td><td>12/17/2025 13:39:27</td><td>12/17/2025 13:39:27</td></tr><tr><td>Wemo</td><td>Belkin International, Inc.</td><td>False</td><td>12/19/2025 14:35:23</td><td>12/19/2025 14:35:23</td></tr><tr><td>Workday</td><td>Workday</td><td>False</td><td>12/19/2025 14:49:24</td><td>12/19/2025 14:49:24</td></tr><tr><td>Yahoo Fantasy Sports</td><td>Yahoo</td><td>False</td><td>12/19/2025 14:48:54</td><td>12/19/2025 14:48:54</td></tr><tr><td>YouTube</td><td>Google</td><td>True</td><td>12/19/2025 14:18:41</td><td>12/19/2025 14:20:01</td></tr><tr><td>YouTube TV</td><td>Google</td><td>False</td><td>12/19/2025 14:22:39</td><td>12/19/2025 14:22:39</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-13 16:05:52Z &middot;
-      <a href="EntraDashboard.html">Back to Overview</a>
-    </footer>
+    <h1>Entra Dashboard - Intune Home</h1>
+    <div class="sub">Generated: 2026-02-14 15:12:39Z</div>
+    
+    <nav class="topnav">
+      <a href=".\EntraDashboard.html">Home</a>
+<a href=".\EntraDashboard.conditional-access.html">Conditional Access</a>
+<a href=".\EntraDashboard.users.html">Users</a>
+<a href=".\EntraDashboard.groups.html">Groups</a>
+<a href=".\EntraDashboard.devices.html">Devices</a>
+<a href=".\EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+<a href=".\EntraDashboard.app-registrations.html">App Registrations</a>
+<a href=".\EntraDashboard.monitoring-health.html">Monitoring and Health</a>
+<a href=".\EntraDashboard.intune-home.html">Intune Home</a>
+<a href=".\EntraDashboard.defender-home.html">Defender Home</a>
+    </nav>
+    <section class="section"><h2>Intune Home</h2><div class="cards">
+<div class='card'><h3>Managed Devices (Top 200)</h3><table><thead><tr><th>deviceName</th><th>userPrincipalName</th><th>operatingSystem</th><th>complianceState</th><th>managementState</th><th>lastSyncDateTime</th></tr></thead><tbody><tr><td>Richard Holland’s iPhone</td><td>rholland@panthro.co</td><td>iOS</td><td>compliant</td><td>managed</td><td>02/14/2026 10:33:34</td></tr><tr><td>Richard Holland&#39;s iPad</td><td>rholland@panthro.co</td><td>iOS</td><td>noncompliant</td><td>managed</td><td>12/19/2025 15:10:13</td></tr></tbody></table></div>
+</div></section>
+<section class="section"><h2>Intune Compliance</h2><div class="cards">
+<div class='card'><h3>Compliance Policies (Top 200)</h3><table><thead><tr><th>displayName</th><th>description</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>iOS Baseline Compliance</td><td></td><td>09/18/2025 14:54:06</td><td>09/18/2025 14:54:06</td></tr><tr><td>iOS Version Compliance</td><td></td><td>09/18/2025 14:56:16</td><td>09/18/2025 15:06:13</td></tr></tbody></table></div>
+</div></section>
+<section class="section"><h2>Intune Configuration</h2><div class="cards">
+<div class='card'><h3>Configuration Profiles (Top 200)</h3><table><thead><tr><th>displayName</th><th>description</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>Block App Store</td><td></td><td>12/16/2025 19:39:41</td><td>12/16/2025 19:52:27</td></tr><tr><td>iOS Defender Control Filter</td><td></td><td>11/23/2025 15:08:15</td><td>11/26/2025 15:15:45</td></tr><tr><td>iOS General Device Restrictions</td><td></td><td>09/18/2025 14:50:59</td><td>10/13/2025 19:49:20</td></tr><tr><td>ISO BlockVPNProfilesAndChanges</td><td></td><td>11/28/2025 14:39:10</td><td>11/28/2025 15:02:14</td></tr></tbody></table></div>
+</div></section>
+<section class="section"><h2>Intune Apps</h2><div class="cards">
+<div class='card'><h3>Mobile Apps (Top 200)</h3><table><thead><tr><th>displayName</th><th>publisher</th><th>isFeatured</th><th>createdDateTime</th><th>lastModifiedDateTime</th></tr></thead><tbody><tr><td>Amazon Alexa</td><td>AMZN Mobile LLC</td><td>False</td><td>12/19/2025 14:35:57</td><td>12/19/2025 14:35:57</td></tr><tr><td>Amazon Kindle</td><td>AMZN Mobile LLC</td><td>False</td><td>12/19/2025 14:22:01</td><td>12/19/2025 14:22:01</td></tr><tr><td>Amazon Shopping</td><td>AMZN Mobile LLC</td><td>True</td><td>12/19/2025 14:23:35</td><td>12/19/2025 14:23:35</td></tr><tr><td>Apple Health</td><td>Apple</td><td>False</td><td>12/19/2025 14:47:26</td><td>12/19/2025 14:47:26</td></tr><tr><td>Audible: Audiobooks &amp; Podcasts</td><td>Audible, Inc.</td><td>False</td><td>12/19/2025 14:21:26</td><td>12/19/2025 14:21:26</td></tr><tr><td>Barclays US</td><td>Barclays Bank Delaware</td><td>False</td><td>12/19/2025 14:41:35</td><td>12/19/2025 14:41:35</td></tr><tr><td>BCBSIL</td><td>Blue Cross and Blue Shield of Illinois</td><td>False</td><td>12/19/2025 14:45:07</td><td>12/19/2025 14:45:07</td></tr><tr><td>Bible App</td><td>Life.Church</td><td>True</td><td>12/17/2025 13:36:05</td><td>12/17/2025 13:36:54</td></tr><tr><td>Blink Home Monitor</td><td>Immedia Semiconductor</td><td>False</td><td>12/19/2025 14:29:23</td><td>12/19/2025 14:29:23</td></tr><tr><td>Breathe Tech</td><td>Breathe Tech Ltd</td><td>False</td><td>12/19/2025 14:37:19</td><td>12/19/2025 14:37:19</td></tr><tr><td>Calculator</td><td>Apple</td><td>False</td><td>12/19/2025 14:57:50</td><td>12/19/2025 14:57:50</td></tr><tr><td>Chase Mobile&#174;: Bank &amp; Invest</td><td>JPMorgan Chase &amp; Co.</td><td>False</td><td>12/19/2025 14:39:09</td><td>12/19/2025 14:39:09</td></tr><tr><td>ChatGPT</td><td>OpenAI</td><td>True</td><td>12/19/2025 14:20:47</td><td>12/19/2025 14:20:47</td></tr><tr><td>Chewy - Pet Care &amp; Pharmacy</td><td>Chewy, Inc.</td><td>False</td><td>12/19/2025 14:27:04</td><td>12/19/2025 14:27:04</td></tr><tr><td>Commerce Bank for iPhone</td><td>Commerce Bank</td><td>False</td><td>12/19/2025 14:40:24</td><td>12/19/2025 14:40:24</td></tr><tr><td>Connect IQ™ Store</td><td>Garmin</td><td>False</td><td>12/19/2025 14:44:05</td><td>12/19/2025 14:44:05</td></tr><tr><td>Contacts</td><td>Apple</td><td>False</td><td>12/19/2025 14:55:52</td><td>12/19/2025 14:55:52</td></tr><tr><td>Currency Converter Plus</td><td>Kaspre Invest</td><td>False</td><td>12/19/2025 14:42:59</td><td>12/19/2025 14:42:59</td></tr><tr><td>CVS Health</td><td>CVS Pharmacy</td><td>False</td><td>12/19/2025 14:50:15</td><td>12/19/2025 14:50:15</td></tr><tr><td>Dashlane Password Manager</td><td>Dashlane</td><td>True</td><td>12/19/2025 14:19:44</td><td>12/19/2025 14:19:44</td></tr><tr><td>Discover Mobile</td><td>Discover Financial Services</td><td>False</td><td>12/19/2025 14:38:39</td><td>12/19/2025 14:38:39</td></tr><tr><td>eBay online shopping &amp; selling</td><td>eBay Inc.</td><td>False</td><td>12/19/2025 14:25:09</td><td>12/19/2025 14:25:09</td></tr><tr><td>ErgData</td><td>Concept2, Inc.</td><td>True</td><td>12/16/2025 19:56:17</td><td>12/16/2025 19:56:17</td></tr><tr><td>FaceTime</td><td>Apple</td><td>False</td><td>12/19/2025 14:56:21</td><td>12/19/2025 14:56:21</td></tr><tr><td>Fidelity Investments</td><td>Fidelity Investments</td><td>False</td><td>12/19/2025 14:24:37</td><td>12/19/2025 14:24:37</td></tr><tr><td>Garmin Connect™</td><td>Garmin</td><td>False</td><td>12/19/2025 14:43:29</td><td>12/19/2025 14:43:29</td></tr><tr><td>GFiber: The Google Fiber App</td><td>Google</td><td>False</td><td>12/19/2025 14:38:05</td><td>12/19/2025 14:38:05</td></tr><tr><td>Gold Tracker</td><td>Hearn Apps, LLC</td><td>False</td><td>12/19/2025 14:42:03</td><td>12/19/2025 14:42:03</td></tr><tr><td>GoodRx: Prescription Coupons</td><td>GoodRx</td><td>False</td><td>12/19/2025 14:58:54</td><td>12/19/2025 14:58:54</td></tr><tr><td>GroupMe</td><td>Skype Communications S.a.r.l</td><td>False</td><td>12/19/2025 14:48:01</td><td>12/19/2025 14:48:01</td></tr><tr><td>Groupon - Local Deals Near Me</td><td>Groupon, Inc.</td><td>False</td><td>12/19/2025 14:55:19</td><td>12/19/2025 14:55:19</td></tr><tr><td>healow</td><td>eClinicalWorks LLC</td><td>False</td><td>12/19/2025 14:44:37</td><td>12/19/2025 14:44:37</td></tr><tr><td>healow</td><td>eClinicalWorks LLC</td><td>False</td><td>12/19/2025 14:45:39</td><td>12/19/2025 14:45:39</td></tr><tr><td>Hik-Connect - for End user</td><td>Hangzhou Hikvision Digital Technology Co., Ltd.</td><td>False</td><td>12/19/2025 14:28:55</td><td>12/19/2025 14:28:55</td></tr><tr><td>iHealth MyVitals</td><td>iHealth Labs Inc.</td><td>False</td><td>12/19/2025 14:46:50</td><td>12/19/2025 14:46:50</td></tr><tr><td>iKan - State of Kansas</td><td>Office of Information Technology Services</td><td>False</td><td>12/19/2025 14:52:13</td><td>12/19/2025 14:52:13</td></tr><tr><td>IMDb: Movies &amp; TV Shows</td><td>IMDb</td><td>False</td><td>12/19/2025 15:00:21</td><td>12/19/2025 15:00:21</td></tr><tr><td>LinkedIn: Network &amp; Job Finder</td><td>LinkedIn Corporation</td><td>False</td><td>12/19/2025 15:01:43</td><td>12/19/2025 15:01:43</td></tr><tr><td>Messages</td><td>Apple</td><td>False</td><td>12/19/2025 14:59:35</td><td>12/19/2025 14:59:35</td></tr><tr><td>Microsoft Authenticator</td><td>Microsoft Corporation</td><td>True</td><td>12/19/2025 14:17:53</td><td>12/19/2025 14:17:53</td></tr><tr><td>Microsoft Defender: Security</td><td>Microsoft Corporation</td><td>True</td><td>11/23/2025 13:45:35</td><td>11/23/2025 13:45:35</td></tr><tr><td>Microsoft Intune Company Portal</td><td>Microsoft Corporation</td><td>False</td><td>09/18/2025 14:38:54</td><td>01/01/0001 00:00:00</td></tr><tr><td>myAT&amp;T</td><td>AT&amp;T Services, Inc.</td><td>False</td><td>12/19/2025 14:50:50</td><td>12/19/2025 14:50:50</td></tr><tr><td>myQ Garage &amp; Access Control</td><td>The Chamberlain Group, Inc.</td><td>False</td><td>12/19/2025 14:30:50</td><td>12/19/2025 14:30:50</td></tr><tr><td>NetBenefits</td><td>Fidelity Investments</td><td>False</td><td>12/19/2025 14:39:46</td><td>12/19/2025 14:39:46</td></tr><tr><td>Netflix</td><td>Netflix, Inc.</td><td>False</td><td>12/19/2025 15:01:06</td><td>12/19/2025 15:01:06</td></tr><tr><td>NETGEAR Orbi - WiFi System App</td><td>NETGEAR</td><td>False</td><td>12/19/2025 14:34:16</td><td>12/19/2025 14:34:16</td></tr><tr><td>PayPal - Pay, Send, Save</td><td>PayPal, Inc.</td><td>False</td><td>12/19/2025 14:25:40</td><td>12/19/2025 14:25:40</td></tr><tr><td>Pizza Hut - Delivery &amp; Takeout</td><td>Pizza Hut, Inc.</td><td>False</td><td>12/19/2025 14:24:10</td><td>12/19/2025 14:24:10</td></tr><tr><td>Proteus Sensor Cloud</td><td>Avarachan Cherian</td><td>False</td><td>12/19/2025 14:33:48</td><td>12/19/2025 14:33:48</td></tr><tr><td>PumpSpy</td><td>PumpSpy Technology, LLC</td><td>False</td><td>12/19/2025 14:31:25</td><td>12/19/2025 14:31:25</td></tr><tr><td>Sam&#39;s Club: Pickup &amp; Delivery</td><td>Sam’s Club</td><td>False</td><td>12/19/2025 14:27:49</td><td>12/19/2025 14:27:49</td></tr><tr><td>Sensi</td><td>Copeland LP</td><td>False</td><td>12/19/2025 14:28:22</td><td>12/19/2025 14:28:22</td></tr><tr><td>Sleep Number</td><td>Sleep Number Corporation</td><td>False</td><td>12/19/2025 14:30:06</td><td>12/19/2025 14:30:06</td></tr><tr><td>SmartThings</td><td>Samsung Electronics Co., Ltd.</td><td>False</td><td>12/19/2025 14:34:49</td><td>12/19/2025 14:34:49</td></tr><tr><td>Sonos</td><td>Sonos, Inc.</td><td>False</td><td>12/19/2025 14:36:35</td><td>12/19/2025 14:36:35</td></tr><tr><td>Stocks</td><td>Apple</td><td>False</td><td>12/19/2025 14:41:02</td><td>12/19/2025 14:41:02</td></tr><tr><td>ThriftBooks: New &amp; Used Books</td><td>Thrift Books Global LLC.</td><td>False</td><td>12/19/2025 14:58:16</td><td>12/19/2025 14:58:16</td></tr><tr><td>Uber - Request a ride</td><td>Uber Technologies, Inc.</td><td>False</td><td>12/19/2025 14:54:39</td><td>12/19/2025 14:54:39</td></tr><tr><td>Uber Eats: Food &amp; Groceries</td><td>Uber Technologies, Inc.</td><td>False</td><td>12/19/2025 14:54:08</td><td>12/19/2025 14:54:08</td></tr><tr><td>Venmo</td><td>Venmo</td><td>False</td><td>12/19/2025 14:52:49</td><td>12/19/2025 14:52:49</td></tr><tr><td>Walmart: Shopping &amp; Savings</td><td>Walmart</td><td>False</td><td>12/19/2025 14:26:27</td><td>12/19/2025 14:26:27</td></tr><tr><td>Weather</td><td>Apple</td><td>True</td><td>12/17/2025 13:39:27</td><td>12/17/2025 13:39:27</td></tr><tr><td>Wemo</td><td>Belkin International, Inc.</td><td>False</td><td>12/19/2025 14:35:23</td><td>12/19/2025 14:35:23</td></tr><tr><td>Workday</td><td>Workday</td><td>False</td><td>12/19/2025 14:49:24</td><td>12/19/2025 14:49:24</td></tr><tr><td>Yahoo Fantasy Sports</td><td>Yahoo</td><td>False</td><td>12/19/2025 14:48:54</td><td>12/19/2025 14:48:54</td></tr><tr><td>YouTube</td><td>Google</td><td>True</td><td>12/19/2025 14:18:41</td><td>12/19/2025 14:20:01</td></tr><tr><td>YouTube TV</td><td>Google</td><td>False</td><td>12/19/2025 14:22:39</td><td>12/19/2025 14:22:39</td></tr></tbody></table></div>
+</div></section>
   </div>
 </body>
 </html>

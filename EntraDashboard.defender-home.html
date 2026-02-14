@@ -6,195 +6,158 @@
   <title>Entra Dashboard - Defender Home</title>
   <style>
     :root {
-      --bg: #06101e;
-      --bg2: #0a1929;
-      --fg: #e8edf4;
-      --muted: #8da2bc;
-      --card: rgba(14, 30, 52, 0.7);
-      --card-solid: #0e1e34;
-      --line: #1a3150;
+      --bg: #08111f;
+      --bg2: #0d1d33;
+      --fg: #e6edf7;
+      --muted: #9fb3cc;
+      --card: #102038;
+      --line: #1f3758;
       --accent: #22d3ee;
       --accent2: #38bdf8;
-      --accent-glow: rgba(34, 211, 238, 0.15);
-      --green: #22c55e;
-      --yellow: #f59e0b;
-      --red: #ef4444;
-      --glass: rgba(10, 25, 45, 0.75);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     body {
-      font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
       color: var(--fg);
-      background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
     }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .wrap {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
-      position: relative;
-      z-index: 1;
-    }
-    /* Sticky Nav */
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
+    h1 { margin: 0 0 6px 0; font-size: 28px; }
+    .sub { color: var(--muted); margin-bottom: 16px; }
     .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      background: rgba(6, 16, 30, 0.82);
-      border-bottom: 1px solid var(--line);
-      padding: 10px 24px;
-      margin: 0 -24px 28px;
+      margin: 0 0 14px 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(11, 27, 48, 0.92);
       display: flex;
-      align-items: center;
-      gap: 8px;
       flex-wrap: wrap;
-    }
-    .topnav .brand {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--accent);
-      margin-right: 12px;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
       gap: 8px;
-      text-decoration: none;
     }
-    .topnav .brand svg { flex-shrink: 0; }
-    .topnav a.nav-link {
+    .topnav a {
       display: inline-block;
       text-decoration: none;
-      color: var(--muted);
+      color: #041423;
       font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .topnav a.nav-link:hover {
-      color: var(--fg);
-      background: rgba(34, 211, 238, 0.1);
-    }
-    .topnav a.nav-link.active {
-      color: #06101e;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
       font-weight: 600;
+      border: 1px solid #67e8f9;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
     }
-    /* Header */
-    .header { padding: 8px 0 24px; }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 4px;
+    .topnav a:hover {
+      background: linear-gradient(135deg, #67e8f9, #bae6fd);
+      transform: translateY(-1px);
     }
-    .header .subtitle {
-      color: var(--muted);
-      font-size: 14px;
+    a {
+      color: #67e8f9;
     }
-    /* Section Cards */
+    a:hover {
+      color: #a5f3fc;
+    }
     .section {
-      margin: 0 0 24px;
+      margin: 18px 0;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--card);
-      backdrop-filter: blur(12px);
       overflow: hidden;
-      animation: fadeUp 0.5s ease-out both;
     }
     .section h2 {
       margin: 0;
-      padding: 16px 20px;
-      font-size: 16px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--line);
-      color: var(--fg);
-      background: none;
+      padding: 12px 14px;
+      font-size: 20px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #03263a;
     }
-    .section h2 svg { width: 18px; height: 18px; color: var(--accent); }
     .cards {
-      padding: 0;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
     .card {
-      border: none;
-      border-radius: 0;
-      padding: 0;
-      background: none;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #0e1e34;
     }
     .card h3 {
-      margin: 0;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
-      background: rgba(23, 50, 83, 0.2);
+      margin: 0 0 10px 0;
+      font-size: 16px;
     }
-    /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th {
-      text-align: left;
-      padding: 10px 14px;
-      background: rgba(23, 50, 83, 0.5);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--line);
-      border-right: 1px solid rgba(26, 49, 80, 0.3);
-    }
-    th:last-child { border-right: none; }
-    td {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
       vertical-align: top;
       text-align: left;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(34, 211, 238, 0.03); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #67e8f9; }
-    /* Status */
+    th { background: #173253; }
+    .muted { color: var(--muted); }
+    .warn {
+      margin: 0 0 14px 0;
+      padding: 10px 12px;
+      border: 1px solid #fbbf24;
+      border-radius: 8px;
+      background: #3f2a07;
+      color: #fde68a;
+      font-size: 13px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .menu-link {
+      display: block;
+      text-decoration: none;
+      color: #eaf5ff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      background: linear-gradient(160deg, #102a49, #12243d);
+      font-weight: 600;
+    }
+    .menu-link:hover {
+      border-color: #67e8f9;
+      background: linear-gradient(160deg, #12365d, #132741);
+    }
     .status-badge {
       display: inline-block;
       min-width: 72px;
       text-align: center;
-      padding: 3px 10px;
+      padding: 4px 8px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
-    .status-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-    .status-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .status-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .status-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
+    .status-green {
+      background: #14532d;
+      color: #bbf7d0;
+      border: 1px solid #22c55e;
+    }
+    .status-yellow {
+      background: #422006;
+      color: #fde68a;
+      border: 1px solid #f59e0b;
+    }
+    .status-red {
+      background: #450a0a;
+      color: #fecaca;
+      border: 1px solid #ef4444;
+    }
+    .status-gray {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #6b7280;
+    }
     .status-cell {
       display: flex;
       align-items: center;
@@ -202,8 +165,9 @@
       gap: 10px;
     }
     .status-word {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: lowercase;
       min-width: 52px;
       text-align: right;
     }
@@ -211,93 +175,34 @@
     .status-word-yellow { color: #f59e0b; }
     .status-word-red { color: #ef4444; }
     .status-word-gray { color: #9ca3af; }
-    /* Footer */
-    .footer {
-      margin-top: 8px;
-      padding: 20px 0;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-size: 12px;
-      color: #4a6580;
-    }
-    .footer a { color: var(--muted); text-decoration: none; }
-    .footer a:hover { color: var(--accent); }
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Table container scroll */
-    .table-scroll {
-      overflow-x: auto;
-    }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 16px 20px;
-      padding: 12px 16px;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 10px;
-      background: rgba(245, 158, 11, 0.1);
-      color: #fbbf24;
-      font-size: 13px;
-    }
   </style>
 </head>
 <body>
-
-  <nav class="topnav">
-    <a class="brand" href="EntraDashboard.html">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Entra Dashboard
-    </a>
-    <a class="nav-link" href="EntraDashboard.html">Home</a>
-    <a class="nav-link" href="EntraDashboard.conditional-access.html">Conditional Access</a>
-    <a class="nav-link" href="EntraDashboard.users.html">Users</a>
-    <a class="nav-link" href="EntraDashboard.groups.html">Groups</a>
-    <a class="nav-link" href="EntraDashboard.devices.html">Devices</a>
-    <a class="nav-link" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
-    <a class="nav-link" href="EntraDashboard.app-registrations.html">App Registrations</a>
-    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring & Health</a>
-    <a class="nav-link" href="EntraDashboard.intune-home.html">Intune</a>
-    <a class="nav-link active" href="EntraDashboard.defender-home.html">Defender</a>
-    <a class="nav-link" href="EntraDashboard.pim.html">PIM</a>
-  </nav>
-
   <div class="wrap">
-    <header class="header">
-      <h1>Defender Home</h1>
-      <div class="subtitle">Generated: 2026-02-13 16:05:52Z</div>
-    </header>
-
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Defender Home</h2>
-      <div class="cards">
-
-<div class='card'><h3>Incidents (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>incidentId</th><th>displayName</th><th>severity</th><th>status</th><th>classification</th><th>determination</th><th>createdDateTime</th><th>lastUpdateDateTime</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Defender Alerts</h2>
-      <div class="cards">
-
-<div class='card'><h3>Alerts (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>createdDateTime</th><th>title</th><th>serviceSource</th><th>severity</th><th>status</th><th>category</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> Defender Secure Scores</h2>
-      <div class="cards">
-
-<div class='card'><h3>Secure Scores (Top 100)</h3><div class="table-scroll"><table><thead><tr><th>createdDateTime</th><th>currentScore</th><th>maxScore</th><th>activeUserCount</th><th>enabledServices</th></tr></thead><tbody><tr><td>02/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/31/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/30/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/29/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/28/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/27/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/26/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/25/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/24/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/23/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/22/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/21/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/20/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/19/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/18/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/17/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/16/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/15/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/14/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/31/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/30/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/29/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/28/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/27/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/26/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/25/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/24/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/23/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/22/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/21/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/20/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/19/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/18/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/17/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/16/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/15/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/14/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/13/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/12/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/11/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/10/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/09/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/08/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/07/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/06/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/05/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/04/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/03/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/02/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/01/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/30/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/29/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/28/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/27/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/26/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/25/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/24/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/23/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/22/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/21/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/20/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/19/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/18/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/17/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/16/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-13 16:05:52Z &middot;
-      <a href="EntraDashboard.html">Back to Overview</a>
-    </footer>
+    <h1>Entra Dashboard - Defender Home</h1>
+    <div class="sub">Generated: 2026-02-14 15:12:39Z</div>
+    
+    <nav class="topnav">
+      <a href=".\EntraDashboard.html">Home</a>
+<a href=".\EntraDashboard.conditional-access.html">Conditional Access</a>
+<a href=".\EntraDashboard.users.html">Users</a>
+<a href=".\EntraDashboard.groups.html">Groups</a>
+<a href=".\EntraDashboard.devices.html">Devices</a>
+<a href=".\EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+<a href=".\EntraDashboard.app-registrations.html">App Registrations</a>
+<a href=".\EntraDashboard.monitoring-health.html">Monitoring and Health</a>
+<a href=".\EntraDashboard.intune-home.html">Intune Home</a>
+<a href=".\EntraDashboard.defender-home.html">Defender Home</a>
+    </nav>
+    <section class="section"><h2>Defender Home</h2><div class="cards">
+<div class='card'><h3>Incidents (Top 200)</h3><table><thead><tr><th>incidentId</th><th>displayName</th><th>severity</th><th>status</th><th>classification</th><th>determination</th><th>createdDateTime</th><th>lastUpdateDateTime</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+</div></section>
+<section class="section"><h2>Defender Alerts</h2><div class="cards">
+<div class='card'><h3>Alerts (Top 200)</h3><table><thead><tr><th>createdDateTime</th><th>title</th><th>serviceSource</th><th>severity</th><th>status</th><th>category</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+</div></section>
+<section class="section"><h2>Defender Secure Scores</h2><div class="cards">
+<div class='card'><h3>Secure Scores (Top 100)</h3><table><thead><tr><th>createdDateTime</th><th>currentScore</th><th>maxScore</th><th>activeUserCount</th><th>enabledServices</th></tr></thead><tbody><tr><td>02/14/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/31/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/30/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/29/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/28/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/27/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/26/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/25/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/24/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/23/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/22/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/21/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/20/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/19/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/18/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/17/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/16/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/15/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/14/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/31/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/30/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/29/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/28/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/27/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/26/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/25/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/24/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/23/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/22/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/21/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/20/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/19/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/18/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/17/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/16/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/15/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/14/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/13/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/12/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/11/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/10/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/09/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/08/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/07/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/06/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/05/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/04/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/03/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/02/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/01/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/30/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/29/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/28/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/27/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/26/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/25/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/24/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/23/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/22/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/21/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/20/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/19/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/18/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/17/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr></tbody></table></div>
+</div></section>
   </div>
 </body>
 </html>
