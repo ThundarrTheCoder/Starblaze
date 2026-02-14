@@ -6,150 +6,283 @@
   <title>Entra Dashboard - PIM</title>
   <style>
     :root {
-      --bg: #08111f;
-      --bg2: #0d1d33;
-      --fg: #e6edf7;
-      --muted: #9fb3cc;
-      --card: #102038;
-      --line: #1f3758;
+      --bg: #06101e;
+      --bg2: #0a1929;
+      --fg: #e8edf4;
+      --muted: #8da2bc;
+      --card: rgba(14, 30, 52, 0.7);
+      --card-solid: #0e1e34;
+      --line: #1a3150;
       --accent: #22d3ee;
       --accent2: #38bdf8;
+      --accent-glow: rgba(34, 211, 238, 0.15);
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --glass: rgba(10, 25, 45, 0.75);
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
+      font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
       color: var(--fg);
-      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
-    h1 { margin: 0 0 6px 0; font-size: 28px; }
-    .sub { color: var(--muted); margin-bottom: 16px; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      position: relative;
+      z-index: 1;
+    }
+    /* Sticky Nav */
     .topnav {
-      margin: 0 0 14px 0;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(11, 27, 48, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(6, 16, 30, 0.82);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 24px;
+      margin: 0 -24px 28px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
-    .topnav a {
+    .topnav .brand {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--accent);
+      margin-right: 12px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .topnav .brand svg { flex-shrink: 0; }
+    .topnav a.nav-link {
       display: inline-block;
       text-decoration: none;
-      color: #041423;
+      color: var(--muted);
       font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .topnav a.nav-link:hover {
+      color: var(--fg);
+      background: rgba(34, 211, 238, 0.1);
+    }
+    .topnav a.nav-link.active {
+      color: #06101e;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       font-weight: 600;
-      border: 1px solid #67e8f9;
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
-      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
     }
-    .topnav a:hover {
-      background: linear-gradient(135deg, #67e8f9, #bae6fd);
-      transform: translateY(-1px);
+    /* Header */
+    .header { padding: 8px 0 24px; }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
     }
-    a {
-      color: #67e8f9;
+    .header .subtitle {
+      color: var(--muted);
+      font-size: 14px;
     }
-    a:hover {
-      color: #a5f3fc;
-    }
+    /* Section Cards */
     .section {
-      margin: 18px 0;
+      margin: 0 0 24px;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--card);
+      backdrop-filter: blur(12px);
       overflow: hidden;
+      animation: fadeUp 0.5s ease-out both;
     }
     .section h2 {
       margin: 0;
-      padding: 12px 14px;
-      font-size: 20px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      color: #03263a;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      color: var(--fg);
+      background: none;
     }
+    .section h2 svg { width: 18px; height: 18px; color: var(--accent); }
     .cards {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+      padding: 0;
     }
     .card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
-      background: #0e1e34;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      background: none;
     }
     .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
+      margin: 0;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
+      background: rgba(23, 50, 83, 0.2);
     }
+    /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th, td {
-      border: 1px solid var(--line);
-      padding: 8px;
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      background: rgba(23, 50, 83, 0.5);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid rgba(26, 49, 80, 0.3);
+    }
+    th:last-child { border-right: none; }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
       vertical-align: top;
       text-align: left;
     }
-    th { background: #173253; }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 10px 12px;
-      border: 1px solid #fbbf24;
-      border-radius: 8px;
-      background: #3f2a07;
-      color: #fde68a;
-      font-size: 13px;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .menu-link {
-      display: block;
-      text-decoration: none;
-      color: #eaf5ff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      background: linear-gradient(160deg, #102a49, #12243d);
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #67e8f9; }
+    /* Status */
+    .status-badge {
+      display: inline-block;
+      min-width: 72px;
+      text-align: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
       font-weight: 600;
     }
-    .menu-link:hover {
-      border-color: #67e8f9;
-      background: linear-gradient(160deg, #12365d, #132741);
+    .status-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
+    .status-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .status-word {
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 52px;
+      text-align: right;
+    }
+    .status-word-green { color: #22c55e; }
+    .status-word-yellow { color: #f59e0b; }
+    .status-word-red { color: #ef4444; }
+    .status-word-gray { color: #9ca3af; }
+    /* Footer */
+    .footer {
+      margin-top: 8px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 12px;
+      color: #4a6580;
+    }
+    .footer a { color: var(--muted); text-decoration: none; }
+    .footer a:hover { color: var(--accent); }
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Table container scroll */
+    .table-scroll {
+      overflow-x: auto;
+    }
+    .muted { color: var(--muted); }
+    .warn {
+      margin: 16px 20px;
+      padding: 12px 16px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
+
+  <nav class="topnav">
+    <a class="brand" href="EntraDashboard.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Entra Dashboard
+    </a>
+    <a class="nav-link" href="EntraDashboard.html">Home</a>
+    <a class="nav-link" href="EntraDashboard.conditional-access.html">Conditional Access</a>
+    <a class="nav-link" href="EntraDashboard.users.html">Users</a>
+    <a class="nav-link" href="EntraDashboard.groups.html">Groups</a>
+    <a class="nav-link" href="EntraDashboard.devices.html">Devices</a>
+    <a class="nav-link" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+    <a class="nav-link" href="EntraDashboard.app-registrations.html">App Registrations</a>
+    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring & Health</a>
+    <a class="nav-link" href="EntraDashboard.intune-home.html">Intune</a>
+    <a class="nav-link" href="EntraDashboard.defender-home.html">Defender</a>
+    <a class="nav-link active" href="EntraDashboard.pim.html">PIM</a>
+  </nav>
+
   <div class="wrap">
-    <h1>Entra Dashboard - PIM</h1>
-    <div class="sub">Generated: 2026-02-13 14:59:02Z</div>
-    
-    <nav class="topnav">
-      <a href="EntraDashboard.html">Home</a>
-<a href="EntraDashboard.conditional-access.html">Conditional Access</a>
-<a href="EntraDashboard.pim.html">PIM</a>
-<a href="EntraDashboard.users.html">Users</a>
-<a href="EntraDashboard.groups.html">Groups</a>
-<a href="EntraDashboard.devices.html">Devices</a>
-<a href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
-<a href="EntraDashboard.app-registrations.html">App Registrations</a>
-<a href="EntraDashboard.monitoring-health.html">Monitoring and Health</a>
-    </nav>
-    <section class="section"><h2>PIM</h2><div class="cards">
-<div class='card'><h3>Role Assignment Schedules</h3><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>assignmentType</th><th>createdUsing</th></tr></thead><tbody><tr><td>lAPpYvVpN0KRkAEhdxReEH7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReECkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEKyiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEN4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>4-PYiFWPHkqVOpuYmLiHa0pE7P3R6n1NjWMeefBw46Q-1</td><td>fdec444a-ead1-4d7d-8d63-1e79f070e3a4</td><td>88d8e3e3-8f55-4a1e-953a-9b9898b8876b</td><td>Assigned</td><td></td></tr><tr><td>UafX_Qu2SkSYTAJlL-j6HCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fdd7a751-b60b-444a-984c-02652fe8fa1c</td><td>Assigned</td><td></td></tr><tr><td>QlgsiaapOkaAQXKqCMo89ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>892c5842-a9a6-463a-8041-72aa08ca3cf6</td><td>Assigned</td><td></td></tr><tr><td>XhIHF6IKTU2GVafHhsdqJSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>1707125e-0aa2-4d4d-8655-a7c786c76a25</td><td>Assigned</td><td></td></tr><tr><td>31t0KwMIgE2qZYIsRJParCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>2b745bdf-0803-4d80-aa65-822c4493daac</td><td>Assigned</td><td></td></tr><tr><td>XrtkCdube02sKVjnlIYqQCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0964bb5e-9bdb-4d7b-ac29-58e794862a40</td><td>Assigned</td><td></td></tr><tr><td>Y3E2RKHrw0SYr_V4eHn5aikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>44367163-eba1-44c3-98af-f5787879f96a</td><td>Assigned</td><td></td></tr><tr><td>7Yt80xEHF0S6OLSr5mzkwikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d37c8bed-0711-4417-ba38-b4abe66ce4c2</td><td>Assigned</td><td></td></tr><tr><td>Gik1iIyR10-pzvqknwz32Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8835291a-918c-4fd7-a9ce-faa49f0cf7d9</td><td>Assigned</td><td></td></tr><tr><td>a3EmBT0RFUyyyGjjwiufgCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0526716b-113d-4c15-b2c8-68e3c22b9f80</td><td>Assigned</td><td></td></tr><tr><td>lonqqS8SdEyVII7c0ZKCbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>a9ea8996-122f-4c74-9520-8edcd192826c</td><td>Assigned</td><td></td></tr><tr><td>l4VkEWyS80ycNrzrsLqNzCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11648597-926c-4cf3-9c36-bcebb0ba8dcc</td><td>Assigned</td><td></td></tr><tr><td>rTnpMXKWlkecLocxgTQtLSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31e939ad-9672-4796-9c2e-873181342d2d</td><td>Assigned</td><td></td></tr><tr><td>3i5W0tt0fkWntlROI267YSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d2562ede-74db-457e-a7b6-544e236ebb61</td><td>Assigned</td><td></td></tr><tr><td>jUof6zok8EGfvcfN9sXvfCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>eb1f4a8d-243a-41f0-9fbd-c7cdf6c5ef7c</td><td>Assigned</td><td></td></tr><tr><td>3ywjKSOT_UKt4h0JevPk3ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>29232cdf-9323-42fd-ade2-1d097af3e4de</td><td>Assigned</td><td></td></tr><tr><td>XzPfJeuGGUG3Fw_wLeIH6Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>25df335f-86eb-4119-b717-0ff02de207e9</td><td>Assigned</td><td></td></tr><tr><td>YMROdH45rUKkYos_l0egLCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>744ec460-397e-42ad-a462-8b3f9747a02c</td><td>Assigned</td><td></td></tr><tr><td>RhIJaeggVkqqTQZgdbKnqCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>69091246-20e8-4a56-aa4d-066075b2a7a8</td><td>Assigned</td><td></td></tr><tr><td>89yotdUJqUOmOY4p7ykUcCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b5a8dcf3-09d5-43a9-a639-8e29ef291470</td><td>Assigned</td><td></td></tr><tr><td>UB-K8uf2cUWBi2oS8q9rbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f28a1f50-f6e7-4571-818b-6a12f2af6b6c</td><td>Assigned</td><td></td></tr><tr><td>-y85MWxY0UKTRuWUFaLMTikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31392ffb-586c-42d1-9346-e59415a2cc4e</td><td>Assigned</td><td></td></tr><tr><td>LJnv8vs6uUa3z6Em7nTEUSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f2ef992c-3afb-46b9-b7cf-a126ee74c451</td><td>Assigned</td><td></td></tr><tr><td>YB1FEbKs60Wn1kPQ8BJcEykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11451d60-acb2-45eb-a7d6-43d0f0125c13</td><td>Assigned</td><td></td></tr><tr><td>W5fvdAVmr0Cl0rlTnYNjUykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>74ef975b-6605-40af-a5d2-b9539d836353</td><td>Assigned</td><td></td></tr><tr><td>ePROZI_iKE653D_d6aoLHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>644ef478-e28f-4e28-b9dc-3fdde9aa0b1f</td><td>Assigned</td><td></td></tr><tr><td>kl2Jm9Msx0SdAqasLV6lwykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3</td><td>Assigned</td><td></td></tr><tr><td>egSMFQfJVkW370RlUaa19ykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>158c047a-c907-4556-b7ef-446551a6b5f7</td><td>Assigned</td><td></td></tr><tr><td>xdPYRQLIxkWzKh1wteHobikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>45d8d3c5-c802-45c6-b32a-1d70b5e1e86e</td><td>Assigned</td><td></td></tr><tr><td>MWSpON8rTEuLbl09irrBpCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>38a96431-2bdf-4b4c-8b6e-5d3d8abac1a4</td><td>Assigned</td><td></td></tr><tr><td>oUUvvn1Fr0KgZ27B-mO8RSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>be2f45a1-457d-42af-a067-6ec1fa63bc45</td><td>Assigned</td><td></td></tr><tr><td>OxUpg9AxJ0e5RXRes7xfMSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8329153b-31d0-4727-b945-745eb3bc5f31</td><td>Assigned</td><td></td></tr><tr><td>gwhGJ_EdkUawMjt5ZD5eYykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>27460883-1df1-4691-b032-3b79643e5e63</td><td>Assigned</td><td></td></tr><tr><td>8fbO6L3kqE68B0uNlQ9Edykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>e8cef6f1-e4bd-4ea8-bc07-4b8d950f4477</td><td>Assigned</td><td></td></tr><tr><td>cqeYdnt4yEqQH2DWsIr_0ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>7698a772-787b-4ac8-901f-60d6b08affd2</td><td>Assigned</td><td></td></tr><tr><td>Phy-sV22GU-EJ_b6DZf-uSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b1be1c3e-b65d-4f19-8427-f6fa0d97feb9</td><td>Assigned</td><td></td></tr><tr><td>5wuT_mJe20eRr5jDpJo4sSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fe930be7-5e62-47db-91af-98c3a49a38b1</td><td>Assigned</td><td></td></tr><tr><td>2ZvjxAAR00aMZfsWDaAHHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>c4e39bd9-1100-46d3-8c65-fb160da0071f</td><td>Assigned</td><td></td></tr><tr><td>4yeYchSc90m7G5YI8Va7uCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>729827e3-9c14-49f7-bb1b-9608f156bbb8</td><td>Assigned</td><td></td></tr><tr><td>22IsOhhTDUKNdCOv_uXZ1Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>3a2c62db-5318-420d-8d74-23affee5d9d5</td><td>Assigned</td><td></td></tr><tr><td>gf0j8DemVkuV_XkawCJgMykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f023fd81-a637-4b56-95fd-791ac0226033</td><td>Assigned</td><td></td></tr><tr><td>YUb1sHQtUEyvox7IA_Eu_ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b0f54661-2d74-4c50-afa3-1ec803f12efe</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfX7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfayiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfd4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr></tbody></table></div>
-<div class='card'><h3>Role Eligibility Schedules</h3><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>memberType</th><th>scheduleInfo</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
-</div></section>
+    <header class="header">
+      <h1>PIM</h1>
+      <div class="subtitle">Generated: 2026-02-13 14:59:02Z</div>
+    </header>
+
+    <section class="section">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> PIM</h2>
+      <div class="cards">
+
+<div class='card'><h3>Role Assignment Schedules</h3><div class="table-scroll"><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>assignmentType</th><th>createdUsing</th></tr></thead><tbody><tr><td>lAPpYvVpN0KRkAEhdxReEH7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReECkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEKyiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEN4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>4-PYiFWPHkqVOpuYmLiHa0pE7P3R6n1NjWMeefBw46Q-1</td><td>fdec444a-ead1-4d7d-8d63-1e79f070e3a4</td><td>88d8e3e3-8f55-4a1e-953a-9b9898b8876b</td><td>Assigned</td><td></td></tr><tr><td>UafX_Qu2SkSYTAJlL-j6HCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fdd7a751-b60b-444a-984c-02652fe8fa1c</td><td>Assigned</td><td></td></tr><tr><td>QlgsiaapOkaAQXKqCMo89ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>892c5842-a9a6-463a-8041-72aa08ca3cf6</td><td>Assigned</td><td></td></tr><tr><td>XhIHF6IKTU2GVafHhsdqJSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>1707125e-0aa2-4d4d-8655-a7c786c76a25</td><td>Assigned</td><td></td></tr><tr><td>31t0KwMIgE2qZYIsRJParCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>2b745bdf-0803-4d80-aa65-822c4493daac</td><td>Assigned</td><td></td></tr><tr><td>XrtkCdube02sKVjnlIYqQCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0964bb5e-9bdb-4d7b-ac29-58e794862a40</td><td>Assigned</td><td></td></tr><tr><td>Y3E2RKHrw0SYr_V4eHn5aikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>44367163-eba1-44c3-98af-f5787879f96a</td><td>Assigned</td><td></td></tr><tr><td>7Yt80xEHF0S6OLSr5mzkwikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d37c8bed-0711-4417-ba38-b4abe66ce4c2</td><td>Assigned</td><td></td></tr><tr><td>Gik1iIyR10-pzvqknwz32Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8835291a-918c-4fd7-a9ce-faa49f0cf7d9</td><td>Assigned</td><td></td></tr><tr><td>a3EmBT0RFUyyyGjjwiufgCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0526716b-113d-4c15-b2c8-68e3c22b9f80</td><td>Assigned</td><td></td></tr><tr><td>lonqqS8SdEyVII7c0ZKCbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>a9ea8996-122f-4c74-9520-8edcd192826c</td><td>Assigned</td><td></td></tr><tr><td>l4VkEWyS80ycNrzrsLqNzCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11648597-926c-4cf3-9c36-bcebb0ba8dcc</td><td>Assigned</td><td></td></tr><tr><td>rTnpMXKWlkecLocxgTQtLSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31e939ad-9672-4796-9c2e-873181342d2d</td><td>Assigned</td><td></td></tr><tr><td>3i5W0tt0fkWntlROI267YSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d2562ede-74db-457e-a7b6-544e236ebb61</td><td>Assigned</td><td></td></tr><tr><td>jUof6zok8EGfvcfN9sXvfCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>eb1f4a8d-243a-41f0-9fbd-c7cdf6c5ef7c</td><td>Assigned</td><td></td></tr><tr><td>3ywjKSOT_UKt4h0JevPk3ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>29232cdf-9323-42fd-ade2-1d097af3e4de</td><td>Assigned</td><td></td></tr><tr><td>XzPfJeuGGUG3Fw_wLeIH6Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>25df335f-86eb-4119-b717-0ff02de207e9</td><td>Assigned</td><td></td></tr><tr><td>YMROdH45rUKkYos_l0egLCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>744ec460-397e-42ad-a462-8b3f9747a02c</td><td>Assigned</td><td></td></tr><tr><td>RhIJaeggVkqqTQZgdbKnqCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>69091246-20e8-4a56-aa4d-066075b2a7a8</td><td>Assigned</td><td></td></tr><tr><td>89yotdUJqUOmOY4p7ykUcCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b5a8dcf3-09d5-43a9-a639-8e29ef291470</td><td>Assigned</td><td></td></tr><tr><td>UB-K8uf2cUWBi2oS8q9rbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f28a1f50-f6e7-4571-818b-6a12f2af6b6c</td><td>Assigned</td><td></td></tr><tr><td>-y85MWxY0UKTRuWUFaLMTikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31392ffb-586c-42d1-9346-e59415a2cc4e</td><td>Assigned</td><td></td></tr><tr><td>LJnv8vs6uUa3z6Em7nTEUSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f2ef992c-3afb-46b9-b7cf-a126ee74c451</td><td>Assigned</td><td></td></tr><tr><td>YB1FEbKs60Wn1kPQ8BJcEykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11451d60-acb2-45eb-a7d6-43d0f0125c13</td><td>Assigned</td><td></td></tr><tr><td>W5fvdAVmr0Cl0rlTnYNjUykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>74ef975b-6605-40af-a5d2-b9539d836353</td><td>Assigned</td><td></td></tr><tr><td>ePROZI_iKE653D_d6aoLHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>644ef478-e28f-4e28-b9dc-3fdde9aa0b1f</td><td>Assigned</td><td></td></tr><tr><td>kl2Jm9Msx0SdAqasLV6lwykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3</td><td>Assigned</td><td></td></tr><tr><td>egSMFQfJVkW370RlUaa19ykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>158c047a-c907-4556-b7ef-446551a6b5f7</td><td>Assigned</td><td></td></tr><tr><td>xdPYRQLIxkWzKh1wteHobikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>45d8d3c5-c802-45c6-b32a-1d70b5e1e86e</td><td>Assigned</td><td></td></tr><tr><td>MWSpON8rTEuLbl09irrBpCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>38a96431-2bdf-4b4c-8b6e-5d3d8abac1a4</td><td>Assigned</td><td></td></tr><tr><td>oUUvvn1Fr0KgZ27B-mO8RSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>be2f45a1-457d-42af-a067-6ec1fa63bc45</td><td>Assigned</td><td></td></tr><tr><td>OxUpg9AxJ0e5RXRes7xfMSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8329153b-31d0-4727-b945-745eb3bc5f31</td><td>Assigned</td><td></td></tr><tr><td>gwhGJ_EdkUawMjt5ZD5eYykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>27460883-1df1-4691-b032-3b79643e5e63</td><td>Assigned</td><td></td></tr><tr><td>8fbO6L3kqE68B0uNlQ9Edykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>e8cef6f1-e4bd-4ea8-bc07-4b8d950f4477</td><td>Assigned</td><td></td></tr><tr><td>cqeYdnt4yEqQH2DWsIr_0ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>7698a772-787b-4ac8-901f-60d6b08affd2</td><td>Assigned</td><td></td></tr><tr><td>Phy-sV22GU-EJ_b6DZf-uSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b1be1c3e-b65d-4f19-8427-f6fa0d97feb9</td><td>Assigned</td><td></td></tr><tr><td>5wuT_mJe20eRr5jDpJo4sSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fe930be7-5e62-47db-91af-98c3a49a38b1</td><td>Assigned</td><td></td></tr><tr><td>2ZvjxAAR00aMZfsWDaAHHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>c4e39bd9-1100-46d3-8c65-fb160da0071f</td><td>Assigned</td><td></td></tr><tr><td>4yeYchSc90m7G5YI8Va7uCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>729827e3-9c14-49f7-bb1b-9608f156bbb8</td><td>Assigned</td><td></td></tr><tr><td>22IsOhhTDUKNdCOv_uXZ1Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>3a2c62db-5318-420d-8d74-23affee5d9d5</td><td>Assigned</td><td></td></tr><tr><td>gf0j8DemVkuV_XkawCJgMykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f023fd81-a637-4b56-95fd-791ac0226033</td><td>Assigned</td><td></td></tr><tr><td>YUb1sHQtUEyvox7IA_Eu_ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b0f54661-2d74-4c50-afa3-1ec803f12efe</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfX7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfayiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfd4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr></tbody></table></div></div>
+<div class='card'><h3>Role Eligibility Schedules</h3><div class="table-scroll"><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>memberType</th><th>scheduleInfo</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
+</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-13 14:59:02Z &middot;
+      <a href="EntraDashboard.html">Back to Overview</a>
+    </footer>
   </div>
 </body>
 </html>

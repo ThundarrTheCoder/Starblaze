@@ -6,158 +6,195 @@
   <title>Entra Dashboard - Users</title>
   <style>
     :root {
-      --bg: #08111f;
-      --bg2: #0d1d33;
-      --fg: #e6edf7;
-      --muted: #9fb3cc;
-      --card: #102038;
-      --line: #1f3758;
+      --bg: #06101e;
+      --bg2: #0a1929;
+      --fg: #e8edf4;
+      --muted: #8da2bc;
+      --card: rgba(14, 30, 52, 0.7);
+      --card-solid: #0e1e34;
+      --line: #1a3150;
       --accent: #22d3ee;
       --accent2: #38bdf8;
+      --accent-glow: rgba(34, 211, 238, 0.15);
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --glass: rgba(10, 25, 45, 0.75);
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
+      font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
       color: var(--fg);
-      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
-    h1 { margin: 0 0 6px 0; font-size: 28px; }
-    .sub { color: var(--muted); margin-bottom: 16px; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      position: relative;
+      z-index: 1;
+    }
+    /* Sticky Nav */
     .topnav {
-      margin: 0 0 14px 0;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(11, 27, 48, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(6, 16, 30, 0.82);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 24px;
+      margin: 0 -24px 28px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
-    .topnav a {
+    .topnav .brand {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--accent);
+      margin-right: 12px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .topnav .brand svg { flex-shrink: 0; }
+    .topnav a.nav-link {
       display: inline-block;
       text-decoration: none;
-      color: #041423;
+      color: var(--muted);
       font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .topnav a.nav-link:hover {
+      color: var(--fg);
+      background: rgba(34, 211, 238, 0.1);
+    }
+    .topnav a.nav-link.active {
+      color: #06101e;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       font-weight: 600;
-      border: 1px solid #67e8f9;
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
-      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
     }
-    .topnav a:hover {
-      background: linear-gradient(135deg, #67e8f9, #bae6fd);
-      transform: translateY(-1px);
+    /* Header */
+    .header { padding: 8px 0 24px; }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
     }
-    a {
-      color: #67e8f9;
+    .header .subtitle {
+      color: var(--muted);
+      font-size: 14px;
     }
-    a:hover {
-      color: #a5f3fc;
-    }
+    /* Section Cards */
     .section {
-      margin: 18px 0;
+      margin: 0 0 24px;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--card);
+      backdrop-filter: blur(12px);
       overflow: hidden;
+      animation: fadeUp 0.5s ease-out both;
     }
     .section h2 {
       margin: 0;
-      padding: 12px 14px;
-      font-size: 20px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      color: #03263a;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      color: var(--fg);
+      background: none;
     }
+    .section h2 svg { width: 18px; height: 18px; color: var(--accent); }
     .cards {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+      padding: 0;
     }
     .card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
-      background: #0e1e34;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      background: none;
     }
     .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
+      margin: 0;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
+      background: rgba(23, 50, 83, 0.2);
     }
+    /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th, td {
-      border: 1px solid var(--line);
-      padding: 8px;
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      background: rgba(23, 50, 83, 0.5);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid rgba(26, 49, 80, 0.3);
+    }
+    th:last-child { border-right: none; }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
       vertical-align: top;
       text-align: left;
     }
-    th { background: #173253; }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 10px 12px;
-      border: 1px solid #fbbf24;
-      border-radius: 8px;
-      background: #3f2a07;
-      color: #fde68a;
-      font-size: 13px;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .menu-link {
-      display: block;
-      text-decoration: none;
-      color: #eaf5ff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      background: linear-gradient(160deg, #102a49, #12243d);
-      font-weight: 600;
-    }
-    .menu-link:hover {
-      border-color: #67e8f9;
-      background: linear-gradient(160deg, #12365d, #132741);
-    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #67e8f9; }
+    /* Status */
     .status-badge {
       display: inline-block;
       min-width: 72px;
       text-align: center;
-      padding: 4px 8px;
+      padding: 3px 10px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+      font-size: 11px;
+      font-weight: 600;
     }
-    .status-green {
-      background: #14532d;
-      color: #bbf7d0;
-      border: 1px solid #22c55e;
-    }
-    .status-yellow {
-      background: #422006;
-      color: #fde68a;
-      border: 1px solid #f59e0b;
-    }
-    .status-red {
-      background: #450a0a;
-      color: #fecaca;
-      border: 1px solid #ef4444;
-    }
-    .status-gray {
-      background: #1f2937;
-      color: #d1d5db;
-      border: 1px solid #6b7280;
-    }
+    .status-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
     .status-cell {
       display: flex;
       align-items: center;
@@ -165,9 +202,8 @@
       gap: 10px;
     }
     .status-word {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: lowercase;
+      font-size: 11px;
+      font-weight: 600;
       min-width: 52px;
       text-align: right;
     }
@@ -175,28 +211,77 @@
     .status-word-yellow { color: #f59e0b; }
     .status-word-red { color: #ef4444; }
     .status-word-gray { color: #9ca3af; }
+    /* Footer */
+    .footer {
+      margin-top: 8px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 12px;
+      color: #4a6580;
+    }
+    .footer a { color: var(--muted); text-decoration: none; }
+    .footer a:hover { color: var(--accent); }
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Table container scroll */
+    .table-scroll {
+      overflow-x: auto;
+    }
+    .muted { color: var(--muted); }
+    .warn {
+      margin: 16px 20px;
+      padding: 12px 16px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
+
+  <nav class="topnav">
+    <a class="brand" href="EntraDashboard.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Entra Dashboard
+    </a>
+    <a class="nav-link" href="EntraDashboard.html">Home</a>
+    <a class="nav-link" href="EntraDashboard.conditional-access.html">Conditional Access</a>
+    <a class="nav-link active" href="EntraDashboard.users.html">Users</a>
+    <a class="nav-link" href="EntraDashboard.groups.html">Groups</a>
+    <a class="nav-link" href="EntraDashboard.devices.html">Devices</a>
+    <a class="nav-link" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+    <a class="nav-link" href="EntraDashboard.app-registrations.html">App Registrations</a>
+    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring & Health</a>
+    <a class="nav-link" href="EntraDashboard.intune-home.html">Intune</a>
+    <a class="nav-link" href="EntraDashboard.defender-home.html">Defender</a>
+    <a class="nav-link" href="EntraDashboard.pim.html">PIM</a>
+  </nav>
+
   <div class="wrap">
-    <h1>Entra Dashboard - Users</h1>
-    <div class="sub">Generated: 2026-02-13 16:05:52Z</div>
-    
-    <nav class="topnav">
-      <a href="EntraDashboard.html">Home</a>
-<a href="EntraDashboard.conditional-access.html">Conditional Access</a>
-<a href="EntraDashboard.users.html">Users</a>
-<a href="EntraDashboard.groups.html">Groups</a>
-<a href="EntraDashboard.devices.html">Devices</a>
-<a href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
-<a href="EntraDashboard.app-registrations.html">App Registrations</a>
-<a href="EntraDashboard.monitoring-health.html">Monitoring and Health</a>
-<a href="EntraDashboard.intune-home.html">Intune Home</a>
-<a href="EntraDashboard.defender-home.html">Defender Home</a>
-    </nav>
-    <section class="section"><h2>Users</h2><div class="cards">
-<div class='card'><h3>Users (Top 200)</h3><table><thead><tr><th>displayName</th><th>userPrincipalName</th><th>accountEnabled</th><th>createdDateTime</th></tr></thead><tbody><tr><td>Break Glass01</td><td>breakglass01@puckfoo.onmicrosoft.com</td><td>True</td><td>11/08/2025 15:39:40</td></tr><tr><td>Break Glass02</td><td>breakglass02@puckfoo.onmicrosoft.com</td><td>True</td><td>11/08/2025 15:43:23</td></tr><tr><td>Puck Holland</td><td>puck@puckfoo.onmicrosoft.com</td><td>True</td><td>10/18/2019 14:54:36</td></tr><tr><td>Richard Holland</td><td>rholland@panthro.co</td><td>True</td><td>03/17/2019 13:45:05</td></tr></tbody></table></div>
-</div></section>
+    <header class="header">
+      <h1>Users</h1>
+      <div class="subtitle">Generated: 2026-02-13 16:05:52Z</div>
+    </header>
+
+    <section class="section">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Users</h2>
+      <div class="cards">
+
+<div class='card'><h3>Users (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>userPrincipalName</th><th>accountEnabled</th><th>createdDateTime</th></tr></thead><tbody><tr><td>Break Glass01</td><td>breakglass01@puckfoo.onmicrosoft.com</td><td>True</td><td>11/08/2025 15:39:40</td></tr><tr><td>Break Glass02</td><td>breakglass02@puckfoo.onmicrosoft.com</td><td>True</td><td>11/08/2025 15:43:23</td></tr><tr><td>Puck Holland</td><td>puck@puckfoo.onmicrosoft.com</td><td>True</td><td>10/18/2019 14:54:36</td></tr><tr><td>Richard Holland</td><td>rholland@panthro.co</td><td>True</td><td>03/17/2019 13:45:05</td></tr></tbody></table></div></div>
+</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-13 16:05:52Z &middot;
+      <a href="EntraDashboard.html">Back to Overview</a>
+    </footer>
   </div>
 </body>
 </html>
