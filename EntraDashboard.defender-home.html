@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entra Dashboard - Defender Home</title>
+  <title>Entra Dashboard - Microsoft Defender</title>
   <style>
     :root {
       --bg: #06101e;
@@ -52,7 +52,7 @@
       z-index: 1;
     }
 
-    /* Sticky Nav */
+    /* ── Sticky Nav ── */
     .topnav {
       position: sticky;
       top: 0;
@@ -100,7 +100,7 @@
       font-weight: 600;
     }
 
-    /* Header */
+    /* ── Header ── */
     .header {
       padding: 8px 0 24px;
     }
@@ -121,64 +121,266 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    .header .subtitle .tenant-id {
+      font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+      font-size: 12px;
+      color: #5a7da0;
+      background: rgba(26, 49, 80, 0.5);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
 
-    /* Section Cards */
-    .section {
-      margin: 0 0 24px 0;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+    /* ── Metric Cards ── */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .metrics { grid-template-columns: 1fr; } }
+
+    .metric-card {
       background: var(--card);
       backdrop-filter: blur(12px);
-      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s;
       animation: fadeUp 0.5s ease-out both;
     }
-    .section h2 {
-      margin: 0;
+    .metric-card:nth-child(1) { animation-delay: 0s; }
+    .metric-card:nth-child(2) { animation-delay: 0.08s; }
+    .metric-card:nth-child(3) { animation-delay: 0.16s; }
+    .metric-card:nth-child(4) { animation-delay: 0.24s; }
+    .metric-card:hover {
+      border-color: rgba(34, 211, 238, 0.4);
+      box-shadow: 0 4px 24px rgba(34, 211, 238, 0.08);
+      transform: translateY(-2px);
+    }
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .metric-icon svg { width: 24px; height: 24px; }
+    .metric-icon.green  { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+    .metric-icon.cyan   { background: rgba(34, 211, 238, 0.15); color: #22d3ee; }
+    .metric-icon.amber  { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .metric-icon.purple { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .metric-data .metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .metric-data .metric-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Dashboard Grid ── */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
+
+    .dash-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease-out both;
+      animation-delay: 0.3s;
+    }
+    .dash-card.full-width {
+      grid-column: 1 / -1;
+    }
+    .dash-card-header {
       padding: 16px 20px;
-      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .dash-card-header h2 {
+      font-size: 16px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      color: var(--fg);
+      gap: 8px;
     }
-    .section h2 svg {
-      color: var(--accent);
+    .dash-card-header h2 svg { width: 18px; height: 18px; color: var(--accent); }
+    .dash-card-header .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .badge-green  { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .badge-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-red    { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-blue   { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .dash-card-body { padding: 20px; }
+
+    /* ── Secure Score Ring ── */
+    .score-container {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .score-ring {
+      position: relative;
+      width: 150px;
+      height: 150px;
       flex-shrink: 0;
     }
-    .cards {
-      padding: 20px;
+    .score-ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
+    .score-ring .ring-bg {
+      fill: none;
+      stroke: var(--line);
+      stroke-width: 10;
+    }
+    .score-ring .ring-fill {
+      fill: none;
+      stroke: var(--yellow);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 377;
+      stroke-dashoffset: 230;
+      animation: ringFill 1.5s ease-out 0.5s both;
+    }
+    .score-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .score-center .score-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+    .score-center .score-pct {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .score-details { flex: 1; min-width: 200px; }
+    .score-details .score-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26, 49, 80, 0.5);
+      font-size: 14px;
+    }
+    .score-details .score-row:last-child { border-bottom: none; }
+    .score-details .score-row .label { color: var(--muted); }
+    .score-details .score-row .val { font-weight: 600; }
+    .score-trend-down { color: var(--red); font-size: 12px; }
+    .score-trend-up { color: var(--green); font-size: 12px; }
+
+    /* ── Split Row ── */
+    .split-row {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      background: var(--card-solid);
+    @media (max-width: 600px) { .split-row { grid-template-columns: 1fr; } }
+
+    .compliance-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(14, 30, 52, 0.5);
+      border: 1px solid rgba(26, 49, 80, 0.5);
     }
-    .card h3 {
-      margin: 0 0 12px 0;
-      font-size: 15px;
+    .compliance-count {
+      font-size: 28px;
+      font-weight: 700;
+      width: 48px;
+      text-align: center;
+    }
+    .compliance-count.green { color: var(--green); }
+    .compliance-count.red { color: var(--red); }
+    .compliance-count.yellow { color: var(--yellow); }
+    .compliance-count.blue { color: var(--accent2); }
+    .compliance-info .compliance-title { font-size: 14px; font-weight: 600; }
+    .compliance-info .compliance-sub { font-size: 12px; color: var(--muted); }
+
+    /* ── Service Grid ── */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(14, 30, 52, 0.5);
+      border: 1px solid rgba(26, 49, 80, 0.5);
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .service-item:hover { border-color: var(--line); }
+    .service-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .service-dot.green { background: var(--green); box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
+    .service-dot.blue  { background: var(--accent2); box-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
+    .service-label { color: var(--fg); }
+    .service-status { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .empty-state h3 {
+      font-size: 18px;
       font-weight: 600;
-      color: var(--accent2);
+      margin-bottom: 6px;
+      color: var(--fg);
+    }
+    .empty-state p {
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    /* Tables */
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0 -4px;
-      padding: 0 4px;
-    }
-    table {
+    /* ── Table ── */
+    .mini-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th {
+    .mini-table th {
       text-align: left;
       padding: 10px 12px;
       background: rgba(23, 50, 83, 0.5);
@@ -188,106 +390,25 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       border-bottom: 1px solid var(--line);
-      white-space: nowrap;
     }
-    td {
+    .mini-table td {
       padding: 10px 12px;
       border-bottom: 1px solid rgba(26, 49, 80, 0.3);
-      vertical-align: top;
+      vertical-align: middle;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(34, 211, 238, 0.03); }
-
-    /* Status badges */
-    .status-badge {
-      display: inline-block;
-      min-width: 72px;
-      text-align: center;
-      padding: 4px 8px;
-      border-radius: 999px;
+    .mini-table tr:last-child td { border-bottom: none; }
+    .mini-table tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    .mini-table .mono {
+      font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
       font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .status-green {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-    }
-    .status-yellow {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .status-red {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .status-gray {
-      background: rgba(107, 114, 128, 0.15);
-      color: #d1d5db;
-      border: 1px solid rgba(107, 114, 128, 0.3);
-    }
-    .status-cell {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .status-word {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: lowercase;
-      min-width: 52px;
-      text-align: right;
-    }
-    .status-word-green { color: #22c55e; }
-    .status-word-yellow { color: #f59e0b; }
-    .status-word-red { color: #ef4444; }
-    .status-word-gray { color: #9ca3af; }
-
-    /* Warning box */
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 12px 16px;
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      border-radius: 10px;
-      background: rgba(63, 42, 7, 0.5);
-      color: #fde68a;
-      font-size: 13px;
+      color: var(--muted);
     }
 
-    /* Links */
+    /* ── Links ── */
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: #67e8f9; }
 
-    /* Menu grid */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .menu-link {
-      display: block;
-      text-decoration: none;
-      color: #eaf5ff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      background: var(--card-solid);
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .menu-link:hover {
-      border-color: rgba(34, 211, 238, 0.4);
-      background: rgba(18, 54, 93, 0.5);
-    }
-
-    /* Muted text */
-    .muted { color: var(--muted); }
-
-    /* Footer */
+    /* ── Footer ── */
     .footer {
       margin-top: 32px;
       padding: 20px 0;
@@ -299,15 +420,24 @@
     .footer a { color: var(--muted); text-decoration: none; }
     .footer a:hover { color: var(--accent); }
 
-    /* Animations */
+    /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ringFill {
+      from { stroke-dashoffset: 377; }
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
+
+    /* ── Utility ── */
+    .text-green { color: var(--green); }
+    .text-yellow { color: var(--yellow); }
+    .text-red { color: var(--red); }
+    .text-muted { color: var(--muted); }
   </style>
 </head>
 <body>
@@ -335,25 +465,336 @@
 
     <!-- Header -->
     <header class="header">
-      <h1>Defender Home</h1>
+      <h1>Microsoft Defender</h1>
       <div class="subtitle">
+        <span>Tenant: Panthro.co</span>
+        <span class="tenant-id">341ce2be-83c2-4a03-9275-a0bc5073d0fd</span>
         <span>Generated: 2026-02-14 15:12:39 UTC</span>
       </div>
     </header>
 
-    <section class="section" style="animation-delay: 0.0s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Defender Home</h2><div class="cards">
-<div class='card'><h3>Incidents (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>incidentId</th><th>displayName</th><th>severity</th><th>status</th><th>classification</th><th>determination</th><th>createdDateTime</th><th>lastUpdateDateTime</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div></section>
-    <section class="section" style="animation-delay: 0.1s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Defender Alerts</h2><div class="cards">
-<div class='card'><h3>Alerts (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>createdDateTime</th><th>title</th><th>serviceSource</th><th>severity</th><th>status</th><th>category</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div></section>
-    <section class="section" style="animation-delay: 0.2s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Defender Secure Scores</h2><div class="cards">
-<div class='card'><h3>Secure Scores (Top 100)</h3><div class="table-scroll"><table><thead><tr><th>createdDateTime</th><th>currentScore</th><th>maxScore</th><th>activeUserCount</th><th>enabledServices</th></tr></thead><tbody><tr><td>02/14/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>02/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/31/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/30/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/29/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/28/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/27/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/26/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/25/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/24/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/23/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/22/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/21/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/20/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/19/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/18/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/17/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/16/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/15/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/14/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/13/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/12/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/11/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/10/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/09/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/08/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/07/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/06/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/05/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/04/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/03/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/02/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>01/01/2026 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/31/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/30/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/29/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/28/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/27/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/26/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/25/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/24/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/23/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/22/2025 00:00:00</td><td>110.5</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/21/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/20/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/19/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/18/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/17/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/16/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/15/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/14/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/13/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/12/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/11/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/10/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/09/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/08/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/07/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/06/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/05/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/04/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/03/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/02/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>12/01/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/30/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/29/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/28/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/27/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/26/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/25/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/24/2025 00:00:00</td><td>118</td><td>283</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/23/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/22/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/21/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/20/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/19/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/18/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr><tr><td>11/17/2025 00:00:00</td><td>113</td><td>278</td><td>4</td><td>HasAADP1, HasAADP2, HasMCAS, HasCASD, HasAATP, HasMDOP1, HasDLP, HasAIPP1, HasAIPP2, HasMDB, HasSPOP1</td></tr></tbody></table></div></div>
-</div></section>
+    <!-- ── KPI Metrics ── -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value text-green">0</div>
+          <div class="metric-label">Active Incidents</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value text-green">0</div>
+          <div class="metric-label">Active Alerts</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value text-yellow">39%</div>
+          <div class="metric-label">Secure Score</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value">11</div>
+          <div class="metric-label">Enabled Services</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Row: Secure Score + Incidents ── -->
+    <div class="dash-grid">
+
+      <!-- Secure Score -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Secure Score
+          </h2>
+          <span class="badge badge-yellow">Needs Improvement</span>
+        </div>
+        <div class="dash-card-body">
+          <div class="score-container">
+            <div class="score-ring">
+              <svg viewBox="0 0 130 130">
+                <circle class="ring-bg" cx="65" cy="65" r="55"/>
+                <circle class="ring-fill" cx="65" cy="65" r="55"/>
+              </svg>
+              <div class="score-center">
+                <span class="score-num">39%</span>
+                <span class="score-pct">110.5 / 283</span>
+              </div>
+            </div>
+            <div class="score-details">
+              <div class="score-row">
+                <span class="label">Current Score</span>
+                <span class="val">110.5</span>
+              </div>
+              <div class="score-row">
+                <span class="label">Max Score</span>
+                <span class="val">283</span>
+              </div>
+              <div class="score-row">
+                <span class="label">30-Day Trend</span>
+                <span class="val score-trend-down">-7.5 pts</span>
+              </div>
+              <div class="score-row">
+                <span class="label">90-Day Trend</span>
+                <span class="val score-trend-down">-2.5 pts</span>
+              </div>
+              <div class="score-row">
+                <span class="label">Active Users</span>
+                <span class="val">4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Incidents & Alerts -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Incidents &amp; Alerts
+          </h2>
+          <span class="badge badge-green">All Clear</span>
+        </div>
+        <div class="dash-card-body">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3>No Active Threats</h3>
+            <p>No open incidents or alerts detected. Your environment is secure.</p>
+          </div>
+          <div class="split-row" style="margin-top: 16px;">
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Open Incidents</div>
+                <div class="compliance-sub">No incidents requiring action</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Open Alerts</div>
+                <div class="compliance-sub">No alerts requiring attention</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Score History ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Score History
+          </h2>
+          <span class="badge badge-blue">90 Days</span>
+        </div>
+        <div class="dash-card-body" style="padding: 0;">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Score</th>
+                <th>Max Score</th>
+                <th>Percentage</th>
+                <th>Active Users</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Feb 14, 2026 <span class="text-muted">(Today)</span></td>
+                <td><strong>110.5</strong></td>
+                <td class="mono">283</td>
+                <td><span class="text-yellow">39.0%</span></td>
+                <td>4</td>
+                <td><span class="text-muted">&mdash;</span></td>
+              </tr>
+              <tr>
+                <td>Feb 7, 2026 <span class="text-muted">(1 week ago)</span></td>
+                <td><strong>110.5</strong></td>
+                <td class="mono">283</td>
+                <td><span class="text-yellow">39.0%</span></td>
+                <td>4</td>
+                <td><span class="text-muted">No change</span></td>
+              </tr>
+              <tr>
+                <td>Jan 15, 2026 <span class="text-muted">(30 days ago)</span></td>
+                <td><strong>110.5</strong></td>
+                <td class="mono">283</td>
+                <td><span class="text-yellow">39.0%</span></td>
+                <td>4</td>
+                <td><span class="text-muted">No change</span></td>
+              </tr>
+              <tr>
+                <td>Dec 21, 2025 <span class="text-muted">(Score drop)</span></td>
+                <td><strong>118</strong></td>
+                <td class="mono">283</td>
+                <td><span class="text-yellow">41.7%</span></td>
+                <td>4</td>
+                <td><span class="text-red">-7.5 pts</span></td>
+              </tr>
+              <tr>
+                <td>Nov 24, 2025 <span class="text-muted">(Max change)</span></td>
+                <td><strong>118</strong></td>
+                <td class="mono">283</td>
+                <td><span class="text-yellow">41.7%</span></td>
+                <td>4</td>
+                <td><span class="text-green">+5 max</span></td>
+              </tr>
+              <tr>
+                <td>Nov 23, 2025 <span class="text-muted">(Baseline)</span></td>
+                <td><strong>113</strong></td>
+                <td class="mono">278</td>
+                <td><span class="text-yellow">40.6%</span></td>
+                <td>4</td>
+                <td><span class="text-muted">&mdash;</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Enabled Services ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+            Enabled Security Services
+          </h2>
+          <span class="badge badge-green">11 Active</span>
+        </div>
+        <div class="dash-card-body">
+          <div class="service-grid">
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Azure AD Premium P1</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Azure AD Premium P2</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Cloud App Security</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Cloud App Security Discovery</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Azure ATP</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Defender for Office P1</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Data Loss Prevention</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Azure Info Protection P1</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Azure Info Protection P2</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">Microsoft Defender for Business</span>
+              <span class="service-status">Active</span>
+            </div>
+            <div class="service-item">
+              <span class="service-dot green"></span>
+              <span class="service-label">SharePoint Online P1</span>
+              <span class="service-status">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Threat Protection Summary ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            Threat Protection Summary
+          </h2>
+          <span class="badge badge-green">Healthy</span>
+        </div>
+        <div class="dash-card-body">
+          <div class="split-row" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">High Severity</div>
+                <div class="compliance-sub">No high severity threats</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Medium Severity</div>
+                <div class="compliance-sub">No medium severity threats</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Low Severity</div>
+                <div class="compliance-sub">No low severity threats</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count blue">4</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Protected Users</div>
+                <div class="compliance-sub">All accounts monitored</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
-      Entra Dashboard &middot; Generated 2026-02-14 15:12:39 UTC &middot;
+      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-14 15:12:39 UTC &middot;
       <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Open Entra Portal</a>
     </footer>
 
