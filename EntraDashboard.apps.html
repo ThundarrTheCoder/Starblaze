@@ -21,7 +21,9 @@
       --red: #ef4444;
       --glass: rgba(10, 25, 45, 0.75);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
       color: var(--fg);
@@ -29,6 +31,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+
     body::before {
       content: '';
       position: fixed;
@@ -40,6 +43,7 @@
       z-index: 0;
       pointer-events: none;
     }
+
     .wrap {
       max-width: 1440px;
       margin: 0 auto;
@@ -47,6 +51,7 @@
       position: relative;
       z-index: 1;
     }
+
     /* Sticky Nav */
     .topnav {
       position: sticky;
@@ -94,8 +99,11 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       font-weight: 600;
     }
+
     /* Header */
-    .header { padding: 8px 0 24px; }
+    .header {
+      padding: 8px 0 24px;
+    }
     .header h1 {
       font-size: 32px;
       font-weight: 700;
@@ -108,10 +116,15 @@
     .header .subtitle {
       color: var(--muted);
       font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
+
     /* Section Cards */
     .section {
-      margin: 0 0 24px;
+      margin: 0 0 24px 0;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--card);
@@ -122,37 +135,44 @@
     .section h2 {
       margin: 0;
       padding: 16px 20px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       border-bottom: 1px solid var(--line);
       color: var(--fg);
-      background: none;
     }
-    .section h2 svg { width: 18px; height: 18px; color: var(--accent); }
+    .section h2 svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
     .cards {
-      padding: 0;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
     .card {
-      border: none;
-      border-radius: 0;
-      padding: 0;
-      background: none;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--card-solid);
     }
     .card h3 {
-      margin: 0;
-      padding: 12px 20px;
-      font-size: 14px;
+      margin: 0 0 12px 0;
+      font-size: 15px;
       font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
-      background: rgba(23, 50, 83, 0.2);
+      color: var(--accent2);
     }
+
     /* Tables */
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -160,7 +180,7 @@
     }
     th {
       text-align: left;
-      padding: 10px 14px;
+      padding: 10px 12px;
       background: rgba(23, 50, 83, 0.5);
       color: var(--muted);
       font-weight: 600;
@@ -168,33 +188,47 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       border-bottom: 1px solid var(--line);
-      border-right: 1px solid rgba(26, 49, 80, 0.3);
+      white-space: nowrap;
     }
-    th:last-child { border-right: none; }
     td {
-      padding: 10px 14px;
+      padding: 10px 12px;
       border-bottom: 1px solid rgba(26, 49, 80, 0.3);
       vertical-align: top;
-      text-align: left;
     }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(34, 211, 238, 0.03); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #67e8f9; }
-    /* Status */
+
+    /* Status badges */
     .status-badge {
       display: inline-block;
       min-width: 72px;
       text-align: center;
-      padding: 3px 10px;
+      padding: 4px 8px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
-    .status-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-    .status-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .status-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .status-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
+    .status-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .status-yellow {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .status-red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-gray {
+      background: rgba(107, 114, 128, 0.15);
+      color: #d1d5db;
+      border: 1px solid rgba(107, 114, 128, 0.3);
+    }
     .status-cell {
       display: flex;
       align-items: center;
@@ -202,8 +236,9 @@
       gap: 10px;
     }
     .status-word {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: lowercase;
       min-width: 52px;
       text-align: right;
     }
@@ -211,9 +246,28 @@
     .status-word-yellow { color: #f59e0b; }
     .status-word-red { color: #ef4444; }
     .status-word-gray { color: #9ca3af; }
+
+    /* Warning box */
+    .warn {
+      margin: 0 0 14px 0;
+      padding: 12px 16px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 10px;
+      background: rgba(63, 42, 7, 0.5);
+      color: #fde68a;
+      font-size: 13px;
+    }
+
+    /* Links */
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #67e8f9; }
+
+    /* Muted text */
+    .muted { color: var(--muted); }
+
     /* Footer */
     .footer {
-      margin-top: 8px;
+      margin-top: 32px;
       padding: 20px 0;
       border-top: 1px solid var(--line);
       text-align: center;
@@ -222,29 +276,21 @@
     }
     .footer a { color: var(--muted); text-decoration: none; }
     .footer a:hover { color: var(--accent); }
+
     /* Animations */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Table container scroll */
-    .table-scroll {
-      overflow-x: auto;
-    }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 16px 20px;
-      padding: 12px 16px;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 10px;
-      background: rgba(245, 158, 11, 0.1);
-      color: #fbbf24;
-      font-size: 13px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Sticky Navigation -->
   <nav class="topnav">
     <a class="brand" href="EntraDashboard.html">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -255,34 +301,36 @@
     <a class="nav-link" href="EntraDashboard.users.html">Users</a>
     <a class="nav-link" href="EntraDashboard.groups.html">Groups</a>
     <a class="nav-link" href="EntraDashboard.devices.html">Devices</a>
-    <a class="nav-link" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
+    <a class="nav-link active" href="EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
     <a class="nav-link" href="EntraDashboard.app-registrations.html">App Registrations</a>
-    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring & Health</a>
+    <a class="nav-link" href="EntraDashboard.monitoring-health.html">Monitoring &amp; Health</a>
     <a class="nav-link" href="EntraDashboard.intune-home.html">Intune</a>
     <a class="nav-link" href="EntraDashboard.defender-home.html">Defender</a>
     <a class="nav-link" href="EntraDashboard.pim.html">PIM</a>
   </nav>
 
   <div class="wrap">
+
+    <!-- Header -->
     <header class="header">
       <h1>Enterprise Apps + App Registrations</h1>
-      <div class="subtitle">Generated: 2026-02-13 14:42:20Z</div>
+      <div class="subtitle">
+        <span>Generated: 2026-02-14 15:12:39 UTC</span>
+      </div>
     </header>
 
-    <section class="section">
-      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Enterprise Apps + App Registrations</h2>
-      <div class="cards">
+    <section class="section" style="animation-delay: 0.0s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Enterprise Apps + App Registrations</h2><div class="cards">
 
 <div class='card'><h3>Enterprise Apps (Service Principals - Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>appId</th><th>servicePrincipalType</th><th>accountEnabled</th><th>createdDateTime</th></tr></thead><tbody><tr><td>Microsoft Defender for Cloud Apps - APIs</td><td>972bb84a-1d27-4bd3-8306-6b8e57679e8c</td><td>Application</td><td>True</td><td>11/24/2025 12:08:16</td></tr><tr><td>ComplianceWorkbenchApp</td><td>92876b03-76a3-4da8-ad6a-0511ffdf8647</td><td>Application</td><td>True</td><td>03/17/2019 13:45:26</td></tr><tr><td>Office 365 Reports</td><td>507bc9da-c4e2-40cb-96a7-ac90df92685c</td><td>Application</td><td>True</td><td>03/17/2019 13:58:58</td></tr><tr><td>O365 Demeter</td><td>982bda36-4632-4165-a46a-9863b1bbcf7d</td><td>Application</td><td>True</td><td>03/17/2019 13:45:06</td></tr><tr><td>Dynamics CRM Online Administration</td><td>637fcc9f-4a9b-4aaa-8713-a2a3cfda1505</td><td>Application</td><td>True</td><td>01/31/2020 05:47:18</td></tr><tr><td>Microsoft Intune AAD BitLocker Recovery Key Integration</td><td>ccf4d8df-75ce-4107-8ea5-7afd618d4d8a</td><td>Application</td><td>True</td><td>09/23/2025 18:18:34</td></tr><tr><td>Microsoft Flow CDS Integration Service</td><td>0eda3b13-ddc9-4c25-b7dd-2f6ea073d6b7</td><td>Application</td><td>True</td><td>03/17/2019 13:45:19</td></tr><tr><td>Microsoft Intune API</td><td>c161e42e-d4df-4a3d-9b42-e7a3c31f59d4</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>Connectors</td><td>48af08dc-f6d2-435f-b2a7-069abd99c086</td><td>Application</td><td>True</td><td>03/17/2019 13:45:18</td></tr><tr><td>Skype Teams Calling API Service</td><td>26a18ebc-cdf7-4a6a-91cb-beb352805e81</td><td>Application</td><td>True</td><td>03/17/2019 13:45:21</td></tr><tr><td>Skype Business Voice Directory</td><td>27b24f1f-688b-4661-9594-0fdfde972edc</td><td>Application</td><td>True</td><td>03/17/2019 13:45:24</td></tr><tr><td>Microsoft Teams AuthSvc</td><td>a164aee5-7d0a-46bb-9404-37421d58bdf7</td><td>Application</td><td>True</td><td>03/17/2019 13:45:20</td></tr><tr><td>Azure Analysis Services</td><td>4ac7d521-0382-477b-b0f8-7e1d95f85ca2</td><td>Application</td><td>True</td><td>03/17/2019 13:45:24</td></tr><tr><td>Microsoft Visio Data Visualizer</td><td>00695ed2-3202-4156-8da1-69f60065e255</td><td>Application</td><td>True</td><td>04/19/2020 23:42:40</td></tr><tr><td>Substrate-FileWatcher</td><td>fbb0ac1a-82dd-478b-a0e5-0b2b98ef38fe</td><td>Application</td><td>True</td><td>09/20/2020 11:17:56</td></tr><tr><td>Microsoft Defender for Cloud Defender Kubernetes Agent</td><td>6e2cffc9-52e7-4bfa-8155-be5c1dacd81c</td><td>Application</td><td>True</td><td>05/22/2024 02:09:40</td></tr><tr><td>Dual-write</td><td>6f7d0213-62b1-43a8-b7f4-ff2bb8b7b452</td><td>Application</td><td>True</td><td>09/20/2020 11:17:55</td></tr><tr><td>Office Hive</td><td>166f1b03-5b19-416f-a94b-1d7aa2d247dc</td><td>Application</td><td>True</td><td>03/17/2019 16:56:59</td></tr><tr><td>Microsoft Insider Risk Management</td><td>1fe0d6b3-81f0-4cf5-9dfd-fbb297d7848c</td><td>Application</td><td>True</td><td>03/08/2021 14:08:40</td></tr><tr><td>Defender for Cloud Apps - Microsoft Copilot Collector</td><td>6d81daa3-fdfe-4d42-a619-5b89358c3838</td><td>Application</td><td>True</td><td>02/10/2026 22:19:12</td></tr><tr><td>PPE-DataResidencyService</td><td>dc457883-bafe-4f8b-a333-29685e7eaa9e</td><td>Application</td><td>True</td><td>09/21/2024 23:27:28</td></tr><tr><td>Graph Connector Service</td><td>56c1da01-2129-48f7-9355-af6d59d42766</td><td>Application</td><td>True</td><td>03/17/2019 13:45:18</td></tr><tr><td>Microsoft Flow Portal</td><td>6204c1d1-4712-4c46-a7d9-3ed63d992682</td><td>Application</td><td>True</td><td>03/17/2019 13:45:19</td></tr><tr><td>Request Approvals Read Platform</td><td>d8c767ef-3e9a-48c4-aef9-562696539b39</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>Power Platform Global Discovery Service</td><td>93bd1aa4-c66b-4587-838c-ffc3174b5f13</td><td>Application</td><td>True</td><td>09/20/2020 11:17:55</td></tr><tr><td>Microsoft Defender for Cloud Scanner Resource Provider</td><td>e0ccf59d-5a20-4a87-a122-f42842cdb86a</td><td>Application</td><td>True</td><td>06/28/2022 15:43:01</td></tr><tr><td>Microsoft Defender for Cloud Apps - Customer Experience</td><td>ac6dbf5e-1087-4434-beb2-0ebf7bd1b883</td><td>Application</td><td>True</td><td>06/04/2025 20:56:25</td></tr><tr><td>Skype Core Calling Service</td><td>66c23536-2118-49d3-bc66-54730b057680</td><td>Application</td><td>True</td><td>06/10/2021 11:18:39</td></tr><tr><td>Teams NRT DLP Ingestion Service</td><td>0ef94e72-e4fc-4aa0-a8f4-ff27deb3e6eb</td><td>Application</td><td>True</td><td>09/10/2022 11:18:52</td></tr><tr><td>Verifiable Credentials Service Request</td><td>3db474b9-6a0c-4840-96ac-1fceb342124f</td><td>Application</td><td>True</td><td>12/29/2022 20:49:34</td></tr><tr><td>OfficeServicesManager</td><td>9e4a5442-a5c9-4f6f-b03f-5b9fcaaf24b1</td><td>Application</td><td>True</td><td>03/01/2023 16:50:12</td></tr><tr><td>Azure Multi-Factor Auth Client</td><td>981f26a1-7f43-403b-a875-f8b09b8cd720</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>GraphAPI Delegated Authentication</td><td>67f23700-2020-4668-85d5-2ccc7de6cbc4</td><td>Application</td><td>True</td><td>02/12/2026 21:09:46</td></tr><tr><td>Dynamics 365 Business Central</td><td>996def3d-b36c-4153-8607-a6fd3c01b89f</td><td>Application</td><td>True</td><td>03/17/2019 13:45:17</td></tr><tr><td>Defender for Storage Advanced Threat Protection Resource Provider</td><td>080765e3-9336-4461-b934-310acccb907d</td><td>Application</td><td>True</td><td>09/06/2024 10:25:15</td></tr><tr><td>Branch Connect Web Service</td><td>57084ef3-d413-4087-a28f-f6f3b1ad7786</td><td>Application</td><td>True</td><td>09/20/2020 11:17:55</td></tr><tr><td>Skype for Business Name Dictionary Service</td><td>e95d8bee-4725-4f59-910d-94d415da51b9</td><td>Application</td><td>True</td><td>03/17/2019 13:45:23</td></tr><tr><td>Office 365 Information Protection</td><td>2f3f02c9-5679-4a5c-a605-0de55b07d135</td><td>Application</td><td>True</td><td>04/19/2020 23:42:39</td></tr><tr><td>Microsoft Teams Targeting Application</td><td>8e14e873-35ba-4720-b787-0bed94370b17</td><td>Application</td><td>True</td><td>09/20/2020 11:17:55</td></tr><tr><td>Data Export Service for Microsoft Dynamics 365</td><td>b861dbcc-a7ef-4219-a005-0e4de4ea7dcf</td><td>Application</td><td>True</td><td>03/17/2019 16:57:14</td></tr><tr><td>MarketplaceAPI ISV</td><td>20e940b3-4c77-4b0b-9a53-9e16a1b010a7</td><td>Application</td><td>True</td><td>07/28/2021 00:19:51</td></tr><tr><td>Dynamics Lifecycle services</td><td>913c6de4-2a4a-4a61-a9ce-945d2b2ce2e0</td><td>Application</td><td>True</td><td>03/17/2019 16:57:14</td></tr><tr><td>aciapi</td><td>c5b17a4f-cc6f-4649-9480-684280a2af3a</td><td>Application</td><td>True</td><td>10/13/2020 15:25:22</td></tr><tr><td>MicrosoftEntraIDReputationManagementServices</td><td>81ca2f57-06b8-4597-9eee-ad8f700c5106</td><td>Application</td><td>True</td><td>08/24/2025 14:54:38</td></tr><tr><td>Microsoft Azure Signup Portal</td><td>8e0e8db5-b713-4e91-98e6-470fed0aa4c2</td><td>Application</td><td>True</td><td>10/13/2020 15:12:53</td></tr><tr><td>Microsoft Defender For Cloud Discovery</td><td>ee45196f-bd15-4010-9a66-c8497a97a873</td><td>Application</td><td>True</td><td>03/20/2025 16:48:51</td></tr><tr><td>Microsoft Intune Enrollment</td><td>d4ebce55-015a-49b5-a083-c84d1797ae8c</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>Microsoft Graph PowerShell</td><td>14d82eec-204b-4c2f-b7e8-296a70dab67e</td><td>Application</td><td>True</td><td>02/17/2022 15:24:01</td></tr><tr><td>Grammarly for Microsoft Word</td><td>cf9b18b7-617a-48c4-8ec7-6d2dfb8c810f</td><td>Application</td><td>True</td><td>07/28/2021 00:20:49</td></tr><tr><td>Microsoft Azure Authorization Resource Provider</td><td>1dcb1bc7-c721-498e-b2fa-bcddcea44171</td><td>Application</td><td>True</td><td>04/27/2022 14:55:19</td></tr><tr><td>Microsoft Threat Protection</td><td>8ee8fdad-f234-4243-8f3b-15c294843740</td><td>Application</td><td>True</td><td>04/19/2020 23:42:40</td></tr><tr><td>Viva Skills</td><td>75d4238e-b142-4d2d-aed9-232b830b8706</td><td>Application</td><td>True</td><td>06/16/2025 21:17:05</td></tr><tr><td>DeploymentScheduler</td><td>8bbf8725-b3ca-4468-a217-7c8da873186e</td><td>Application</td><td>True</td><td>05/17/2019 11:17:33</td></tr><tr><td>Viva Engage</td><td>00000005-0000-0ff1-ce00-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:23</td></tr><tr><td>Microsoft Defender for Cloud Servers Scanner Resource Provider</td><td>0c7668b5-3260-4ad0-9f53-34ed54fa19b2</td><td>Application</td><td>True</td><td>06/28/2022 15:43:01</td></tr><tr><td>Office Store</td><td>c606301c-f764-4e6b-aa45-7caaaea93c9a</td><td>Application</td><td>True</td><td>07/28/2021 00:20:04</td></tr><tr><td>DevilFish</td><td>eaf8a961-f56e-47eb-9ffd-936e22a554ef</td><td>Application</td><td>True</td><td>03/17/2019 13:47:21</td></tr><tr><td>SecOps for Security Copilot</td><td>3e28acb6-7793-4fff-9fcf-fb14fbaf42a9</td><td>Application</td><td>True</td><td>11/23/2025 13:29:40</td></tr><tr><td>Azure AD Identity Governance - User Management</td><td>ec245c98-4a90-40c2-955a-88b727d97151</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>Skype Teams Firehose</td><td>cdccd920-384b-4a25-897d-75161a4b74c1</td><td>Application</td><td>True</td><td>03/17/2019 13:45:20</td></tr><tr><td>Microsoft Intune Service Discovery</td><td>9cb77803-d937-493e-9a3b-4b49de3f5a74</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>Microsoft Teams AuditService</td><td>978877ea-b2d6-458b-80c7-05df932f3723</td><td>Application</td><td>True</td><td>03/17/2019 13:45:21</td></tr><tr><td>commerce-copilot-firstpartyappid</td><td>a2e5d98b-c0e5-4191-b4ae-f6aa7e469ede</td><td>Application</td><td>True</td><td>02/02/2025 19:23:28</td></tr><tr><td>Microsoft Discovery Service</td><td>6f82282e-0070-4e78-bc23-e6320c5fa7de</td><td>Application</td><td>True</td><td>03/17/2019 13:45:16</td></tr><tr><td>Azure Portal</td><td>c44b4083-3bb0-49c1-b47d-974e53cbdf3c</td><td>Application</td><td>True</td><td>03/19/2019 02:40:02</td></tr><tr><td>Power Platform API</td><td>8578e004-a5c6-46e7-913e-12f58912df43</td><td>Application</td><td>True</td><td>02/09/2026 11:19:21</td></tr><tr><td>Microsoft Windows AutoPilot Service API</td><td>cbfda01c-c883-45aa-aedc-e7a484615620</td><td>Application</td><td>True</td><td>09/20/2020 11:17:56</td></tr><tr><td>Microsoft Office Licensing Service Agents</td><td>d7097cd1-c779-44d0-8c71-ab1f8386a97e</td><td>Application</td><td>True</td><td>03/01/2025 17:56:25</td></tr><tr><td>Azure Purview</td><td>73c2949e-da2d-457a-9607-fcc665198967</td><td>Application</td><td>True</td><td>09/23/2025 18:44:49</td></tr><tr><td>M365 License Manager</td><td>aeb86249-8ea3-49e2-900b-54cc8e308f85</td><td>Application</td><td>True</td><td>03/28/2023 18:26:45</td></tr><tr><td>Azure Resource Graph</td><td>509e4652-da8d-478d-a730-e9d4a1996ca4</td><td>Application</td><td>True</td><td>10/13/2020 15:15:48</td></tr><tr><td>Azure Multi-Factor Auth Connector</td><td>1f5530b3-261a-47a9-b357-ded261e17918</td><td>Application</td><td>True</td><td>10/27/2019 16:45:43</td></tr><tr><td>Microsoft Defender for Cloud for AI</td><td>1efb1569-5fd6-4938-8b8d-9f3aa07c658d</td><td>Application</td><td>True</td><td>04/30/2024 07:34:27</td></tr><tr><td>Power Platform Environment Discovery Service</td><td>3e36f539-fc2c-479c-90fb-3cfa21da3a4b</td><td>Application</td><td>True</td><td>01/10/2025 15:19:07</td></tr><tr><td>Office Scripts Service</td><td>62fd1447-0ef3-4ab7-a956-7dd05232ecc1</td><td>Application</td><td>True</td><td>01/29/2020 11:17:30</td></tr><tr><td>Microsoft_Azure_Support</td><td>959678cf-d004-4c22-82a6-d2ce549a58b8</td><td>Application</td><td>True</td><td>04/19/2020 23:34:47</td></tr><tr><td>ViewPoint</td><td>8338dec2-e1b3-48f7-8438-20c30a534458</td><td>Application</td><td>True</td><td>01/14/2022 12:40:33</td></tr><tr><td>O365 LinkedIn Connection</td><td>f569b9c7-be15-4e87-86f7-87d30d02090b</td><td>SocialIdp</td><td>True</td><td>09/11/2019 14:20:37</td></tr><tr><td>Intune DiagnosticService</td><td>7f0d9978-eb2a-4974-88bd-f22a3006fe17</td><td>Application</td><td>True</td><td>04/19/2020 23:42:39</td></tr><tr><td>Microsoft Office Licensing Service</td><td>8d3a7d3c-c034-4f19-a2ef-8412952a9671</td><td>Application</td><td>True</td><td>10/10/2024 20:29:03</td></tr><tr><td>Microsoft Graph Connectors Core</td><td>f8f7a2aa-e116-4ba6-8aea-ca162cfa310d</td><td>Application</td><td>True</td><td>09/10/2022 11:18:52</td></tr><tr><td>Microsoft Teams Retail Service</td><td>75efb5bc-18a1-4e7b-8a66-2ad2503d79c6</td><td>Application</td><td>True</td><td>10/27/2019 16:45:49</td></tr><tr><td>Microsoft Graph Change Tracking</td><td>0bf30f3b-4a52-48df-9a82-234910c4a086</td><td>Application</td><td>True</td><td>01/29/2020 11:17:24</td></tr><tr><td>Dynamics 365 Resource Scheduling Optimization</td><td>2f6713e6-1e21-4a83-91b4-5bf9a2378f81</td><td>Application</td><td>True</td><td>03/08/2021 14:08:46</td></tr><tr><td>Microsoft App Access Panel</td><td>0000000c-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:06</td></tr><tr><td>Microsoft Exact Data Match Service</td><td>273404b8-7ebc-4360-9f90-b40417f77b53</td><td>Application</td><td>True</td><td>03/17/2019 13:45:26</td></tr><tr><td>P2P Server</td><td>77ec7772-ab10-4dd1-b2b4-29d76fe856a6</td><td>Application</td><td>True</td><td>05/05/2020 00:37:46</td></tr><tr><td>AD Hybrid Health</td><td>6ea8091b-151d-447a-9013-6845b83ba57b</td><td>Application</td><td>True</td><td>10/02/2019 17:23:21</td></tr><tr><td>Fiji Storage Backend</td><td>05d97c70-cb7c-4e66-8138-d5ca7c59d206</td><td>Application</td><td>True</td><td>07/24/2022 11:53:40</td></tr><tr><td>PROD Microsoft Defender For Cloud Athena</td><td>e807d0e2-91da-40d6-8cee-e33c91a0b051</td><td>Application</td><td>True</td><td>05/22/2024 02:09:40</td></tr><tr><td>Intune Mobile Application Management Client</td><td>c4bd54e4-c607-435b-8a5a-0d61edff7554</td><td>Application</td><td>True</td><td>09/19/2025 19:07:32</td></tr><tr><td>AAD App Management</td><td>f0ae4899-d877-4d3c-ae25-679e38eea492</td><td>Application</td><td>True</td><td>08/31/2019 19:50:26</td></tr><tr><td>Power BI Premium</td><td>cb4dc29f-0bf4-402a-8b30-7511498ed654</td><td>Application</td><td>True</td><td>03/17/2019 13:45:26</td></tr><tr><td>SubscriptionRP</td><td>e3335adb-5ca0-40dc-b8d3-bedc094e523b</td><td>Application</td><td>True</td><td>11/12/2020 23:33:44</td></tr><tr><td>AzureSupportCenter</td><td>37182072-3c9c-4f6a-a4b3-b3f91cacffce</td><td>Application</td><td>True</td><td>03/17/2019 13:45:11</td></tr><tr><td>Office365 Zoom</td><td>0d38933a-0bbd-41ca-9ebd-28c4b5ba7cb7</td><td>Application</td><td>True</td><td>03/17/2019 13:45:18</td></tr><tr><td>Microsoft O365 Scuba</td><td>7ae5462d-d9d1-42f6-93ca-198d7b0ca997</td><td>Application</td><td>True</td><td>03/08/2021 14:08:47</td></tr><tr><td>Protection Center</td><td>80ccca67-54bd-44ab-8625-4b79c4dc7775</td><td>Application</td><td>True</td><td>10/02/2019 17:24:22</td></tr><tr><td>O365 Secure Score</td><td>8b3391f4-af01-4ee8-b4ea-9871b2499735</td><td>Application</td><td>True</td><td>03/17/2019 13:45:17</td></tr><tr><td>AAD Terms Of Use</td><td>d52792f4-ba38-424d-8140-ada5b883f293</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>Microsoft 365 Admin portal</td><td>618dd325-23f6-4b6f-8380-4df78026e39b</td><td>Application</td><td>True</td><td>09/09/2025 13:33:47</td></tr><tr><td>Yggdrasil</td><td>78e7bc61-0fab-4d35-8387-09a8d2f5a59d</td><td>Application</td><td>True</td><td>03/17/2019 13:45:26</td></tr><tr><td>speakerengage.com</td><td>5174b6ce-9a73-4771-9f44-e0e8ac8dcfe0</td><td>Application</td><td>True</td><td>02/17/2025 21:53:26</td></tr><tr><td>Azure AD Identity Protection</td><td>fc68d9e5-1f76-45ef-99aa-214805418498</td><td>Application</td><td>True</td><td>09/12/2019 12:21:17</td></tr><tr><td>Zendesk</td><td>60e836b5-ec47-430f-a706-3018cd516085</td><td>Application</td><td>True</td><td>08/17/2021 19:32:07</td></tr><tr><td>EDU Assignments</td><td>8f348934-64be-4bb2-bc16-c54c96789f43</td><td>Application</td><td>True</td><td>09/20/2020 11:17:56</td></tr><tr><td>Microsoft Teams Graph Service</td><td>ab3be6b7-f5df-413d-ac2d-abf1e3fd9c0b</td><td>Application</td><td>True</td><td>03/17/2019 13:45:20</td></tr><tr><td>OfficeClientService</td><td>0f698dd4-f011-4d23-a33e-b36416dcb1e6</td><td>Application</td><td>True</td><td>03/17/2019 13:45:16</td></tr><tr><td>Skype Presence Service</td><td>1e70cd27-4707-4589-8ec5-9bd20c472a46</td><td>Application</td><td>True</td><td>03/17/2019 13:45:21</td></tr><tr><td>CAS API Security RP Staging</td><td>19b21e10-1304-498b-92d4-4290e94999fa</td><td>Application</td><td>True</td><td>02/26/2023 22:46:48</td></tr><tr><td>IDS-PROD</td><td>f36c30df-d241-4c14-a0ee-752c71e4d3da</td><td>Application</td><td>True</td><td>09/26/2025 04:00:50</td></tr><tr><td>Azure Storage Insights Resource Provider</td><td>b15f3d14-f6d1-4c0d-93da-d4136c97f006</td><td>Application</td><td>True</td><td>04/10/2024 04:41:35</td></tr><tr><td>Safelinks</td><td>85eced78-2127-4b24-9418-95f0bbe3d145</td><td>Application</td><td>True</td><td>01/08/2026 11:00:56</td></tr><tr><td>Verifiable Credentials Service Admin</td><td>6a8b4b39-c021-437c-b060-5a14a3fd65f3</td><td>Application</td><td>True</td><td>12/29/2022 20:49:33</td></tr><tr><td>AzureLockbox</td><td>a0551534-cfc9-4e1f-9a7a-65093b32bb38</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>Microsoft Teams Chat Aggregator</td><td>b1379a75-ce5e-4fa3-80c6-89bb39bf646c</td><td>Application</td><td>True</td><td>03/17/2019 13:45:20</td></tr><tr><td>MIP Exchange Solutions - Teams</td><td>2c220739-d44d-4bf7-ba5f-95cf9fb7f10c</td><td>Application</td><td>True</td><td>06/10/2021 11:18:40</td></tr><tr><td>G Suite</td><td>fcc31546-566c-4b64-8665-97ce4baf0647</td><td>Application</td><td>True</td><td>09/12/2019 14:55:19</td></tr><tr><td>Policy Processor</td><td>1b489150-9b00-413a-83fd-6ef8f05b6e28</td><td>Application</td><td>True</td><td>09/10/2022 11:18:52</td></tr><tr><td>Microsoft password reset service</td><td>93625bc8-bfe2-437a-97e0-3d0060024faa</td><td>Application</td><td>True</td><td>03/18/2019 00:01:05</td></tr><tr><td>Azure Information Protection</td><td>5b20c633-9a48-4a5f-95f6-dae91879051f</td><td>Application</td><td>True</td><td>03/17/2019 13:45:23</td></tr><tr><td>Dynamics 365 Viva Sales</td><td>4787c7ff-7cea-43db-8d0d-919f15c6354b</td><td>Application</td><td>True</td><td>08/01/2024 03:44:49</td></tr><tr><td>Office365 Shell SS-Server Default</td><td>6872b314-67ab-4a16-98e7-a663b0f772c3</td><td>Application</td><td>True</td><td>07/06/2023 14:58:06</td></tr><tr><td>MAPG</td><td>cc46c2aa-d508-409b-aeb7-df7cd1e07aaa</td><td>Application</td><td>True</td><td>06/10/2021 11:18:40</td></tr><tr><td>Windows Azure Active Directory</td><td>00000002-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:06</td></tr><tr><td>Azure Application Change Service</td><td>3edcf11f-df80-41b2-a5e4-7e213cca30d1</td><td>Application</td><td>True</td><td>06/13/2021 23:07:20</td></tr><tr><td>Microsoft Teams User Profile Search Service</td><td>a47591ab-e23e-4ffa-9e1b-809b9067e726</td><td>Application</td><td>True</td><td>03/17/2019 13:45:21</td></tr><tr><td>Microsoft SharePoint Online - SharePoint Home</td><td>dcad865d-9257-4521-ad4d-bae3e137b345</td><td>Application</td><td>True</td><td>03/17/2019 13:45:25</td></tr><tr><td>Microsoft Intune</td><td>0000000a-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>M365CommunicationCompliance</td><td>b8d56525-1fd0-4121-a640-e0ede64f74b5</td><td>Application</td><td>True</td><td>03/08/2021 14:08:40</td></tr><tr><td>PowerApps-Advisor</td><td>c9299480-c13a-49db-a7ae-cdfe54fe0313</td><td>Application</td><td>True</td><td>03/17/2019 16:57:14</td></tr><tr><td>Microsoft Service Trust</td><td>d6fdaa33-e821-4211-83d0-cf74736489e1</td><td>Application</td><td>True</td><td>03/17/2019 13:45:17</td></tr><tr><td>Office Enterprise Protection Service</td><td>55441455-2f54-42b5-bc99-93e21cd4ae28</td><td>Application</td><td>True</td><td>04/17/2019 11:17:39</td></tr><tr><td>Power Query Online GCC-L2</td><td>939fe80f-2eef-464f-b0cf-705d254a2cf2</td><td>Application</td><td>True</td><td>04/17/2019 11:17:39</td></tr><tr><td>Substrate Instant Revocation Pipeline</td><td>eace8149-b661-472f-b40d-939f89085bd4</td><td>Application</td><td>True</td><td>06/09/2025 21:14:11</td></tr><tr><td>TenantSearchProcessors</td><td>abc63b55-0325-4305-9e1e-3463b182a6dc</td><td>Application</td><td>True</td><td>05/30/2025 07:04:33</td></tr><tr><td>MDATPNetworkScanAgent</td><td>04687a56-4fc2-4e36-b274-b862fb649733</td><td>Application</td><td>True</td><td>03/08/2021 14:08:47</td></tr><tr><td>CAS API Security RP</td><td>56823b05-67d8-413a-b6ab-ad19d7710cf2</td><td>Application</td><td>True</td><td>02/26/2023 22:46:48</td></tr><tr><td>Microsoft Forms</td><td>c9a559d2-7aab-4f13-a6ed-e7e9c52aec87</td><td>Application</td><td>True</td><td>03/17/2019 13:45:19</td></tr><tr><td>CloudLicensingSystem</td><td>de247707-4e4a-47d6-89fd-3c632f870b34</td><td>Application</td><td>True</td><td>04/14/2023 17:49:30</td></tr><tr><td>M365 Lighthouse Service</td><td>d9d5c99e-b0b4-4bad-92cc-5a6eb5421985</td><td>Application</td><td>True</td><td>05/13/2022 11:21:16</td></tr><tr><td>Windows Azure Service Management API</td><td>797f4846-ba00-4fd7-ba43-dac1f8f63013</td><td>Application</td><td>True</td><td>03/17/2019 13:45:06</td></tr><tr><td>CCM TAGS</td><td>997dc448-eeab-4c93-8811-6b2c80196a16</td><td>Application</td><td>True</td><td>02/02/2025 19:23:28</td></tr><tr><td>Microsoft Mobile Application Management</td><td>0a5f63c0-b750-4f38-a71c-4fc0d58b89e2</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>Cortana at Work Service</td><td>2a486b53-dbd2-49c0-a2bc-278bdfc30833</td><td>Application</td><td>True</td><td>03/17/2019 13:45:15</td></tr><tr><td>PowerApps Service</td><td>475226c6-020e-4fb2-8a90-7a972cbfc1d4</td><td>Application</td><td>True</td><td>03/17/2019 16:57:09</td></tr><tr><td>SharePoint Notification Service</td><td>3138fe80-4087-4b04-80a6-8866c738028a</td><td>Application</td><td>True</td><td>03/17/2019 13:45:24</td></tr><tr><td>WindowsDefenderATP</td><td>fc780465-2017-40d4-a0c5-307022471b92</td><td>Application</td><td>True</td><td>03/08/2021 14:08:40</td></tr><tr><td>Graph explorer</td><td>de8bc8b5-d9f9-48b1-a8ad-b748da725064</td><td>Application</td><td>True</td><td>03/05/2020 16:37:25</td></tr><tr><td>Microsoft Policy Insights Provider Data Plane</td><td>8cae6e77-e04e-42ce-b5cb-50d82bce26b1</td><td>Application</td><td>True</td><td>06/13/2021 20:56:52</td></tr><tr><td>Defender for Cloud Apps - Power Platform Solution Deployer</td><td>7598ef18-a171-4c40-b5b2-9b6df5d67a21</td><td>Application</td><td>True</td><td>09/03/2025 20:15:59</td></tr><tr><td>CompliancePolicy</td><td>644c1b11-f63f-45fa-826b-a9d2801db711</td><td>Application</td><td>True</td><td>08/08/2023 18:18:37</td></tr><tr><td>Customer Service Trial PVA</td><td>944861d3-5975-4f8b-afd4-3422c0b1b6ce</td><td>Application</td><td>True</td><td>09/10/2022 11:18:51</td></tr><tr><td>Entra App Platform System Application</td><td>35e5e31d-b3e8-442b-9a8d-2f81f46938cf</td><td>Application</td><td>True</td><td>10/24/2025 17:36:28</td></tr><tr><td>Microsoft Rights Management Services Default</td><td>934d626a-1ead-4a36-a77d-12ec63b87a0d</td><td>Application</td><td>True</td><td>01/21/2025 19:00:05</td></tr><tr><td>Messaging Bot API Application</td><td>5a807f24-c9de-44ee-a3a7-329e88a00ffc</td><td>Application</td><td>True</td><td>09/10/2022 11:18:52</td></tr><tr><td>Narada Notification Service</td><td>51b5e278-ed7e-42c6-8787-7ff93e92f577</td><td>Application</td><td>True</td><td>12/18/2023 04:45:07</td></tr><tr><td>Microsoft Defender For Cloud</td><td>6b5b3617-ba00-46f6-8770-1849282a189a</td><td>Application</td><td>True</td><td>12/19/2024 08:14:45</td></tr><tr><td>Intune DeviceDirectory ConfidentialClient</td><td>7e313d81-57dd-4bdd-906e-337963583de3</td><td>Application</td><td>True</td><td>03/13/2025 19:39:35</td></tr><tr><td>Microsoft.SMIT</td><td>8fca0a66-c008-4564-a876-ab3ae0fd5cff</td><td>Application</td><td>True</td><td>03/17/2019 13:45:11</td></tr><tr><td>Call Recorder</td><td>4580fd1d-e5a3-4f56-9ad1-aab0e3bf8f76</td><td>Application</td><td>True</td><td>03/17/2019 13:45:21</td></tr><tr><td>Office 365 Management APIs</td><td>c5393580-f805-4401-95e8-94b7a6ef2fc2</td><td>Application</td><td>True</td><td>03/17/2019 13:45:16</td></tr><tr><td>Privacy Management</td><td>5a4a238f-f186-4fff-95bd-d3e70f9e1a08</td><td>Application</td><td>True</td><td>03/01/2025 17:55:55</td></tr><tr><td>Azure Cost Management XCloud</td><td>3184af01-7a88-49e0-8b55-8ecdce0aa950</td><td>Application</td><td>True</td><td>09/12/2019 00:15:19</td></tr><tr><td>Microsoft Graph</td><td>00000003-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:06</td></tr><tr><td>Microsoft Azure Workflow</td><td>00000005-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:24</td></tr><tr><td>Skype for Business</td><td>7557eb47-c689-4224-abcf-aef9bd7573df</td><td>Application</td><td>True</td><td>06/20/2019 22:49:05</td></tr><tr><td>MS Teams Griffin Assistant</td><td>c9224372-5534-42cb-a48b-8db4f4a3892e</td><td>Application</td><td>True</td><td>09/11/2019 14:25:14</td></tr><tr><td>CCM_Pricing_PROD</td><td>91a53dc4-b25b-482c-8e83-8d7ac7065b17</td><td>Application</td><td>True</td><td>02/02/2025 19:23:28</td></tr><tr><td>Microsoft Modern Contact Master</td><td>224a7b82-46c9-4d6b-8db0-7360fb444681</td><td>Application</td><td>True</td><td>10/13/2020 18:27:47</td></tr><tr><td>Viva Learning</td><td>2c9e12e5-a56c-4ba1-b768-7a141586c6fe</td><td>Application</td><td>True</td><td>12/15/2021 22:40:07</td></tr><tr><td>Omnichannel for CS CRM ClientApp Primary</td><td>d9ce8cfa-8bd8-4ff1-b39b-5e5dd5742935</td><td>Application</td><td>True</td><td>04/13/2021 18:20:09</td></tr><tr><td>Conference Auto Attendant</td><td>207a6836-d031-4764-a9d8-c1193f455f21</td><td>Application</td><td>True</td><td>04/19/2020 23:42:39</td></tr><tr><td>Windows Store for Business</td><td>45a330b1-b1ec-4cc1-9161-9f03992aa49f</td><td>Application</td><td>True</td><td>03/17/2019 13:58:58</td></tr><tr><td>Intune CMDeviceService</td><td>14452459-6fa6-4ec0-bc50-1528a1a06bf0</td><td>Application</td><td>True</td><td>05/17/2019 11:17:33</td></tr><tr><td>Lifecycle Workflows</td><td>ce79fdc4-cd1d-4ea5-8139-e74d7dbe0bb7</td><td>Application</td><td>True</td><td>03/25/2025 13:49:49</td></tr><tr><td>DfMGraphApp</td><td>380e9762-7111-490b-800b-0dd9857ca41a</td><td>Application</td><td>True</td><td>01/11/2024 13:35:11</td></tr><tr><td>Outlook Web App Widgets</td><td>87223343-80b1-4097-be13-2332ffa1d666</td><td>Application</td><td>True</td><td>06/10/2021 11:18:39</td></tr><tr><td>ProductsLifecycleApp</td><td>c09dc6d6-3bff-482b-8e40-68b3ad65f3fa</td><td>Application</td><td>True</td><td>11/14/2024 05:36:25</td></tr><tr><td>Microsoft Information Protection API</td><td>40775b29-2688-46b6-a3b5-b256bd04df9f</td><td>Application</td><td>True</td><td>04/17/2019 11:17:39</td></tr><tr><td>Power BI Service</td><td>00000009-0000-0000-c000-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:24</td></tr><tr><td>Skype and Teams Tenant Admin API</td><td>48ac35b8-9aa8-4d74-927d-1f4a14a0b239</td><td>Application</td><td>True</td><td>10/27/2019 16:45:49</td></tr><tr><td>Windows Update for Business Deployment Service</td><td>61ae9cd9-7bca-458c-affc-861e2f24ba3b</td><td>Application</td><td>True</td><td>05/08/2021 11:18:59</td></tr><tr><td>OneNote</td><td>2d4d3d8e-2be3-4bef-9f87-7875a61c29de</td><td>Application</td><td>True</td><td>03/17/2019 23:53:34</td></tr><tr><td>Office Shredding Service</td><td>b97b6bd4-a49f-4a0c-af18-af507d1da76c</td><td>Application</td><td>True</td><td>03/17/2019 13:45:25</td></tr><tr><td>Microsoft Defender For Cloud Billing</td><td>e3a3c6d7-bd80-4be5-88da-c2226a5d9328</td><td>Application</td><td>True</td><td>03/20/2025 16:48:51</td></tr><tr><td>ComplianceAuthServer</td><td>9e5d84af-8971-422f-968a-354cd675ae5b</td><td>Application</td><td>True</td><td>09/10/2022 11:18:51</td></tr><tr><td>Microsoft Customer Engagement Portal</td><td>71234da4-b92f-429d-b8ec-6e62652e50d7</td><td>Application</td><td>True</td><td>03/17/2019 16:57:14</td></tr><tr><td>Microsoft Flow Service</td><td>7df0a125-d3be-4c96-aa54-591f83ff541c</td><td>Application</td><td>True</td><td>03/17/2019 13:45:19</td></tr><tr><td>Azure AD Identity Governance Insights</td><td>58c746b0-a0b0-4647-a8f6-12dde5981638</td><td>Application</td><td>True</td><td>10/27/2019 16:45:50</td></tr><tr><td>Skype For Business Powershell Server Application</td><td>39624784-6cbe-4a60-afbe-9f46d10fdb27</td><td>Application</td><td>True</td><td>03/17/2019 15:22:58</td></tr><tr><td>Microsoft Teams</td><td>1fec8e78-bce4-4aaf-ab1b-5451cc387264</td><td>Application</td><td>True</td><td>03/17/2019 13:45:20</td></tr><tr><td>Media Recording for Dynamics 365 Sales</td><td>f448d7e5-e313-4f90-a3eb-5dbb3277e4b3</td><td>Application</td><td>True</td><td>03/08/2021 14:08:46</td></tr><tr><td>Marketplace Api</td><td>f738ef14-47dc-4564-b53b-45069484ccc7</td><td>Application</td><td>True</td><td>07/28/2021 00:19:50</td></tr><tr><td>Microsoft Substrate Management</td><td>98db8bd6-0cc0-4e67-9de5-f187f1cd1b41</td><td>Application</td><td>True</td><td>09/11/2019 14:25:14</td></tr><tr><td>Universal Print Native Client</td><td>dae89220-69ba-4957-a77a-47b78695e883</td><td>Application</td><td>True</td><td>03/08/2021 14:08:47</td></tr><tr><td>Microsoft Intune Advanced Threat Protection Integration</td><td>794ded15-70c6-4bcd-a0bb-9b7ad530a01a</td><td>Application</td><td>True</td><td>03/17/2019 13:45:22</td></tr><tr><td>Conferencing Virtual Assistant</td><td>9e133cac-5238-4d1e-aaa0-d8ff4ca23f4e</td><td>Application</td><td>True</td><td>04/19/2020 23:42:39</td></tr><tr><td>AWS IAM Identity Center</td><td>d885190b-02d4-41b9-a796-a060d30f1f51</td><td>Application</td><td>True</td><td>02/16/2025 17:39:04</td></tr><tr><td>Microsoft Office 365 Portal</td><td>00000006-0000-0ff1-ce00-000000000000</td><td>Application</td><td>True</td><td>03/17/2019 13:45:15</td></tr></tbody></table></div></div>
 <div class='card'><h3>App Registrations (Applications - Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>appId</th><th>signInAudience</th><th>createdDateTime</th></tr></thead><tbody><tr><td>AWS IAM Identity Center</td><td>d885190b-02d4-41b9-a796-a060d30f1f51</td><td>AzureADMyOrg</td><td>02/16/2025 17:39:02</td></tr><tr><td>Google Cloud / G Suite Connector by Microsoft</td><td>7aa89714-18f2-42dd-9304-231986a8cead</td><td>AzureADMyOrg</td><td>07/26/2021 02:13:19</td></tr><tr><td>Zendesk</td><td>64d30dc3-dea5-41b8-af8d-5d3cb71c6ea5</td><td>AzureADMyOrg</td><td>08/17/2021 19:29:44</td></tr><tr><td>P2P Server</td><td>77ec7772-ab10-4dd1-b2b4-29d76fe856a6</td><td>AzureADMyOrg</td><td>05/05/2020 00:37:45</td></tr><tr><td>G Suite</td><td>fcc31546-566c-4b64-8665-97ce4baf0647</td><td>AzureADMyOrg</td><td>09/12/2019 14:55:18</td></tr><tr><td>Dropbox Business Puckfoo</td><td>e1bd099a-6232-4537-90a3-cab97d1ade2a</td><td>AzureADMyOrg</td><td>08/28/2021 19:51:39</td></tr><tr><td>Salesforce</td><td>e621d8a2-d817-4f61-8a2a-523833cca63b</td><td>AzureADMyOrg</td><td>07/20/2021 12:42:41</td></tr><tr><td>Grammarly for Microsoft Word</td><td>cf9b18b7-617a-48c4-8ec7-6d2dfb8c810f</td><td>AzureADMyOrg</td><td>07/28/2021 00:20:49</td></tr><tr><td>Zendesk</td><td>60e836b5-ec47-430f-a706-3018cd516085</td><td>AzureADMyOrg</td><td>08/17/2021 19:32:06</td></tr><tr><td>Snaplogic</td><td>161918d5-ab31-4a85-a2cd-5325c86fa9bc</td><td>AzureADMyOrg</td><td>07/26/2021 02:14:14</td></tr><tr><td>Docusign</td><td>31813e82-5b5a-458c-8073-ce674140cb5d</td><td>AzureADMyOrg</td><td>09/12/2019 14:56:13</td></tr><tr><td>Salesforce</td><td>ec2ff98c-e62b-4bbc-b58f-ae997c524a3c</td><td>AzureADMyOrg</td><td>09/16/2019 19:54:14</td></tr><tr><td>GraphAPI Delegated Authentication</td><td>67f23700-2020-4668-85d5-2ccc7de6cbc4</td><td>AzureADMyOrg</td><td>02/12/2026 21:09:46</td></tr></tbody></table></div></div>
-</div>
-      </div>
-    </section>
+</div></section>
 
+    <!-- Footer -->
     <footer class="footer">
-      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-13 14:42:20Z &middot;
-      <a href="EntraDashboard.html">Back to Overview</a>
+      Entra Dashboard &middot; Generated 2026-02-14 15:12:39 UTC &middot;
+      <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Open Entra Portal</a>
     </footer>
+
   </div>
 </body>
 </html>
