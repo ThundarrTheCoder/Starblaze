@@ -52,136 +52,183 @@
       z-index: 1;
     }
 
-    /* Sticky Nav */
+    /* Navigation */
     .topnav {
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      background: rgba(6, 16, 30, 0.82);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 24px;
+      height: 52px;
+      background: rgba(6, 16, 30, 0.92);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
-      padding: 10px 24px;
-      margin: 0 -24px 28px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .topnav::-webkit-scrollbar { display: none; }
+    .brand {
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
-    }
-    .topnav .brand {
       font-weight: 700;
       font-size: 15px;
       color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
       margin-right: 12px;
-      letter-spacing: 0.5px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .brand:hover { background: var(--accent-glow); }
+    .brand svg { flex-shrink: 0; }
+    .nav-link {
       display: flex;
       align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .topnav .brand svg { flex-shrink: 0; }
-    .topnav a.nav-link {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--muted);
+      height: 52px;
+      padding: 0 12px;
       font-size: 13px;
       font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .topnav a.nav-link:hover {
-      color: var(--fg);
-      background: rgba(34, 211, 238, 0.1);
-    }
-    .topnav a.nav-link.active {
-      color: #06101e;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      font-weight: 600;
+    .nav-link:hover { color: var(--fg); }
+    .nav-link.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.06));
     }
 
     /* Header */
     .header {
-      padding: 8px 0 24px;
+      padding: 32px 0 24px;
+      animation: fadeUp 0.5s ease both;
     }
     .header h1 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
-      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
+      background: linear-gradient(135deg, #e8edf4 0%, var(--accent2) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .header .subtitle {
-      color: var(--muted);
-      font-size: 14px;
+    .subtitle {
       display: flex;
       align-items: center;
       gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
       flex-wrap: wrap;
     }
 
-    /* Section Cards */
-    .section {
-      margin: 0 0 24px 0;
+    /* KPI Metrics */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.5s ease 0.1s both;
+    }
+    .metric-card {
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      overflow: hidden;
-      animation: fadeUp 0.5s ease-out both;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .section h2 {
-      margin: 0;
-      padding: 16px 20px;
-      font-size: 18px;
+    .metric-card:hover { border-color: rgba(34, 211, 238, 0.3); transform: translateY(-2px); }
+    .metric-label {
+      font-size: 11px;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .metric-value.green { color: var(--green); }
+    .metric-value.muted-val { color: var(--muted); }
+    .metric-sub { font-size: 12px; color: var(--muted); }
+
+    /* Dashboard grid */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .dash-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 0.5s ease 0.2s both;
+      margin-bottom: 24px;
+    }
+    .dash-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      color: var(--fg);
+      gap: 8px;
     }
-    .section h2 svg {
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .cards {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      background: var(--card-solid);
-    }
-    .card h3 {
-      margin: 0 0 12px 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--accent2);
-    }
+    .dash-card h3 svg { color: var(--accent); }
 
-    /* Tables */
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0 -4px;
-      padding: 0 4px;
+    /* Split row */
+    .split-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 12px;
+      padding: 4px 0 8px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
+    .split-item { text-align: center; }
+    .split-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
     }
-    th {
+    .split-value.muted-val { color: var(--muted); font-size: 22px; }
+    .split-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* Status pills */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .pill-blue { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .pill-purple { background: rgba(167, 139, 250, 0.15); color: #c4b5fd; border: 1px solid rgba(167, 139, 250, 0.3); }
+    .pill-gray { background: rgba(107, 114, 128, 0.15); color: #d1d5db; border: 1px solid rgba(107, 114, 128, 0.3); }
+
+    /* Mini table */
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .mini-table th {
       text-align: left;
-      padding: 10px 12px;
-      background: rgba(23, 50, 83, 0.5);
+      padding: 8px 10px;
+      background: rgba(23, 50, 83, 0.4);
       color: var(--muted);
       font-weight: 600;
       font-size: 11px;
@@ -190,80 +237,42 @@
       border-bottom: 1px solid var(--line);
       white-space: nowrap;
     }
-    td {
-      padding: 10px 12px;
+    .mini-table td {
+      padding: 9px 10px;
       border-bottom: 1px solid rgba(26, 49, 80, 0.3);
       vertical-align: top;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    .mini-table tr:last-child td { border-bottom: none; }
+    .mini-table tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    .mono { font-family: "SF Mono", "Fira Code", monospace; font-size: 11px; color: var(--muted); }
+    .muted { color: var(--muted); font-size: 12px; }
 
-    /* Status badges */
-    .status-badge {
-      display: inline-block;
-      min-width: 72px;
+    /* Empty state */
+    .empty-state {
       text-align: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+      padding: 32px 20px;
+      color: var(--muted);
+      font-size: 14px;
     }
-    .status-green {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-    }
-    .status-yellow {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .status-red {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .status-gray {
-      background: rgba(107, 114, 128, 0.15);
-      color: #d1d5db;
-      border: 1px solid rgba(107, 114, 128, 0.3);
-    }
-    .status-cell {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .status-word {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: lowercase;
-      min-width: 52px;
-      text-align: right;
-    }
-    .status-word-green { color: #22c55e; }
-    .status-word-yellow { color: #f59e0b; }
-    .status-word-red { color: #ef4444; }
-    .status-word-gray { color: #9ca3af; }
+    .empty-state svg { margin-bottom: 10px; color: var(--line); }
 
-    /* Warning box */
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 12px 16px;
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      border-radius: 10px;
-      background: rgba(63, 42, 7, 0.5);
-      color: #fde68a;
-      font-size: 13px;
+    /* Principal row styling */
+    .principal-name { font-weight: 600; color: var(--fg); }
+    .principal-id { font-family: "SF Mono", "Fira Code", monospace; font-size: 11px; color: var(--muted); }
+
+    /* Role group header */
+    .role-group-header td {
+      background: rgba(23, 50, 83, 0.6) !important;
+      color: var(--accent2);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--line) !important;
     }
 
     /* Links */
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: #67e8f9; }
-
-    /* Muted text */
-    .muted { color: var(--muted); }
 
     /* Footer */
     .footer {
@@ -274,7 +283,7 @@
       font-size: 12px;
       color: #4a6580;
     }
-    .footer a { color: var(--muted); text-decoration: none; }
+    .footer a { color: var(--muted); }
     .footer a:hover { color: var(--accent); }
 
     /* Animations */
@@ -282,9 +291,10 @@
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+
+    @media (max-width: 900px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .dash-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -315,20 +325,410 @@
     <header class="header">
       <h1>Privileged Identity Management</h1>
       <div class="subtitle">
+        <span>Panthro.co &middot; 341ce2be-83c2-4a03-9275-a0bc5073d0fd</span>
         <span>Generated: 2026-02-14 15:12:39 UTC</span>
       </div>
     </header>
 
-    <section class="section" style="animation-delay: 0.0s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> PIM</h2><div class="cards">
+    <!-- KPI Metrics -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">Role Assignments</div>
+        <div class="metric-value">50</div>
+        <div class="metric-sub">Active assignments</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Principals</div>
+        <div class="metric-value">5</div>
+        <div class="metric-sub">Users with roles</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">JIT Eligible</div>
+        <div class="metric-value muted-val">0</div>
+        <div class="metric-sub">No eligible schedules</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Assignment Type</div>
+        <div class="metric-value green">All</div>
+        <div class="metric-sub">Permanent (no expiry)</div>
+      </div>
+    </div>
 
-<div class='card'><h3>Role Assignment Schedules</h3><div class="table-scroll"><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>assignmentType</th><th>createdUsing</th></tr></thead><tbody><tr><td>lAPpYvVpN0KRkAEhdxReEH7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReECkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEKyiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>lAPpYvVpN0KRkAEhdxReEN4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>62e90394-69f5-4237-9190-012177145e10</td><td>Assigned</td><td></td></tr><tr><td>4-PYiFWPHkqVOpuYmLiHa0pE7P3R6n1NjWMeefBw46Q-1</td><td>fdec444a-ead1-4d7d-8d63-1e79f070e3a4</td><td>88d8e3e3-8f55-4a1e-953a-9b9898b8876b</td><td>Assigned</td><td></td></tr><tr><td>UafX_Qu2SkSYTAJlL-j6HCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fdd7a751-b60b-444a-984c-02652fe8fa1c</td><td>Assigned</td><td></td></tr><tr><td>QlgsiaapOkaAQXKqCMo89ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>892c5842-a9a6-463a-8041-72aa08ca3cf6</td><td>Assigned</td><td></td></tr><tr><td>XhIHF6IKTU2GVafHhsdqJSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>1707125e-0aa2-4d4d-8655-a7c786c76a25</td><td>Assigned</td><td></td></tr><tr><td>31t0KwMIgE2qZYIsRJParCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>2b745bdf-0803-4d80-aa65-822c4493daac</td><td>Assigned</td><td></td></tr><tr><td>XrtkCdube02sKVjnlIYqQCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0964bb5e-9bdb-4d7b-ac29-58e794862a40</td><td>Assigned</td><td></td></tr><tr><td>Y3E2RKHrw0SYr_V4eHn5aikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>44367163-eba1-44c3-98af-f5787879f96a</td><td>Assigned</td><td></td></tr><tr><td>7Yt80xEHF0S6OLSr5mzkwikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d37c8bed-0711-4417-ba38-b4abe66ce4c2</td><td>Assigned</td><td></td></tr><tr><td>Gik1iIyR10-pzvqknwz32Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8835291a-918c-4fd7-a9ce-faa49f0cf7d9</td><td>Assigned</td><td></td></tr><tr><td>a3EmBT0RFUyyyGjjwiufgCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>0526716b-113d-4c15-b2c8-68e3c22b9f80</td><td>Assigned</td><td></td></tr><tr><td>lonqqS8SdEyVII7c0ZKCbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>a9ea8996-122f-4c74-9520-8edcd192826c</td><td>Assigned</td><td></td></tr><tr><td>l4VkEWyS80ycNrzrsLqNzCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11648597-926c-4cf3-9c36-bcebb0ba8dcc</td><td>Assigned</td><td></td></tr><tr><td>rTnpMXKWlkecLocxgTQtLSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31e939ad-9672-4796-9c2e-873181342d2d</td><td>Assigned</td><td></td></tr><tr><td>3i5W0tt0fkWntlROI267YSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>d2562ede-74db-457e-a7b6-544e236ebb61</td><td>Assigned</td><td></td></tr><tr><td>jUof6zok8EGfvcfN9sXvfCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>eb1f4a8d-243a-41f0-9fbd-c7cdf6c5ef7c</td><td>Assigned</td><td></td></tr><tr><td>3ywjKSOT_UKt4h0JevPk3ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>29232cdf-9323-42fd-ade2-1d097af3e4de</td><td>Assigned</td><td></td></tr><tr><td>XzPfJeuGGUG3Fw_wLeIH6Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>25df335f-86eb-4119-b717-0ff02de207e9</td><td>Assigned</td><td></td></tr><tr><td>YMROdH45rUKkYos_l0egLCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>744ec460-397e-42ad-a462-8b3f9747a02c</td><td>Assigned</td><td></td></tr><tr><td>RhIJaeggVkqqTQZgdbKnqCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>69091246-20e8-4a56-aa4d-066075b2a7a8</td><td>Assigned</td><td></td></tr><tr><td>89yotdUJqUOmOY4p7ykUcCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b5a8dcf3-09d5-43a9-a639-8e29ef291470</td><td>Assigned</td><td></td></tr><tr><td>UB-K8uf2cUWBi2oS8q9rbCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f28a1f50-f6e7-4571-818b-6a12f2af6b6c</td><td>Assigned</td><td></td></tr><tr><td>-y85MWxY0UKTRuWUFaLMTikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>31392ffb-586c-42d1-9346-e59415a2cc4e</td><td>Assigned</td><td></td></tr><tr><td>LJnv8vs6uUa3z6Em7nTEUSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f2ef992c-3afb-46b9-b7cf-a126ee74c451</td><td>Assigned</td><td></td></tr><tr><td>YB1FEbKs60Wn1kPQ8BJcEykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>11451d60-acb2-45eb-a7d6-43d0f0125c13</td><td>Assigned</td><td></td></tr><tr><td>W5fvdAVmr0Cl0rlTnYNjUykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>74ef975b-6605-40af-a5d2-b9539d836353</td><td>Assigned</td><td></td></tr><tr><td>ePROZI_iKE653D_d6aoLHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>644ef478-e28f-4e28-b9dc-3fdde9aa0b1f</td><td>Assigned</td><td></td></tr><tr><td>kl2Jm9Msx0SdAqasLV6lwykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3</td><td>Assigned</td><td></td></tr><tr><td>egSMFQfJVkW370RlUaa19ykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>158c047a-c907-4556-b7ef-446551a6b5f7</td><td>Assigned</td><td></td></tr><tr><td>xdPYRQLIxkWzKh1wteHobikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>45d8d3c5-c802-45c6-b32a-1d70b5e1e86e</td><td>Assigned</td><td></td></tr><tr><td>MWSpON8rTEuLbl09irrBpCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>38a96431-2bdf-4b4c-8b6e-5d3d8abac1a4</td><td>Assigned</td><td></td></tr><tr><td>oUUvvn1Fr0KgZ27B-mO8RSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>be2f45a1-457d-42af-a067-6ec1fa63bc45</td><td>Assigned</td><td></td></tr><tr><td>OxUpg9AxJ0e5RXRes7xfMSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>8329153b-31d0-4727-b945-745eb3bc5f31</td><td>Assigned</td><td></td></tr><tr><td>gwhGJ_EdkUawMjt5ZD5eYykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>27460883-1df1-4691-b032-3b79643e5e63</td><td>Assigned</td><td></td></tr><tr><td>8fbO6L3kqE68B0uNlQ9Edykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>e8cef6f1-e4bd-4ea8-bc07-4b8d950f4477</td><td>Assigned</td><td></td></tr><tr><td>cqeYdnt4yEqQH2DWsIr_0ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>7698a772-787b-4ac8-901f-60d6b08affd2</td><td>Assigned</td><td></td></tr><tr><td>Phy-sV22GU-EJ_b6DZf-uSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b1be1c3e-b65d-4f19-8427-f6fa0d97feb9</td><td>Assigned</td><td></td></tr><tr><td>5wuT_mJe20eRr5jDpJo4sSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>fe930be7-5e62-47db-91af-98c3a49a38b1</td><td>Assigned</td><td></td></tr><tr><td>2ZvjxAAR00aMZfsWDaAHHykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>c4e39bd9-1100-46d3-8c65-fb160da0071f</td><td>Assigned</td><td></td></tr><tr><td>4yeYchSc90m7G5YI8Va7uCkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>729827e3-9c14-49f7-bb1b-9608f156bbb8</td><td>Assigned</td><td></td></tr><tr><td>22IsOhhTDUKNdCOv_uXZ1Skzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>3a2c62db-5318-420d-8d74-23affee5d9d5</td><td>Assigned</td><td></td></tr><tr><td>gf0j8DemVkuV_XkawCJgMykzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>f023fd81-a637-4b56-95fd-791ac0226033</td><td>Assigned</td><td></td></tr><tr><td>YUb1sHQtUEyvox7IA_Eu_ikzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>b0f54661-2d74-4c50-afa3-1ec803f12efe</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfX7M0xBFZjhAk8wjVthpaw8-1</td><td>10d3cc7e-6645-4038-93cc-2356d8696b0f</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfSkzz2HDVsFLnRPNXkSbhBo-1</td><td>61cf3329-56c3-4bc1-9d13-cd5e449b841a</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfayiUGXlfQ9MnsUQgWDdZ6c-1</td><td>6550a2ac-7de5-4c0f-9ec5-108160dd67a7</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr><tr><td>y-RKGSaxskC9W2CRs4CXfd4y-NgR9QVGmw3GuOKn_LM-1</td><td>d8f832de-f511-4605-9b0d-c6b8e2a7fcb3</td><td>194ae4cb-b126-40b2-bd5b-6091b380977d</td><td>Assigned</td><td></td></tr></tbody></table></div></div>
-<div class='card'><h3>Role Eligibility Schedules</h3><div class="table-scroll"><table><thead><tr><th>id</th><th>principalId</th><th>roleDefinitionId</th><th>memberType</th><th>scheduleInfo</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div></section>
+    <!-- Assignment Overview -->
+    <div class="dash-card" style="animation-delay:0.2s">
+      <h3>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Assignment Overview
+      </h3>
+      <div class="split-row">
+        <div class="split-item">
+          <div class="split-value">50</div>
+          <div class="split-label">Total Assignments</div>
+        </div>
+        <div class="split-item">
+          <div class="split-value">5</div>
+          <div class="split-label">Principals</div>
+        </div>
+        <div class="split-item">
+          <div class="split-value">50</div>
+          <div class="split-label">Permanent</div>
+        </div>
+        <div class="split-item">
+          <div class="split-value muted-val">0</div>
+          <div class="split-label">JIT / Eligible</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role Assignments Table -->
+    <div class="dash-card" style="animation-delay:0.25s">
+      <h3>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        Role Assignment Schedules
+      </h3>
+      <div style="overflow-x:auto">
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>Principal</th>
+              <th>Role</th>
+              <th>Type</th>
+              <th>Principal ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Richard Holland -->
+            <tr class="role-group-header"><td colspan="4">Richard Holland (10d3cc7e-6645-4038-93cc-2356d8696b0f)</td></tr>
+            <tr>
+              <td><span class="principal-name">Richard Holland</span></td>
+              <td>Global Administrator</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">10d3cc7e&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Richard Holland</span></td>
+              <td>Security Reader</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">10d3cc7e&hellip;</td>
+            </tr>
+            <!-- Puck Holland -->
+            <tr class="role-group-header"><td colspan="4">Puck Holland (61cf3329-56c3-4bc1-9d13-cd5e449b841a) &mdash; 44 roles</td></tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td>Global Administrator</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td>Security Reader</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">fdd7a751-b60b-444a-984c-02652fe8fa1c</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">892c5842-a9a6-463a-8041-72aa08ca3cf6</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">1707125e-0aa2-4d4d-8655-a7c786c76a25</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">2b745bdf-0803-4d80-aa65-822c4493daac</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">0964bb5e-9bdb-4d7b-ac29-58e794862a40</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">44367163-eba1-44c3-98af-f5787879f96a</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">d37c8bed-0711-4417-ba38-b4abe66ce4c2</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">8835291a-918c-4fd7-a9ce-faa49f0cf7d9</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">0526716b-113d-4c15-b2c8-68e3c22b9f80</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">a9ea8996-122f-4c74-9520-8edcd192826c</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">11648597-926c-4cf3-9c36-bcebb0ba8dcc</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">31e939ad-9672-4796-9c2e-873181342d2d</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">d2562ede-74db-457e-a7b6-544e236ebb61</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">eb1f4a8d-243a-41f0-9fbd-c7cdf6c5ef7c</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">29232cdf-9323-42fd-ade2-1d097af3e4de</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">25df335f-86eb-4119-b717-0ff02de207e9</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">744ec460-397e-42ad-a462-8b3f9747a02c</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">69091246-20e8-4a56-aa4d-066075b2a7a8</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">b5a8dcf3-09d5-43a9-a639-8e29ef291470</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">f28a1f50-f6e7-4571-818b-6a12f2af6b6c</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">31392ffb-586c-42d1-9346-e59415a2cc4e</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">f2ef992c-3afb-46b9-b7cf-a126ee74c451</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">11451d60-acb2-45eb-a7d6-43d0f0125c13</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">74ef975b-6605-40af-a5d2-b9539d836353</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">644ef478-e28f-4e28-b9dc-3fdde9aa0b1f</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">158c047a-c907-4556-b7ef-446551a6b5f7</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">45d8d3c5-c802-45c6-b32a-1d70b5e1e86e</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">38a96431-2bdf-4b4c-8b6e-5d3d8abac1a4</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">be2f45a1-457d-42af-a067-6ec1fa63bc45</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">8329153b-31d0-4727-b945-745eb3bc5f31</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">27460883-1df1-4691-b032-3b79643e5e63</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">e8cef6f1-e4bd-4ea8-bc07-4b8d950f4477</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">7698a772-787b-4ac8-901f-60d6b08affd2</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">b1be1c3e-b65d-4f19-8427-f6fa0d97feb9</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">fe930be7-5e62-47db-91af-98c3a49a38b1</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">c4e39bd9-1100-46d3-8c65-fb160da0071f</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">729827e3-9c14-49f7-bb1b-9608f156bbb8</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">3a2c62db-5318-420d-8d74-23affee5d9d5</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">f023fd81-a637-4b56-95fd-791ac0226033</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Puck Holland</span></td>
+              <td class="muted">b0f54661-2d74-4c50-afa3-1ec803f12efe</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">61cf3329&hellip;</td>
+            </tr>
+            <!-- Break Glass01 -->
+            <tr class="role-group-header"><td colspan="4">Break Glass01 (6550a2ac-7de5-4c0f-9ec5-108160dd67a7)</td></tr>
+            <tr>
+              <td><span class="principal-name">Break Glass01</span></td>
+              <td>Global Administrator</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">6550a2ac&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Break Glass01</span></td>
+              <td>Security Reader</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">6550a2ac&hellip;</td>
+            </tr>
+            <!-- Break Glass02 -->
+            <tr class="role-group-header"><td colspan="4">Break Glass02 (d8f832de-f511-4605-9b0d-c6b8e2a7fcb3)</td></tr>
+            <tr>
+              <td><span class="principal-name">Break Glass02</span></td>
+              <td>Global Administrator</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">d8f832de&hellip;</td>
+            </tr>
+            <tr>
+              <td><span class="principal-name">Break Glass02</span></td>
+              <td>Security Reader</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">d8f832de&hellip;</td>
+            </tr>
+            <!-- Unknown principal -->
+            <tr class="role-group-header"><td colspan="4">Unknown Principal (fdec444a-ead1-4d7d-8d63-1e79f070e3a4)</td></tr>
+            <tr>
+              <td><span class="principal-name muted">fdec444a&hellip;</span></td>
+              <td class="muted">88d8e3e3-8f55-4a1e-953a-9b9898b8876b</td>
+              <td><span class="status-pill pill-purple">Assigned</span></td>
+              <td class="mono">fdec444a&hellip;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Role Eligibility Schedules -->
+    <div class="dash-card" style="animation-delay:0.3s">
+      <h3>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Role Eligibility Schedules (JIT)
+      </h3>
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+        <div>No eligibility schedules configured</div>
+        <div style="font-size:12px;margin-top:4px;">Just-in-time (JIT) role activation is not in use. All assignments are permanent.</div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
       Entra Dashboard &middot; Generated 2026-02-14 15:12:39 UTC &middot;
-      <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Open Entra Portal</a>
+      <a href="https://entra.microsoft.com/#view/Microsoft_Azure_PIMCommon/CommonMenuBlade/~/quickStart" target="_blank" rel="noopener">Open PIM Portal</a>
     </footer>
 
   </div>

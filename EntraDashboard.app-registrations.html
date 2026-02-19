@@ -6,313 +6,79 @@
   <title>Entra Dashboard - App Registrations</title>
   <style>
     :root {
-      --bg: #06101e;
-      --bg2: #0a1929;
-      --fg: #e8edf4;
-      --muted: #8da2bc;
-      --card: rgba(14, 30, 52, 0.7);
-      --card-solid: #0e1e34;
-      --line: #1a3150;
-      --accent: #22d3ee;
-      --accent2: #38bdf8;
-      --accent-glow: rgba(34, 211, 238, 0.15);
-      --green: #22c55e;
-      --yellow: #f59e0b;
-      --red: #ef4444;
-      --glass: rgba(10, 25, 45, 0.75);
+      --bg: #06101e; --bg2: #0a1929; --fg: #e8edf4; --muted: #8da2bc;
+      --card: rgba(14, 30, 52, 0.7); --card-solid: #0e1e34; --line: #1a3150;
+      --accent: #22d3ee; --accent2: #38bdf8; --accent-glow: rgba(34, 211, 238, 0.15);
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --glass: rgba(10, 25, 45, 0.75);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
-      color: var(--fg);
-      background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .wrap {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Sticky Nav */
-    .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      background: rgba(6, 16, 30, 0.82);
-      border-bottom: 1px solid var(--line);
-      padding: 10px 24px;
-      margin: 0 -24px 28px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .topnav .brand {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--accent);
-      margin-right: 12px;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
+    body { font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif; color: var(--fg); background: var(--bg); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 10%, rgba(34, 211, 238, 0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 30, 52, 0.5) 0%, transparent 100%); z-index: 0; pointer-events: none; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 24px 40px; position: relative; z-index: 1; }
+    .topnav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); background: rgba(6, 16, 30, 0.82); border-bottom: 1px solid var(--line); padding: 10px 24px; margin: 0 -24px 28px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .topnav .brand { font-weight: 700; font-size: 15px; color: var(--accent); margin-right: 12px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
     .topnav .brand svg { flex-shrink: 0; }
-    .topnav a.nav-link {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .topnav a.nav-link:hover {
-      color: var(--fg);
-      background: rgba(34, 211, 238, 0.1);
-    }
-    .topnav a.nav-link.active {
-      color: #06101e;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      font-weight: 600;
-    }
-
-    /* Header */
-    .header {
-      padding: 8px 0 24px;
-    }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 4px;
-    }
-    .header .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* Section Cards */
-    .section {
-      margin: 0 0 24px 0;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      overflow: hidden;
-      animation: fadeUp 0.5s ease-out both;
-    }
-    .section h2 {
-      margin: 0;
-      padding: 16px 20px;
-      font-size: 18px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      color: var(--fg);
-    }
-    .section h2 svg {
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .cards {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      background: var(--card-solid);
-    }
-    .card h3 {
-      margin: 0 0 12px 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--accent2);
-    }
-
-    /* Tables */
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0 -4px;
-      padding: 0 4px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    th {
-      text-align: left;
-      padding: 10px 12px;
-      background: rgba(23, 50, 83, 0.5);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--line);
-      white-space: nowrap;
-    }
-    td {
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(26, 49, 80, 0.3);
-      vertical-align: top;
-    }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(34, 211, 238, 0.03); }
-
-    /* Status badges */
-    .status-badge {
-      display: inline-block;
-      min-width: 72px;
-      text-align: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .status-green {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-    }
-    .status-yellow {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .status-red {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .status-gray {
-      background: rgba(107, 114, 128, 0.15);
-      color: #d1d5db;
-      border: 1px solid rgba(107, 114, 128, 0.3);
-    }
-    .status-cell {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .status-word {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: lowercase;
-      min-width: 52px;
-      text-align: right;
-    }
-    .status-word-green { color: #22c55e; }
-    .status-word-yellow { color: #f59e0b; }
-    .status-word-red { color: #ef4444; }
-    .status-word-gray { color: #9ca3af; }
-
-    /* Warning box */
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 12px 16px;
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      border-radius: 10px;
-      background: rgba(63, 42, 7, 0.5);
-      color: #fde68a;
-      font-size: 13px;
-    }
-
-    /* Links */
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #67e8f9; }
-
-    /* Menu grid */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .menu-link {
-      display: block;
-      text-decoration: none;
-      color: #eaf5ff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      background: var(--card-solid);
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .menu-link:hover {
-      border-color: rgba(34, 211, 238, 0.4);
-      background: rgba(18, 54, 93, 0.5);
-    }
-
-    /* Muted text */
-    .muted { color: var(--muted); }
-
-    /* Footer */
-    .footer {
-      margin-top: 32px;
-      padding: 20px 0;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      font-size: 12px;
-      color: #4a6580;
-    }
-    .footer a { color: var(--muted); text-decoration: none; }
-    .footer a:hover { color: var(--accent); }
-
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+    .topnav a.nav-link { display: inline-block; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 8px; transition: all 0.2s; }
+    .topnav a.nav-link:hover { color: var(--fg); background: rgba(34, 211, 238, 0.1); }
+    .topnav a.nav-link.active { color: #06101e; background: linear-gradient(135deg, var(--accent), var(--accent2)); font-weight: 600; }
+    .header { padding: 8px 0 24px; }
+    .header h1 { font-size: 32px; font-weight: 700; background: linear-gradient(135deg, #e8edf4 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+    .header .subtitle { color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .header .subtitle .tenant-id { font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace; font-size: 12px; color: #5a7da0; background: rgba(26, 49, 80, 0.5); padding: 2px 8px; border-radius: 4px; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 900px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .metrics { grid-template-columns: 1fr; } }
+    .metric-card { background: var(--card); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: all 0.3s; animation: fadeUp 0.5s ease-out both; }
+    .metric-card:nth-child(1) { animation-delay: 0s; } .metric-card:nth-child(2) { animation-delay: 0.08s; } .metric-card:nth-child(3) { animation-delay: 0.16s; } .metric-card:nth-child(4) { animation-delay: 0.24s; }
+    .metric-card:hover { border-color: rgba(34, 211, 238, 0.4); box-shadow: 0 4px 24px rgba(34, 211, 238, 0.08); transform: translateY(-2px); }
+    .metric-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .metric-icon svg { width: 24px; height: 24px; }
+    .metric-icon.blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .metric-icon.cyan { background: rgba(34, 211, 238, 0.15); color: #22d3ee; }
+    .metric-icon.green { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+    .metric-icon.purple { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .metric-icon.amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .metric-data .metric-value { font-size: 28px; font-weight: 700; line-height: 1.1; }
+    .metric-data .metric-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
+    .dash-card { background: var(--card); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; animation: fadeUp 0.5s ease-out both; animation-delay: 0.3s; }
+    .dash-card.full-width { grid-column: 1 / -1; }
+    .dash-card-header { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .dash-card-header h2 { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .dash-card-header h2 svg { width: 18px; height: 18px; color: var(--accent); }
+    .dash-card-header .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+    .badge-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .badge-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .dash-card-body { padding: 20px; }
+    .split-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .split-row { grid-template-columns: repeat(2, 1fr); } }
+    .compliance-item { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 10px; background: rgba(14, 30, 52, 0.5); border: 1px solid rgba(26, 49, 80, 0.5); }
+    .compliance-count { font-size: 28px; font-weight: 700; width: 48px; text-align: center; }
+    .compliance-count.blue { color: var(--accent2); } .compliance-count.green { color: var(--green); } .compliance-count.amber { color: var(--yellow); } .compliance-count.purple { color: #a855f7; }
+    .compliance-info .compliance-title { font-size: 14px; font-weight: 600; }
+    .compliance-info .compliance-sub { font-size: 12px; color: var(--muted); }
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .mini-table th { text-align: left; padding: 10px 12px; background: rgba(23, 50, 83, 0.5); color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--line); }
+    .mini-table td { padding: 10px 12px; border-bottom: 1px solid rgba(26, 49, 80, 0.3); vertical-align: middle; }
+    .mini-table tr:last-child td { border-bottom: none; }
+    .mini-table tr:hover td { background: rgba(34, 211, 238, 0.03); }
+    .mini-table .mono { font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace; font-size: 12px; color: var(--muted); }
+    .status-pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .status-pill.green { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-pill.blue { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .empty-state { padding: 48px 20px; text-align: center; color: var(--muted); }
+    .empty-state svg { width: 40px; height: 40px; margin: 0 auto 12px; display: block; opacity: 0.35; }
+    .empty-state p { font-size: 14px; margin-bottom: 10px; }
+    .footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--line); text-align: center; font-size: 12px; color: #4a6580; }
+    .footer a { color: var(--muted); text-decoration: none; } .footer a:hover { color: var(--accent); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    a { color: var(--accent); text-decoration: none; } a:hover { color: #67e8f9; }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Navigation -->
   <nav class="topnav">
     <a class="brand" href="EntraDashboard.html">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -333,22 +99,229 @@
 
   <div class="wrap">
 
-    <!-- Header -->
     <header class="header">
       <h1>App Registrations</h1>
       <div class="subtitle">
+        <span>Tenant: Panthro.co</span>
+        <span class="tenant-id">341ce2be-83c2-4a03-9275-a0bc5073d0fd</span>
         <span>Generated: 2026-02-14 15:12:39 UTC</span>
       </div>
     </header>
 
-    <section class="section" style="animation-delay: 0.0s"><h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> App Registrations</h2><div class="cards">
-<div class='card'><h3>App Registrations (Top 200)</h3><div class="table-scroll"><table><thead><tr><th>displayName</th><th>createdDateTime</th><th>signInCount</th><th>latestSignIn</th><th>latestSignInLog</th></tr></thead><tbody><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/d885190b-02d4-41b9-a796-a060d30f1f51' target='_blank' rel='noopener noreferrer'>AWS IAM Identity Center</a></td><td>02/16/2025 17:39:02</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/7aa89714-18f2-42dd-9304-231986a8cead' target='_blank' rel='noopener noreferrer'>Google Cloud / G Suite Connector by Microsoft</a></td><td>07/26/2021 02:13:19</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/64d30dc3-dea5-41b8-af8d-5d3cb71c6ea5' target='_blank' rel='noopener noreferrer'>Zendesk</a></td><td>08/17/2021 19:29:44</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/77ec7772-ab10-4dd1-b2b4-29d76fe856a6' target='_blank' rel='noopener noreferrer'>P2P Server</a></td><td>05/05/2020 00:37:45</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/fcc31546-566c-4b64-8665-97ce4baf0647' target='_blank' rel='noopener noreferrer'>G Suite</a></td><td>09/12/2019 14:55:18</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/e1bd099a-6232-4537-90a3-cab97d1ade2a' target='_blank' rel='noopener noreferrer'>Dropbox Business Puckfoo</a></td><td>08/28/2021 19:51:39</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/e621d8a2-d817-4f61-8a2a-523833cca63b' target='_blank' rel='noopener noreferrer'>Salesforce</a></td><td>07/20/2021 12:42:41</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/cf9b18b7-617a-48c4-8ec7-6d2dfb8c810f' target='_blank' rel='noopener noreferrer'>Grammarly for Microsoft Word</a></td><td>07/28/2021 00:20:49</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/60e836b5-ec47-430f-a706-3018cd516085' target='_blank' rel='noopener noreferrer'>Zendesk</a></td><td>08/17/2021 19:32:06</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/161918d5-ab31-4a85-a2cd-5325c86fa9bc' target='_blank' rel='noopener noreferrer'>Snaplogic</a></td><td>07/26/2021 02:14:14</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/31813e82-5b5a-458c-8073-ce674140cb5d' target='_blank' rel='noopener noreferrer'>Docusign</a></td><td>09/12/2019 14:56:13</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/ec2ff98c-e62b-4bbc-b58f-ae997c524a3c' target='_blank' rel='noopener noreferrer'>Salesforce</a></td><td>09/16/2019 19:54:14</td><td>0</td><td></td><td></td></tr><tr><td><a href='https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/67f23700-2020-4668-85d5-2ccc7de6cbc4' target='_blank' rel='noopener noreferrer'>GraphAPI Delegated Authentication</a></td><td>02/12/2026 21:09:46</td><td>0</td><td></td><td></td></tr></tbody></table></div></div>
-<div class='card'><h3>App Registration Sign-in Logs (Recent)</h3><div class="table-scroll"><table><thead><tr><th>createdDateTime</th><th>appDisplayName</th><th>userPrincipalName</th><th>ipAddress</th><th>signInLog</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>
-</div></section>
+    <!-- ── KPI Metrics ── -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value">13</div>
+          <div class="metric-label">Total Registrations</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value">13</div>
+          <div class="metric-label">Registered</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value">0</div>
+          <div class="metric-label">With Recent Sign-ins</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="metric-data">
+          <div class="metric-value">2019</div>
+          <div class="metric-label">Oldest Registration</div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Footer -->
+    <!-- ── Summary ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Registration Summary
+          </h2>
+        </div>
+        <div class="dash-card-body">
+          <div class="split-row">
+            <div class="compliance-item">
+              <div class="compliance-count blue">13</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Total Apps</div>
+                <div class="compliance-sub">All registered</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count green">0</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Active Sign-ins</div>
+                <div class="compliance-sub">No recent activity</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count blue">4</div>
+              <div class="compliance-info">
+                <div class="compliance-title">SaaS Integrations</div>
+                <div class="compliance-sub">Salesforce, Zendesk, AWS, Dropbox</div>
+              </div>
+            </div>
+            <div class="compliance-item">
+              <div class="compliance-count purple">1</div>
+              <div class="compliance-info">
+                <div class="compliance-title">Custom Apps</div>
+                <div class="compliance-sub">GraphAPI Delegated Auth</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── App Registrations Table ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Registered Applications
+          </h2>
+          <span class="badge badge-blue">13 Apps</span>
+        </div>
+        <div class="dash-card-body" style="padding: 0;">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Application Name</th>
+                <th>App ID</th>
+                <th>Created</th>
+                <th>Sign-ins</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/67f23700-2020-4668-85d5-2ccc7de6cbc4" target="_blank" rel="noopener">GraphAPI Delegated Authentication</a></td>
+                <td class="mono">67f23700-...</td>
+                <td class="mono">2026-02-12</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/d885190b-02d4-41b9-a796-a060d30f1f51" target="_blank" rel="noopener">AWS IAM Identity Center</a></td>
+                <td class="mono">d885190b-...</td>
+                <td class="mono">2025-02-16</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/7aa89714-18f2-42dd-9304-231986a8cead" target="_blank" rel="noopener">Google Cloud / G Suite Connector by Microsoft</a></td>
+                <td class="mono">7aa89714-...</td>
+                <td class="mono">2021-07-26</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/64d30dc3-dea5-41b8-af8d-5d3cb71c6ea5" target="_blank" rel="noopener">Zendesk</a></td>
+                <td class="mono">64d30dc3-...</td>
+                <td class="mono">2021-08-17</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/e1bd099a-6232-4537-90a3-cab97d1ade2a" target="_blank" rel="noopener">Dropbox Business Puckfoo</a></td>
+                <td class="mono">e1bd099a-...</td>
+                <td class="mono">2021-08-28</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/cf9b18b7-617a-48c4-8ec7-6d2dfb8c810f" target="_blank" rel="noopener">Grammarly for Microsoft Word</a></td>
+                <td class="mono">cf9b18b7-...</td>
+                <td class="mono">2021-07-28</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/60e836b5-ec47-430f-a706-3018cd516085" target="_blank" rel="noopener">Zendesk (2)</a></td>
+                <td class="mono">60e836b5-...</td>
+                <td class="mono">2021-08-17</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/e621d8a2-d817-4f61-8a2a-523833cca63b" target="_blank" rel="noopener">Salesforce</a></td>
+                <td class="mono">e621d8a2-...</td>
+                <td class="mono">2021-07-20</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/161918d5-ab31-4a85-a2cd-5325c86fa9bc" target="_blank" rel="noopener">Snaplogic</a></td>
+                <td class="mono">161918d5-...</td>
+                <td class="mono">2021-07-26</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/77ec7772-ab10-4dd1-b2b4-29d76fe856a6" target="_blank" rel="noopener">P2P Server</a></td>
+                <td class="mono">77ec7772-...</td>
+                <td class="mono">2020-05-05</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/fcc31546-566c-4b64-8665-97ce4baf0647" target="_blank" rel="noopener">G Suite</a></td>
+                <td class="mono">fcc31546-...</td>
+                <td class="mono">2019-09-12</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/31813e82-5b5a-458c-8073-ce674140cb5d" target="_blank" rel="noopener">Docusign</a></td>
+                <td class="mono">31813e82-...</td>
+                <td class="mono">2019-09-12</td>
+                <td class="mono">0</td>
+              </tr>
+              <tr>
+                <td><a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/ec2ff98c-e62b-4bbc-b58f-ae997c524a3c" target="_blank" rel="noopener">Salesforce (2)</a></td>
+                <td class="mono">ec2ff98c-...</td>
+                <td class="mono">2019-09-16</td>
+                <td class="mono">0</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="padding: 12px 20px; text-align: right; border-top: 1px solid var(--line);">
+            <a href="https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade" target="_blank" rel="noopener" style="font-size: 13px;">View all in Entra Portal &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sign-in Logs ── -->
+    <div class="dash-grid">
+      <div class="dash-card full-width">
+        <div class="dash-card-header">
+          <h2>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            App Registration Sign-in Logs
+          </h2>
+          <span class="badge badge-blue">Recent Activity</span>
+        </div>
+        <div class="dash-card-body">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p>No recent sign-in activity recorded for app registrations.</p>
+            <a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/SignInEventsV3Blade" target="_blank" rel="noopener" style="font-size: 13px;">View sign-in logs in Entra Portal &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <footer class="footer">
-      Entra Dashboard &middot; Generated 2026-02-14 15:12:39 UTC &middot;
+      Entra Dashboard &middot; Tenant: Panthro.co &middot; Generated 2026-02-14 15:12:39 UTC &middot;
       <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Open Entra Portal</a>
     </footer>
 
