@@ -4,196 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entra Dashboard - Monitoring and Health</title>
-  <style>
-    :root {
-      --bg: #08111f;
-      --bg2: #0d1d33;
-      --fg: #e6edf7;
-      --muted: #9fb3cc;
-      --card: #102038;
-      --line: #1f3758;
-      --accent: #22d3ee;
-      --accent2: #38bdf8;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      color: var(--fg);
-      background: radial-gradient(circle at top right, #12325d 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg));
-    }
-    .wrap { max-width: 1500px; margin: 0 auto; padding: 20px; }
-    h1 { margin: 0 0 6px 0; font-size: 28px; }
-    .sub { color: var(--muted); margin-bottom: 16px; }
-    .topnav {
-      margin: 0 0 14px 0;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(11, 27, 48, 0.92);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .topnav a {
-      display: inline-block;
-      text-decoration: none;
-      color: #041423;
-      font-size: 13px;
-      font-weight: 600;
-      border: 1px solid #67e8f9;
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: linear-gradient(135deg, #22d3ee, #7dd3fc);
-      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
-    }
-    .topnav a:hover {
-      background: linear-gradient(135deg, #67e8f9, #bae6fd);
-      transform: translateY(-1px);
-    }
-    a {
-      color: #67e8f9;
-    }
-    a:hover {
-      color: #a5f3fc;
-    }
-    .section {
-      margin: 18px 0;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--card);
-      overflow: hidden;
-    }
-    .section h2 {
-      margin: 0;
-      padding: 12px 14px;
-      font-size: 20px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      color: #03263a;
-    }
-    .cards {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
-      background: #0e1e34;
-    }
-    .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    th, td {
-      border: 1px solid var(--line);
-      padding: 8px;
-      vertical-align: top;
-      text-align: left;
-    }
-    th { background: #173253; }
-    .muted { color: var(--muted); }
-    .warn {
-      margin: 0 0 14px 0;
-      padding: 10px 12px;
-      border: 1px solid #fbbf24;
-      border-radius: 8px;
-      background: #3f2a07;
-      color: #fde68a;
-      font-size: 13px;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .menu-link {
-      display: block;
-      text-decoration: none;
-      color: #eaf5ff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      background: linear-gradient(160deg, #102a49, #12243d);
-      font-weight: 600;
-    }
-    .menu-link:hover {
-      border-color: #67e8f9;
-      background: linear-gradient(160deg, #12365d, #132741);
-    }
-    .status-badge {
-      display: inline-block;
-      min-width: 72px;
-      text-align: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .status-green {
-      background: #14532d;
-      color: #bbf7d0;
-      border: 1px solid #22c55e;
-    }
-    .status-yellow {
-      background: #422006;
-      color: #fde68a;
-      border: 1px solid #f59e0b;
-    }
-    .status-red {
-      background: #450a0a;
-      color: #fecaca;
-      border: 1px solid #ef4444;
-    }
-    .status-gray {
-      background: #1f2937;
-      color: #d1d5db;
-      border: 1px solid #6b7280;
-    }
-    .status-cell {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .status-word {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: lowercase;
-      min-width: 52px;
-      text-align: right;
-    }
-    .status-word-green { color: #22c55e; }
-    .status-word-yellow { color: #f59e0b; }
-    .status-word-red { color: #ef4444; }
-    .status-word-gray { color: #9ca3af; }
-  </style>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="wrap">
-    <h1>Entra Dashboard - Monitoring and Health</h1>
-    <div class="sub">Generated: 2026-02-19 07:43:17Z</div>
-    
-    <nav class="topnav">
-      <a href=".\EntraDashboard.html">Home</a>
-<a href=".\EntraDashboard.conditional-access.html">Conditional Access</a>
-<a href=".\EntraDashboard.users.html">Users</a>
-<a href=".\EntraDashboard.groups.html">Groups</a>
-<a href=".\EntraDashboard.devices.html">Devices</a>
-<a href=".\EntraDashboard.enterprise-apps.html">Enterprise Apps</a>
-<a href=".\EntraDashboard.app-registrations.html">App Registrations</a>
-<a href=".\EntraDashboard.monitoring-health.html">Monitoring and Health</a>
-<a href=".\EntraDashboard.intune-home.html">Intune Home</a>
-<a href=".\EntraDashboard.defender-home.html">Defender Home</a>
-    </nav>
+<nav class="topnav"></nav>
+<div class="wrap">
+  <div class="sub">Generated: 2026-02-19 07:43:17Z</div>
+  <div class="page-header"><h1>Entra Dashboard - Monitoring and Health</h1></div>
     <section class="section"><h2>Monitoring and Health</h2><div class="cards">
 <div class='card'><h3>Service Health Overview</h3><table><thead><tr><th>service</th><th>status</th></tr></thead><tbody><tr><td>Exchange Online</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr><tr><td>Microsoft Entra</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft 365 suite</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr><tr><td>SharePoint Online</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr><tr><td>Dynamics 365 Apps</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Basic Mobility and Security</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Planner</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Sway</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Intune</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft OneDrive</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr><tr><td>Microsoft Teams</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr><tr><td>Microsoft Bookings</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft 365 for the web</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft 365 apps</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Power Apps in Microsoft 365</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Power Automate</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Power Automate in Microsoft 365</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Forms</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Project for the web</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Stream</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Universal Print</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Viva</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Windows Autopatch</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Purview</td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft Clipchamp </td><td><div class='status-cell'><span>serviceOperational</span><span class='status-word status-word-green'>green</span></div></td></tr><tr><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td></tr></tbody></table></div>
 <div class='card'><h3>Service Issues</h3><table><thead><tr><th>id</th><th>title</th><th>service</th><th>status</th><th>severity</th></tr></thead><tbody><tr><td>CW1177459</td><td>Users intermittently may receive slow responses and an error when using Microsoft 365 Copilot Chat</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>CW1180975</td><td>Users may see an error when attempting to access Microsoft Copilot in Edge browser</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>postIncidentReviewPublished</span><span class='status-word status-word-gray'>gray</span></div></td><td></td></tr><tr><td>CW1218323</td><td>Users aren&#39;t shown the &quot;Edit in Outlook&quot; button after prompting Copilot Chat to draft an email message</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td><td></td></tr><tr><td>CW1221869</td><td>Some users may not receive Microsoft Copilot Chat responses or experience latency using GPT 5.2 Quick response</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>CW1224109</td><td>Some users using Microsoft 365 Copilot Chat may have not seen any responses being generated</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>CW1226324</td><td>Some users&#39; Copilot prompts return information from Sent and Draft folder messages with Copilot DLP policies configured</td><td>Microsoft 365 Copilot Chat</td><td><div class='status-cell'><span>serviceDegradation</span><span class='status-word status-word-yellow'>yellow</span></div></td><td></td></tr><tr><td>DZ1143319</td><td>Admins&#39; Threat Explorer and advanced hunting data in the Microsoft Defender XDR portal is delayed</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1190663</td><td>Admins may be unable to access the Deep Analysis functionality within the Microsoft Defender XDR portal</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1191468</td><td>Multiple issues with the Microsoft Defender portal</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>postIncidentReviewPublished</span><span class='status-word status-word-gray'>gray</span></div></td><td></td></tr><tr><td>DZ1193516</td><td>Some admins may encounter errors when accessing Microsoft Defender for Endpoint features</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1193885</td><td>Some users may be unable to use the portal and public API in Microsoft Defender for Endpoint</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1214837</td><td>Users may have experienced delays of up to two hours for some Microsoft Defender for Cloud Apps activities and alerts </td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1223715</td><td>Users may be unable to access Threat Analytics in the Microsoft Defender XDR portal</td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>DZ1231408</td><td>Admins&#39; manual remediations weren&#39;t shown on the action history page in the Microsoft Defender XDR portal </td><td>Microsoft Defender XDR</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1075717</td><td>Some users may have been unable to modify Exchange Online groups in Outlook on the web and encountered an error</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1102371</td><td>Users may be unable to access some Exchange Online archive mailboxes</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1109507</td><td>Some attendees may have received an unexpected cancellation message when a shared calendar event was updated</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1137017</td><td>Some users may be unable to send or receive email from the Outlook mobile app on their Android and iOS devices</td><td>Exchange Online</td><td><div class='status-cell'><span>postIncidentReviewPublished</span><span class='status-word status-word-gray'>gray</span></div></td><td></td></tr><tr><td>EX1141935</td><td>Some users&#39; Outlook calendar time indicators may not be reflecting accurately or updating</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1142655</td><td>Users may not see updated unread message counts for some folders in Outlook on the web and Outlook for Mac</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1143976</td><td>Users may experience errors or failures when accessing their mailbox in any Exchange Online connection method.</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1144490</td><td>Users may be unable to access sender.office.com</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1147685</td><td>Admins may be unable to provision new Exchange Online mailboxes</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1148496</td><td>Admins may have seen accepted domains not provisioning in Exchange Online after migration</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1151485</td><td>Some users may experience errors or failures when accessing their mailbox via any Exchange Online connection method</td><td>Exchange Online</td><td><div class='status-cell'><span>postIncidentReviewPublished</span><span class='status-word status-word-gray'>gray</span></div></td><td></td></tr><tr><td>EX1157370</td><td>Some admins may have been unable to provision new mailboxes in Exchange Online</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1162604</td><td>Some users may not see auto-complete suggestions when searching in Outlook on the web </td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1162980</td><td>Some users experienced errors or failures when accessing their mailbox in one or more Exchange Online connection methods</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1170184</td><td>Some users may have experienced errors or failures when accessing mailbox via any Exchange Online connection method</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1173600</td><td>Some users may have the new Outlook client open in their web browser instead of the Desktop client</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1173828</td><td>Users may be unexpectedly signed out from Outlook on the web when accessing shared mailboxes</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1176994</td><td>Some users may be unable to access their Exchange Online email using Outlook for Mac</td><td>Exchange Online</td><td><div class='status-cell'><span>postIncidentReviewPublished</span><span class='status-word status-word-gray'>gray</span></div></td><td></td></tr><tr><td>EX1177461</td><td>Admins may be unable to remove and view the latest status changes of migration batches in Exchange Online</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1177475</td><td>Some admins using PowerShell to create unified groups may receive an error indicating creation failure</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1180553</td><td>Some admins may be unable to access public folders from the Exchange admin center or PowerShell</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1181079</td><td>Users’ searches for email messages may return no results in the Outlook desktop and web clients</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1181125</td><td>Some users added as members to a Microsoft 365 group in Outlook on the web may be given &quot;Owner&quot; permissions by default</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1181857</td><td>Some users may have been unable to change photos for Outlook groups</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1182661</td><td>Users may be unable to access their mailbox with any Exchange Online connection method</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1183224</td><td>Some users may have been unable to access the My Templates and Viva Insights Outlook add-ins in Exchange Online </td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1183677</td><td>Users may have been unable to delete a user from the contact list within Outlook on the web</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1183800</td><td>Some users may experience delays in loading images and attachments in Exchange Online email messages</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1184307</td><td>Some users who are scheduling meetings may not receive accurate declined email messages in Exchange Online</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1185322</td><td>Some users may be unable to send or receive email messages through the iOS Mail app using Exchange ActiveSync (EAS)</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1186252</td><td>Users may see some parts of the Outlook UI in English instead of their non-English selected language</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1188132</td><td>Some users may be intermittently unable to access their Exchange Online mailboxes using any connection method</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1189359</td><td>Users may be unable to open Excel files attached to email messages in new Outlook and receive an error</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1192586</td><td>Some users may be unable to open inbound Secure/Multipurpose Internet Mail Extensions (S/MIME) encrypted email messages</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1213231</td><td>Users may be unable to send encrypted email</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr><tr><td>EX1213757</td><td>Users may see an English user interface for Outlook on the web on mobile when configured for a non-English language</td><td>Exchange Online</td><td><div class='status-cell'><span>serviceRestored</span><span class='status-word status-word-green'>green</span></div></td><td></td></tr></tbody></table></div>
@@ -205,5 +22,6 @@
 <div class='card'><h3>Permission/API Errors</h3><table><thead><tr><th>dataset</th><th>code</th><th>message</th><th>uri</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div>
 </div></section>
   </div>
+<script src="dashboard.js"></script>
 </body>
 </html>
