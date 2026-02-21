@@ -56,7 +56,8 @@
     [1, 2, 3].forEach(function (n) {
       var orb = document.createElement('div');
       orb.className = 'bg-orb bg-orb-' + n;
-      document.body.insertBefore(orb, document.body.firstChild);
+      // Append to end so they never precede the nav in DOM before CSS loads
+      document.body.appendChild(orb);
     });
   }
 
