@@ -44,9 +44,23 @@ function Get-GraphTokenDeviceCode {
         [Parameter(Mandatory = $true)][string]$ClientId
     )
 
+    # Confidential client apps require client_secret even for device code flow
+    $secret = $env:GRAPH_CLIENT_SECRET
+    if ([string]::IsNullOrWhiteSpace($secret)) {
+        $secure = Read-Host "Enter app client secret for $ClientId" -AsSecureString
+        $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
+        try {
+            $secret = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        }
+        finally {
+            [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+        }
+    }
+
     $deviceCodeBody = @{
-        client_id = $ClientId
-        scope     = "https://graph.microsoft.com/.default offline_access"
+        client_id     = $ClientId
+        client_secret = $secret
+        scope         = "https://graph.microsoft.com/.default offline_access"
     }
 
     $deviceCodeUri = "https://login.microsoftonline.com/$TenantId/oauth2/v2.0/devicecode"
@@ -57,14 +71,15 @@ function Get-GraphTokenDeviceCode {
 
     $tokenUri = "https://login.microsoftonline.com/$TenantId/oauth2/v2.0/token"
     $pollBody = @{
-        grant_type  = "urn:ietf:params:oauth:grant-type:device_code"
-        client_id   = $ClientId
-        device_code = $deviceCode.device_code
+        grant_type    = "urn:ietf:params:oauth:grant-type:device_code"
+        client_id     = $ClientId
+        client_secret = $secret
+        device_code   = $deviceCode.device_code
     }
 
     $deadline = (Get-Date).AddSeconds([int]$deviceCode.expires_in)
     while ((Get-Date) -lt $deadline) {
-        Start-Sleep -Seconds [int]$deviceCode.interval
+        Start-Sleep -Seconds ([int]$deviceCode.interval)
         try {
             $tokenResponse = Invoke-RestMethod -Method Post -Uri $tokenUri -Body $pollBody -ContentType "application/x-www-form-urlencoded"
             if ($tokenResponse.access_token) {
