@@ -43,6 +43,7 @@
     { href: 'EntraDashboard.devices.html',            label: 'Devices' },
     { href: 'EntraDashboard.enterprise-apps.html',    label: 'Ent. Apps' },
     { href: 'EntraDashboard.app-registrations.html',  label: 'App Regs' },
+    { href: 'EntraDashboard.apps.html',               label: 'Apps+' },
     { href: 'EntraDashboard.monitoring-health.html',  label: 'Monitoring' },
     { href: 'EntraDashboard.intune-home.html',        label: 'Intune' },
     { href: 'EntraDashboard.defender-home.html',      label: 'Defender' },
@@ -117,6 +118,7 @@
   function markActive(nav) {
     var current = window.location.pathname.split('/').pop() || 'EntraDashboard.html';
     nav.querySelectorAll('.nav-link').forEach(function (a) {
+      a.classList.remove('active');
       if ((a.getAttribute('href') || '').split('/').pop() === current) a.classList.add('active');
     });
   }
